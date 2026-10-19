@@ -20,7 +20,7 @@
 export const MemberRole = {
     owner: 'owner',
     manager: 'manager',
-    guest: 'guest',
+    viewer: 'viewer',
 } as const;
 export type MemberRole = typeof MemberRole[keyof typeof MemberRole];
 

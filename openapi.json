@@ -10,7 +10,7 @@
       "delete": {
         "operationId": "deleteApiToken",
         "x-qualithm-audience": "management",
-        "summary": "Revoke an API token",
+        "summary": "Revoke an API token: any in the team for an owner, otherwise the caller's own",
         "tags": [
           "ApiTokens"
         ],
@@ -19,9 +19,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "token.revoke",
         "x-qualithm-roles": [
           "owner",
-          "manager"
+          "manager",
+          "viewer"
         ],
         "parameters": [
           {
@@ -37,7 +39,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Revoke an API token",
+            "description": "Revoke an API token: any in the team for an owner, otherwise the caller's own",
             "content": {
               "application/json": {
                 "schema": {
@@ -97,6 +99,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "authority.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -175,10 +178,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -252,6 +256,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -341,6 +346,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -419,6 +425,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "credential.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -507,10 +514,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "dashboard.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -584,6 +592,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "dashboard.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -673,6 +682,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "dashboard.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -751,10 +761,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -828,6 +839,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -917,6 +929,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -995,6 +1008,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "enrollment.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1073,10 +1087,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -1150,6 +1165,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1239,6 +1255,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1317,6 +1334,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "member.invite",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1484,6 +1502,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "member.update",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1575,7 +1594,7 @@
         "operationId": "deleteTeamMember",
         "x-qualithm-audience": "management",
         "summary": "Remove a member from the team",
-        "description": "A guest can remove only themselves; a manager only guests and themselves.",
+        "description": "A viewer can remove only themselves; a manager only viewers and themselves.",
         "tags": [
           "Members"
         ],
@@ -1584,10 +1603,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "team.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -1742,6 +1762,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "team.update",
         "x-qualithm-roles": [
           "owner"
         ],
@@ -1830,6 +1851,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "team.delete",
         "x-qualithm-roles": [
           "owner"
         ],
@@ -1955,7 +1977,7 @@
       "get": {
         "operationId": "listApiTokens",
         "x-qualithm-audience": "management",
-        "summary": "List the team's API tokens",
+        "summary": "List API tokens in this team: everyone's for an owner, otherwise the caller's own",
         "tags": [
           "ApiTokens"
         ],
@@ -1964,9 +1986,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "token.read",
         "x-qualithm-roles": [
           "owner",
-          "manager"
+          "manager",
+          "viewer"
         ],
         "parameters": [
           {
@@ -1994,7 +2018,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the team's API tokens",
+            "description": "List API tokens in this team: everyone's for an owner, otherwise the caller's own",
             "content": {
               "application/json": {
                 "schema": {
@@ -2051,10 +2075,10 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "audit.read",
         "x-qualithm-roles": [
           "owner",
-          "manager",
-          "guest"
+          "manager"
         ],
         "parameters": [
           {
@@ -2139,10 +2163,10 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "authority.read",
         "x-qualithm-roles": [
           "owner",
-          "manager",
-          "guest"
+          "manager"
         ],
         "parameters": [
           {
@@ -2225,6 +2249,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "authority.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -2308,10 +2333,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -2409,10 +2435,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -2488,10 +2515,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -2574,6 +2602,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -2654,10 +2683,9 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "billing.read",
         "x-qualithm-roles": [
-          "owner",
-          "manager",
-          "guest"
+          "owner"
         ],
         "parameters": [],
         "responses": {
@@ -2776,10 +2804,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "capability.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -2901,10 +2930,10 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "credential.read",
         "x-qualithm-roles": [
           "owner",
-          "manager",
-          "guest"
+          "manager"
         ],
         "parameters": [
           {
@@ -2978,6 +3007,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "credential.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -3069,10 +3099,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "dashboard.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -3155,6 +3186,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "dashboard.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -3235,10 +3267,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "capability.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -3314,10 +3347,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -3413,6 +3447,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.command",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -3504,10 +3539,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "telemetry.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -3583,10 +3619,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -3669,6 +3706,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -3749,10 +3787,10 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "enrollment.read",
         "x-qualithm-roles": [
           "owner",
-          "manager",
-          "guest"
+          "manager"
         ],
         "parameters": [
           {
@@ -3835,6 +3873,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "enrollment.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -3915,10 +3954,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "telemetry.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [],
         "responses": {
@@ -4035,6 +4075,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "billing.read",
         "x-qualithm-roles": [
           "owner"
         ],
@@ -4405,10 +4446,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -4506,10 +4548,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -4592,6 +4635,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -4672,6 +4716,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "member.invite",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -4770,6 +4815,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "member.invite",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5166,10 +5212,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "telemetry.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -5298,10 +5345,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "usage.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [],
         "responses": {
@@ -5363,10 +5411,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "team.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [],
         "responses": {
@@ -5428,10 +5477,11 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "space.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ],
         "parameters": [
           {
@@ -5578,6 +5628,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "capability.update",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5669,6 +5720,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "billing.manage",
         "x-qualithm-roles": [
           "owner"
         ],
@@ -5751,6 +5803,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5829,6 +5882,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5907,6 +5961,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5987,6 +6042,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.run",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -6134,6 +6190,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "automation.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -6212,6 +6269,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "credential.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -6303,6 +6361,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "credential.manage",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -6413,6 +6472,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -6491,6 +6551,7 @@
             "apiToken": []
           }
         ],
+        "x-qualithm-permission": "device.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -8031,7 +8092,7 @@
         "enum": [
           "owner",
           "manager",
-          "guest"
+          "viewer"
         ]
       },
       "Team": {
