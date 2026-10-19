@@ -1,0 +1,11 @@
+# Generator options for scripts/generate (Decision qualithm/pm#2394). The
+# generator version is the image pinned in scripts/generate.
+generatorName: typescript-fetch
+inputSpec: /local/openapi.json
+outputDir: /local/src/generated
+additionalProperties:
+  supportsES6: true
+  importFileExtension: .js
+  useSingleRequestParameter: true
+  modelPropertyNaming: original
+  enumPropertyNaming: original

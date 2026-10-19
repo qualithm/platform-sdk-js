@@ -1,0 +1,35 @@
+---
+description: "Exact pre-commit commands for the bun-lib CI archetype, kept in sync with ci.yaml"
+---
+
+# Pre-commit Checks
+
+This repo's `ci.yaml` is generated from `dx/ci-templates/bun-lib.yaml` via `dx ci sync` (check for
+drift with `dx ci drift`). Run these before committing so CI passes on the first try:
+
+```bash
+bun run lint
+bun run format
+bun run typecheck
+python3 .claude/checks/ci-jobs.py --skip-ci-only coverage
+```
+
+The `ci-jobs.py --skip-ci-only coverage` step runs CI's Coverage job locally: the same tests and the
+same 80% line-coverage gate, minus the Codecov upload, so coverage is fixed in the same PR.
+
+CI runs coverage on every PR, whatever the target branch, and on push to `main`:
+
+```bash
+bun run test:coverage:unit                     # line coverage must be >=80%
+```
+
+On PRs targeting `main`, CI additionally runs and blocks on:
+
+```bash
+bun run build && bun run validate:runtime      # cross-runtime export shape
+npx vitest run src/__tests__/unit              # Node.js
+deno run -A npm:vitest run src/__tests__/unit  # Deno
+```
+
+Re-run these before a `main`-bound change, especially after touching runtime-conditional code or
+adding untested branches.

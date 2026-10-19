@@ -1,0 +1,8 @@
+#!/bin/sh
+# Runs the non-CI-only commands in .claude/checks.json.
+set -e
+
+bun run lint
+bun run format
+bun run typecheck
+python3 .claude/checks/ci-jobs.py --skip-ci-only coverage

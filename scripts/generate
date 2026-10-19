@@ -1,0 +1,14 @@
+#!/bin/sh
+# Regenerate the client from openapi.json with the pinned generator
+# (Decision qualithm/pm#2394). Never edit src/generated/ by hand: CI's
+# Generated Drift job reruns this and fails on any difference.
+set -eu
+
+IMAGE="openapitools/openapi-generator-cli:v7.26.0@sha256:a304ddf1e2e5f24f68fa3153568d6174cea4959d09aa8e3db6d526fd0782326d"
+
+cd "$(dirname "$0")/.."
+rm -rf src/generated
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/local" "$IMAGE" \
+  generate --config /local/openapi-generator.yaml --skip-validate-spec >/dev/null
+# Only the sources ship; the generator's own manifest and docs stay out.
+rm -rf src/generated/.openapi-generator src/generated/.openapi-generator-ignore src/generated/docs
