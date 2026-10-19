@@ -88,7 +88,7 @@ export class ApiTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke an API token
+     * Revoke an API token: any in the team for an owner, otherwise the caller\'s own
      */
     async deleteApiTokenRaw(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteApiTokenResponse>> {
         const requestOptions = await this.deleteApiTokenRequestOpts(requestParameters);
@@ -98,7 +98,7 @@ export class ApiTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke an API token
+     * Revoke an API token: any in the team for an owner, otherwise the caller\'s own
      */
     async deleteApiToken(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteApiTokenResponse> {
         const response = await this.deleteApiTokenRaw(requestParameters, initOverrides);
@@ -141,7 +141,7 @@ export class ApiTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the team\'s API tokens
+     * List API tokens in this team: everyone\'s for an owner, otherwise the caller\'s own
      */
     async listApiTokensRaw(requestParameters: ListApiTokensRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListApiTokensResponse>> {
         const requestOptions = await this.listApiTokensRequestOpts(requestParameters);
@@ -151,7 +151,7 @@ export class ApiTokensApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the team\'s API tokens
+     * List API tokens in this team: everyone\'s for an owner, otherwise the caller\'s own
      */
     async listApiTokens(requestParameters: ListApiTokensRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListApiTokensResponse> {
         const response = await this.listApiTokensRaw(requestParameters, initOverrides);
