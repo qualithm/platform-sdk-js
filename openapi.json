@@ -2674,7 +2674,7 @@
       "get": {
         "operationId": "getBillingSummary",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's plan, usage and add-ons",
+        "summary": "Get the workspace's plan, usage, price and add-ons",
         "tags": [
           "Billing"
         ],
@@ -2690,7 +2690,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Get the workspace's plan, usage and add-ons",
+            "description": "Get the workspace's plan, usage, price and add-ons",
             "content": {
               "application/json": {
                 "schema": {
@@ -5336,7 +5336,7 @@
       "get": {
         "operationId": "getUsage",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's device and space counts",
+        "summary": "Get the workspace's device and space counts and its plan quota",
         "tags": [
           "Usage"
         ],
@@ -5354,7 +5354,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Get the workspace's device and space counts",
+            "description": "Get the workspace's device and space counts and its plan quota",
             "content": {
               "application/json": {
                 "schema": {
@@ -8951,10 +8951,6 @@
               "max"
             ]
           },
-          "monthlyTotal": {
-            "type": "number",
-            "description": "The plan's monthly price with add-ons, in USD"
-          },
           "month": {
             "type": "string",
             "description": "The month usage counts over: `YYYY-MM`, UTC"
@@ -9030,6 +9026,10 @@
               "automations"
             ]
           },
+          "monthlyTotal": {
+            "type": "number",
+            "description": "The plan's monthly price with add-ons, in USD"
+          },
           "addons": {
             "type": "object",
             "properties": {
@@ -9055,11 +9055,11 @@
         },
         "required": [
           "tier",
-          "monthlyTotal",
           "month",
           "limitGrace",
           "limits",
           "usage",
+          "monthlyTotal",
           "addons"
         ]
       },
@@ -9214,12 +9214,101 @@
           "spaceTotal": {
             "type": "integer",
             "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "free",
+              "plus",
+              "pro",
+              "max"
+            ]
+          },
+          "month": {
+            "type": "string",
+            "description": "The month usage counts over: `YYYY-MM`, UTC"
+          },
+          "limitGrace": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "endsAt": {
+                    "type": "string",
+                    "description": "ISO 8601 time"
+                  }
+                },
+                "required": [
+                  "endsAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set while a post-downgrade over-limit grace period runs"
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "devices": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "registeredDevices": {
+                "type": "integer",
+                "description": "The ceiling on active plus parked devices",
+                "format": "int64"
+              },
+              "events": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "automations": {
+                "type": "integer",
+                "format": "int64"
+              }
+            },
+            "required": [
+              "devices",
+              "registeredDevices",
+              "events",
+              "automations"
+            ]
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "devices": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "registered": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "events": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "automations": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              }
+            },
+            "required": [
+              "devices",
+              "registered",
+              "events",
+              "automations"
+            ]
           }
         },
         "required": [
           "deviceTotal",
           "deviceMax",
-          "spaceTotal"
+          "spaceTotal",
+          "tier",
+          "month",
+          "limitGrace",
+          "limits",
+          "usage"
         ]
       },
       "HealthSubsystem": {
