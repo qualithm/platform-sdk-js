@@ -229,7 +229,7 @@ export class MembersApi extends runtime.BaseAPI {
     }
 
     /**
-     * A guest can remove only themselves; a manager only guests and themselves.
+     * A viewer can remove only themselves; a manager only viewers and themselves.
      * Remove a member from the team
      */
     async deleteTeamMemberRaw(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteTeamMemberResponse>> {
@@ -240,7 +240,7 @@ export class MembersApi extends runtime.BaseAPI {
     }
 
     /**
-     * A guest can remove only themselves; a manager only guests and themselves.
+     * A viewer can remove only themselves; a manager only viewers and themselves.
      * Remove a member from the team
      */
     async deleteTeamMember(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteTeamMemberResponse> {
