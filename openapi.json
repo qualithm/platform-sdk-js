@@ -5402,7 +5402,7 @@
       "get": {
         "operationId": "getWorkspace",
         "x-qualithm-audience": "management",
-        "summary": "Get the caller's current workspace",
+        "summary": "Get the caller's current workspace and their effective permissions in it",
         "tags": [
           "Workspace"
         ],
@@ -5420,7 +5420,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Get the caller's current workspace",
+            "description": "Get the caller's current workspace and their effective permissions in it",
             "content": {
               "application/json": {
                 "schema": {
@@ -6978,6 +6978,48 @@
               }
             ],
             "description": "The token's role ceiling; null means the creator's current role"
+          },
+          "permissions": {
+            "description": "What the token can do now: its creator's current role lowered to its ceiling. Listed tokens only.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "team.read",
+                "team.update",
+                "team.delete",
+                "member.invite",
+                "member.update",
+                "member.remove",
+                "billing.read",
+                "billing.manage",
+                "usage.read",
+                "audit.read",
+                "token.read",
+                "token.create",
+                "token.revoke",
+                "token.revoke_any",
+                "space.read",
+                "space.write",
+                "device.read",
+                "device.write",
+                "device.command",
+                "credential.read",
+                "credential.manage",
+                "enrollment.read",
+                "enrollment.manage",
+                "authority.read",
+                "authority.manage",
+                "telemetry.read",
+                "capability.read",
+                "capability.update",
+                "dashboard.read",
+                "dashboard.write",
+                "automation.read",
+                "automation.write",
+                "automation.run"
+              ]
+            }
           },
           "expiresAt": {
             "anyOf": [
@@ -8582,6 +8624,48 @@
           "memberRole": {
             "$ref": "#/components/schemas/MemberRole"
           },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "team.read",
+                "team.update",
+                "team.delete",
+                "member.invite",
+                "member.update",
+                "member.remove",
+                "billing.read",
+                "billing.manage",
+                "usage.read",
+                "audit.read",
+                "token.read",
+                "token.create",
+                "token.revoke",
+                "token.revoke_any",
+                "space.read",
+                "space.write",
+                "device.read",
+                "device.write",
+                "device.command",
+                "credential.read",
+                "credential.manage",
+                "enrollment.read",
+                "enrollment.manage",
+                "authority.read",
+                "authority.manage",
+                "telemetry.read",
+                "capability.read",
+                "capability.update",
+                "dashboard.read",
+                "dashboard.write",
+                "automation.read",
+                "automation.write",
+                "automation.run"
+              ]
+            },
+            "description": "What the caller can do here: their role, lowered to a token's ceiling"
+          },
           "updatedAt": {
             "type": "string",
             "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
@@ -8593,6 +8677,7 @@
           "teamName",
           "memberId",
           "memberRole",
+          "permissions",
           "updatedAt"
         ]
       },

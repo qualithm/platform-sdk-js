@@ -57,7 +57,7 @@ export class WorkspaceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the caller\'s current workspace
+     * Get the caller\'s current workspace and their effective permissions in it
      */
     async getWorkspaceRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetWorkspaceResponse>> {
         const requestOptions = await this.getWorkspaceRequestOpts();
@@ -67,7 +67,7 @@ export class WorkspaceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the caller\'s current workspace
+     * Get the caller\'s current workspace and their effective permissions in it
      */
     async getWorkspace(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetWorkspaceResponse> {
         const response = await this.getWorkspaceRaw(initOverrides);
