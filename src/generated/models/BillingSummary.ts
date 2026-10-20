@@ -53,10 +53,6 @@ export interface BillingSummary {
      */
     tier: BillingSummaryTierEnum;
     /**
-     * The plan's monthly price with add-ons, in USD
-     */
-    monthlyTotal: number;
-    /**
      * The month usage counts over: `YYYY-MM`, UTC
      */
     month: string;
@@ -72,6 +68,10 @@ export interface BillingSummary {
      * 
      */
     usage: BillingSummaryUsage;
+    /**
+     * The plan's monthly price with add-ons, in USD
+     */
+    monthlyTotal: number;
     /**
      * 
      */
@@ -96,11 +96,11 @@ export type BillingSummaryTierEnum = typeof BillingSummaryTierEnum[keyof typeof 
  */
 export function instanceOfBillingSummary(value: object): value is BillingSummary {
     if (!('tier' in value) || value['tier'] === undefined) return false;
-    if (!('monthlyTotal' in value) || value['monthlyTotal'] === undefined) return false;
     if (!('month' in value) || value['month'] === undefined) return false;
     if (!('limitGrace' in value) || value['limitGrace'] === undefined) return false;
     if (!('limits' in value) || value['limits'] === undefined) return false;
     if (!('usage' in value) || value['usage'] === undefined) return false;
+    if (!('monthlyTotal' in value) || value['monthlyTotal'] === undefined) return false;
     if (!('addons' in value) || value['addons'] === undefined) return false;
     return true;
 }
@@ -116,11 +116,11 @@ export function BillingSummaryFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'tier': json['tier'],
-        'monthlyTotal': json['monthlyTotal'],
         'month': json['month'],
         'limitGrace': BillingSummaryLimitGraceFromJSON(json['limitGrace']),
         'limits': BillingSummaryLimitsFromJSON(json['limits']),
         'usage': BillingSummaryUsageFromJSON(json['usage']),
+        'monthlyTotal': json['monthlyTotal'],
         'addons': BillingSummaryAddonsFromJSON(json['addons']),
     };
 }
@@ -137,11 +137,11 @@ export function BillingSummaryToJSONTyped(value?: BillingSummary | null, ignoreD
     return {
         
         'tier': value['tier'],
-        'monthlyTotal': value['monthlyTotal'],
         'month': value['month'],
         'limitGrace': BillingSummaryLimitGraceToJSON(value['limitGrace']),
         'limits': BillingSummaryLimitsToJSON(value['limits']),
         'usage': BillingSummaryUsageToJSON(value['usage']),
+        'monthlyTotal': value['monthlyTotal'],
         'addons': BillingSummaryAddonsToJSON(value['addons']),
     };
 }

@@ -2674,7 +2674,7 @@
       "get": {
         "operationId": "getBillingSummary",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's plan, usage and add-ons",
+        "summary": "Get the workspace's plan, usage, price and add-ons",
         "tags": [
           "Billing"
         ],
@@ -2690,7 +2690,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Get the workspace's plan, usage and add-ons",
+            "description": "Get the workspace's plan, usage, price and add-ons",
             "content": {
               "application/json": {
                 "schema": {
@@ -5336,7 +5336,7 @@
       "get": {
         "operationId": "getUsage",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's device and space counts",
+        "summary": "Get the workspace's device and space counts and its plan quota",
         "tags": [
           "Usage"
         ],
@@ -5354,7 +5354,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Get the workspace's device and space counts",
+            "description": "Get the workspace's device and space counts and its plan quota",
             "content": {
               "application/json": {
                 "schema": {
@@ -6654,6 +6654,292 @@
           "code"
         ]
       },
+      "MemberRole": {
+        "type": "string",
+        "enum": [
+          "owner",
+          "manager",
+          "viewer"
+        ]
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "string",
+            "description": "The team's settings: a JSON object, encoded as a string"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "memberId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
+            "description": "The caller's membership in this team"
+          },
+          "memberRole": {
+            "$ref": "#/components/schemas/MemberRole"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "payload",
+          "createdAt",
+          "updatedAt",
+          "memberId",
+          "memberRole"
+        ]
+      },
+      "TeamPage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last"
+        ]
+      },
+      "TeamMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "accountId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MemberRole"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "accountEmail": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "teamName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "teamId",
+          "role",
+          "createdAt",
+          "updatedAt",
+          "accountEmail",
+          "accountName",
+          "teamName"
+        ]
+      },
+      "TeamMemberPage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamMember"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last"
+        ]
+      },
+      "TeamMembership": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "accountId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MemberRole"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "invited",
+              "active",
+              "revoked",
+              "declined"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "teamId",
+          "role",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "TeamInvite": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
+            "description": "The invite's id: the invited membership's id"
+          },
+          "accountId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MemberRole"
+          },
+          "status": {
+            "type": "string",
+            "const": "invited"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+          },
+          "accountEmail": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "teamName": {
+            "description": "Absent in the create response",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "teamId",
+          "role",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "accountEmail",
+          "accountName"
+        ]
+      },
+      "TeamInvitePage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamInvite"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last"
+        ]
+      },
       "ApiToken": {
         "type": "object",
         "properties": {
@@ -6681,6 +6967,17 @@
               "active",
               "revoked"
             ]
+          },
+          "role": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MemberRole"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The token's role ceiling; null means the creator's current role"
           },
           "expiresAt": {
             "anyOf": [
@@ -6719,6 +7016,7 @@
           "teamId",
           "name",
           "status",
+          "role",
           "expiresAt",
           "lastUsedAt",
           "createdAt",
@@ -8087,292 +8385,6 @@
           "metrics"
         ]
       },
-      "MemberRole": {
-        "type": "string",
-        "enum": [
-          "owner",
-          "manager",
-          "viewer"
-        ]
-      },
-      "Team": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "name": {
-            "type": "string"
-          },
-          "payload": {
-            "type": "string",
-            "description": "The team's settings: a JSON object, encoded as a string"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "memberId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-            "description": "The caller's membership in this team"
-          },
-          "memberRole": {
-            "$ref": "#/components/schemas/MemberRole"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "payload",
-          "createdAt",
-          "updatedAt",
-          "memberId",
-          "memberRole"
-        ]
-      },
-      "TeamPage": {
-        "type": "object",
-        "properties": {
-          "current": {
-            "type": "integer",
-            "description": "This page's number, from 1",
-            "format": "int64"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Team"
-            }
-          },
-          "last": {
-            "type": "integer",
-            "description": "The last page's number",
-            "format": "int64"
-          }
-        },
-        "required": [
-          "current",
-          "items",
-          "last"
-        ]
-      },
-      "TeamMember": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "accountId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "teamId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "role": {
-            "$ref": "#/components/schemas/MemberRole"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "accountEmail": {
-            "type": "string"
-          },
-          "accountName": {
-            "type": "string"
-          },
-          "teamName": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "accountId",
-          "teamId",
-          "role",
-          "createdAt",
-          "updatedAt",
-          "accountEmail",
-          "accountName",
-          "teamName"
-        ]
-      },
-      "TeamMemberPage": {
-        "type": "object",
-        "properties": {
-          "current": {
-            "type": "integer",
-            "description": "This page's number, from 1",
-            "format": "int64"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TeamMember"
-            }
-          },
-          "last": {
-            "type": "integer",
-            "description": "The last page's number",
-            "format": "int64"
-          }
-        },
-        "required": [
-          "current",
-          "items",
-          "last"
-        ]
-      },
-      "TeamMembership": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "accountId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "teamId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "role": {
-            "$ref": "#/components/schemas/MemberRole"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "invited",
-              "active",
-              "revoked",
-              "declined"
-            ]
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          }
-        },
-        "required": [
-          "id",
-          "accountId",
-          "teamId",
-          "role",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ]
-      },
-      "TeamInvite": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-            "description": "The invite's id: the invited membership's id"
-          },
-          "accountId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "teamId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "role": {
-            "$ref": "#/components/schemas/MemberRole"
-          },
-          "status": {
-            "type": "string",
-            "const": "invited"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
-          },
-          "accountEmail": {
-            "type": "string"
-          },
-          "accountName": {
-            "type": "string"
-          },
-          "teamName": {
-            "description": "Absent in the create response",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "accountId",
-          "teamId",
-          "role",
-          "status",
-          "createdAt",
-          "updatedAt",
-          "accountEmail",
-          "accountName"
-        ]
-      },
-      "TeamInvitePage": {
-        "type": "object",
-        "properties": {
-          "current": {
-            "type": "integer",
-            "description": "This page's number, from 1",
-            "format": "int64"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TeamInvite"
-            }
-          },
-          "last": {
-            "type": "integer",
-            "description": "The last page's number",
-            "format": "int64"
-          }
-        },
-        "required": [
-          "current",
-          "items",
-          "last"
-        ]
-      },
       "DeviceCommand": {
         "type": "object",
         "properties": {
@@ -8951,10 +8963,6 @@
               "max"
             ]
           },
-          "monthlyTotal": {
-            "type": "number",
-            "description": "The plan's monthly price with add-ons, in USD"
-          },
           "month": {
             "type": "string",
             "description": "The month usage counts over: `YYYY-MM`, UTC"
@@ -9030,6 +9038,10 @@
               "automations"
             ]
           },
+          "monthlyTotal": {
+            "type": "number",
+            "description": "The plan's monthly price with add-ons, in USD"
+          },
           "addons": {
             "type": "object",
             "properties": {
@@ -9055,11 +9067,11 @@
         },
         "required": [
           "tier",
-          "monthlyTotal",
           "month",
           "limitGrace",
           "limits",
           "usage",
+          "monthlyTotal",
           "addons"
         ]
       },
@@ -9214,12 +9226,101 @@
           "spaceTotal": {
             "type": "integer",
             "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "free",
+              "plus",
+              "pro",
+              "max"
+            ]
+          },
+          "month": {
+            "type": "string",
+            "description": "The month usage counts over: `YYYY-MM`, UTC"
+          },
+          "limitGrace": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "endsAt": {
+                    "type": "string",
+                    "description": "ISO 8601 time"
+                  }
+                },
+                "required": [
+                  "endsAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set while a post-downgrade over-limit grace period runs"
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "devices": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "registeredDevices": {
+                "type": "integer",
+                "description": "The ceiling on active plus parked devices",
+                "format": "int64"
+              },
+              "events": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "automations": {
+                "type": "integer",
+                "format": "int64"
+              }
+            },
+            "required": [
+              "devices",
+              "registeredDevices",
+              "events",
+              "automations"
+            ]
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "devices": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "registered": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "events": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              },
+              "automations": {
+                "$ref": "#/components/schemas/BillingUsageDimension"
+              }
+            },
+            "required": [
+              "devices",
+              "registered",
+              "events",
+              "automations"
+            ]
           }
         },
         "required": [
           "deviceTotal",
           "deviceMax",
-          "spaceTotal"
+          "spaceTotal",
+          "tier",
+          "month",
+          "limitGrace",
+          "limits",
+          "usage"
         ]
       },
       "HealthSubsystem": {
