@@ -13,6 +13,28 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { BillingSummaryUsage } from './BillingSummaryUsage.js';
+import {
+    BillingSummaryUsageFromJSON,
+    BillingSummaryUsageFromJSONTyped,
+    BillingSummaryUsageToJSON,
+    BillingSummaryUsageToJSONTyped,
+} from './BillingSummaryUsage.js';
+import type { BillingSummaryLimitGrace } from './BillingSummaryLimitGrace.js';
+import {
+    BillingSummaryLimitGraceFromJSON,
+    BillingSummaryLimitGraceFromJSONTyped,
+    BillingSummaryLimitGraceToJSON,
+    BillingSummaryLimitGraceToJSONTyped,
+} from './BillingSummaryLimitGrace.js';
+import type { BillingSummaryLimits } from './BillingSummaryLimits.js';
+import {
+    BillingSummaryLimitsFromJSON,
+    BillingSummaryLimitsFromJSONTyped,
+    BillingSummaryLimitsToJSON,
+    BillingSummaryLimitsToJSONTyped,
+} from './BillingSummaryLimits.js';
+
 /**
  * 
  * @export
@@ -31,7 +53,40 @@ export interface Usage {
      * 
      */
     spaceTotal: number;
+    /**
+     * 
+     */
+    tier: UsageTierEnum;
+    /**
+     * The month usage counts over: `YYYY-MM`, UTC
+     */
+    month: string;
+    /**
+     * 
+     */
+    limitGrace: BillingSummaryLimitGrace | null;
+    /**
+     * 
+     */
+    limits: BillingSummaryLimits;
+    /**
+     * 
+     */
+    usage: BillingSummaryUsage;
 }
+
+
+/**
+ * @export
+ */
+export const UsageTierEnum = {
+    free: 'free',
+    plus: 'plus',
+    pro: 'pro',
+    max: 'max',
+} as const;
+export type UsageTierEnum = typeof UsageTierEnum[keyof typeof UsageTierEnum];
+
 
 /**
  * Check if a given object implements the Usage interface.
@@ -40,6 +95,11 @@ export function instanceOfUsage(value: object): value is Usage {
     if (!('deviceTotal' in value) || value['deviceTotal'] === undefined) return false;
     if (!('deviceMax' in value) || value['deviceMax'] === undefined) return false;
     if (!('spaceTotal' in value) || value['spaceTotal'] === undefined) return false;
+    if (!('tier' in value) || value['tier'] === undefined) return false;
+    if (!('month' in value) || value['month'] === undefined) return false;
+    if (!('limitGrace' in value) || value['limitGrace'] === undefined) return false;
+    if (!('limits' in value) || value['limits'] === undefined) return false;
+    if (!('usage' in value) || value['usage'] === undefined) return false;
     return true;
 }
 
@@ -56,6 +116,11 @@ export function UsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Usa
         'deviceTotal': json['deviceTotal'],
         'deviceMax': json['deviceMax'],
         'spaceTotal': json['spaceTotal'],
+        'tier': json['tier'],
+        'month': json['month'],
+        'limitGrace': BillingSummaryLimitGraceFromJSON(json['limitGrace']),
+        'limits': BillingSummaryLimitsFromJSON(json['limits']),
+        'usage': BillingSummaryUsageFromJSON(json['usage']),
     };
 }
 
@@ -73,6 +138,11 @@ export function UsageToJSONTyped(value?: Usage | null, ignoreDiscriminator: bool
         'deviceTotal': value['deviceTotal'],
         'deviceMax': value['deviceMax'],
         'spaceTotal': value['spaceTotal'],
+        'tier': value['tier'],
+        'month': value['month'],
+        'limitGrace': BillingSummaryLimitGraceToJSON(value['limitGrace']),
+        'limits': BillingSummaryLimitsToJSON(value['limits']),
+        'usage': BillingSummaryUsageToJSON(value['usage']),
     };
 }
 

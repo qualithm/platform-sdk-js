@@ -90,7 +90,7 @@ export class BillingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s plan, usage and add-ons
+     * Get the workspace\'s plan, usage, price and add-ons
      */
     async getBillingSummaryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetBillingSummaryResponse>> {
         const requestOptions = await this.getBillingSummaryRequestOpts();
@@ -100,7 +100,7 @@ export class BillingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s plan, usage and add-ons
+     * Get the workspace\'s plan, usage, price and add-ons
      */
     async getBillingSummary(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetBillingSummaryResponse> {
         const response = await this.getBillingSummaryRaw(initOverrides);
