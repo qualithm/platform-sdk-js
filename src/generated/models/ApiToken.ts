@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { MemberRole } from './MemberRole.js';
+import {
+    MemberRoleFromJSON,
+    MemberRoleFromJSONTyped,
+    MemberRoleToJSON,
+    MemberRoleToJSONTyped,
+} from './MemberRole.js';
+
 /**
  * 
  * @export
@@ -39,6 +47,10 @@ export interface ApiToken {
      * 
      */
     status: ApiTokenStatusEnum;
+    /**
+     * The token's role ceiling; null means the creator's current role
+     */
+    role: MemberRole | null;
     /**
      * ISO 8601 time
      */
@@ -77,6 +89,7 @@ export function instanceOfApiToken(value: object): value is ApiToken {
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
     if (!('lastUsedAt' in value) || value['lastUsedAt'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
@@ -99,6 +112,7 @@ export function ApiTokenFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'teamId': json['teamId'],
         'name': json['name'],
         'status': json['status'],
+        'role': MemberRoleFromJSON(json['role']),
         'expiresAt': json['expiresAt'],
         'lastUsedAt': json['lastUsedAt'],
         'createdAt': json['createdAt'],
@@ -122,6 +136,7 @@ export function ApiTokenToJSONTyped(value?: ApiToken | null, ignoreDiscriminator
         'teamId': value['teamId'],
         'name': value['name'],
         'status': value['status'],
+        'role': MemberRoleToJSON(value['role']),
         'expiresAt': value['expiresAt'],
         'lastUsedAt': value['lastUsedAt'],
         'createdAt': value['createdAt'],
