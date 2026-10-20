@@ -57,7 +57,7 @@ export class UsageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s device and space counts
+     * Get the workspace\'s device and space counts and its plan quota
      */
     async getUsageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsageResponse>> {
         const requestOptions = await this.getUsageRequestOpts();
@@ -67,7 +67,7 @@ export class UsageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s device and space counts
+     * Get the workspace\'s device and space counts and its plan quota
      */
     async getUsage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsageResponse> {
         const response = await this.getUsageRaw(initOverrides);
