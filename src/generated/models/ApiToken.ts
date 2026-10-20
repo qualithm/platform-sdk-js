@@ -52,6 +52,10 @@ export interface ApiToken {
      */
     role: MemberRole | null;
     /**
+     * What the token can do now: its creator's current role lowered to its ceiling. Listed tokens only.
+     */
+    permissions?: Array<ApiTokenPermissionsEnum>;
+    /**
      * ISO 8601 time
      */
     expiresAt: string | null;
@@ -78,6 +82,46 @@ export const ApiTokenStatusEnum = {
     revoked: 'revoked',
 } as const;
 export type ApiTokenStatusEnum = typeof ApiTokenStatusEnum[keyof typeof ApiTokenStatusEnum];
+
+/**
+ * @export
+ */
+export const ApiTokenPermissionsEnum = {
+    team_read: 'team.read',
+    team_update: 'team.update',
+    team_delete: 'team.delete',
+    member_invite: 'member.invite',
+    member_update: 'member.update',
+    member_remove: 'member.remove',
+    billing_read: 'billing.read',
+    billing_manage: 'billing.manage',
+    usage_read: 'usage.read',
+    audit_read: 'audit.read',
+    token_read: 'token.read',
+    token_create: 'token.create',
+    token_revoke: 'token.revoke',
+    token_revoke_any: 'token.revoke_any',
+    space_read: 'space.read',
+    space_write: 'space.write',
+    device_read: 'device.read',
+    device_write: 'device.write',
+    device_command: 'device.command',
+    credential_read: 'credential.read',
+    credential_manage: 'credential.manage',
+    enrollment_read: 'enrollment.read',
+    enrollment_manage: 'enrollment.manage',
+    authority_read: 'authority.read',
+    authority_manage: 'authority.manage',
+    telemetry_read: 'telemetry.read',
+    capability_read: 'capability.read',
+    capability_update: 'capability.update',
+    dashboard_read: 'dashboard.read',
+    dashboard_write: 'dashboard.write',
+    automation_read: 'automation.read',
+    automation_write: 'automation.write',
+    automation_run: 'automation.run',
+} as const;
+export type ApiTokenPermissionsEnum = typeof ApiTokenPermissionsEnum[keyof typeof ApiTokenPermissionsEnum];
 
 
 /**
@@ -113,6 +157,7 @@ export function ApiTokenFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'name': json['name'],
         'status': json['status'],
         'role': MemberRoleFromJSON(json['role']),
+        'permissions': json['permissions'] == null ? undefined : json['permissions'],
         'expiresAt': json['expiresAt'],
         'lastUsedAt': json['lastUsedAt'],
         'createdAt': json['createdAt'],
@@ -137,6 +182,7 @@ export function ApiTokenToJSONTyped(value?: ApiToken | null, ignoreDiscriminator
         'name': value['name'],
         'status': value['status'],
         'role': MemberRoleToJSON(value['role']),
+        'permissions': value['permissions'],
         'expiresAt': value['expiresAt'],
         'lastUsedAt': value['lastUsedAt'],
         'createdAt': value['createdAt'],
