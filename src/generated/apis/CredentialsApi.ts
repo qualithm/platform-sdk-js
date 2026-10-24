@@ -61,6 +61,10 @@ import {
 
 export interface CreateDeviceCertificateOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
@@ -71,6 +75,10 @@ export interface CreateDeviceCertificateOperationRequest {
 }
 
 export interface CreateDeviceCredentialOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -83,6 +91,10 @@ export interface CreateDeviceCredentialOperationRequest {
 
 export interface DeleteDeviceCredentialRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
@@ -94,12 +106,20 @@ export interface DeleteDeviceCredentialRequest {
 
 export interface ListDeviceCredentialsRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
 }
 
 export interface RotateDeviceCredentialOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -127,6 +147,13 @@ export class CredentialsApi extends runtime.BaseAPI {
      * Creates request options for createDeviceCertificate without sending the request
      */
     async createDeviceCertificateRequestOpts(requestParameters: CreateDeviceCertificateOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createDeviceCertificate().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -156,7 +183,8 @@ export class CredentialsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/credentials/cert`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/credentials/cert`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -190,6 +218,13 @@ export class CredentialsApi extends runtime.BaseAPI {
      * Creates request options for createDeviceCredential without sending the request
      */
     async createDeviceCredentialRequestOpts(requestParameters: CreateDeviceCredentialOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createDeviceCredential().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -212,7 +247,8 @@ export class CredentialsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/credentials`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/credentials`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -246,6 +282,13 @@ export class CredentialsApi extends runtime.BaseAPI {
      * Creates request options for deleteDeviceCredential without sending the request
      */
     async deleteDeviceCredentialRequestOpts(requestParameters: DeleteDeviceCredentialRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteDeviceCredential().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -273,7 +316,8 @@ export class CredentialsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/credentials/{credentialId}`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/credentials/{credentialId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
         urlPath = urlPath.replace('{credentialId}', encodeURIComponent(String(requestParameters['credentialId'])));
 
@@ -307,6 +351,13 @@ export class CredentialsApi extends runtime.BaseAPI {
      * Creates request options for listDeviceCredentials without sending the request
      */
     async listDeviceCredentialsRequestOpts(requestParameters: ListDeviceCredentialsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDeviceCredentials().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -327,7 +378,8 @@ export class CredentialsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/credentials`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/credentials`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -360,6 +412,13 @@ export class CredentialsApi extends runtime.BaseAPI {
      * Creates request options for rotateDeviceCredential without sending the request
      */
     async rotateDeviceCredentialRequestOpts(requestParameters: RotateDeviceCredentialOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling rotateDeviceCredential().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -393,7 +452,8 @@ export class CredentialsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/credentials/{credentialId}/rotate`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/credentials/{credentialId}/rotate`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
         urlPath = urlPath.replace('{credentialId}', encodeURIComponent(String(requestParameters['credentialId'])));
 

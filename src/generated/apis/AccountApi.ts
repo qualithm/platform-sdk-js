@@ -51,7 +51,7 @@ export class AccountApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/account`;
+        let urlPath = `/v1/account`;
 
         return {
             path: urlPath,
@@ -96,7 +96,7 @@ export class AccountApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/account/communication-preferences`;
+        let urlPath = `/v1/account/communication-preferences`;
 
         return {
             path: urlPath,

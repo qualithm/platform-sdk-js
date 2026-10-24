@@ -41,6 +41,10 @@ import {
 
 export interface CreateEnrollmentOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createEnrollmentRequest: CreateEnrollmentRequest;
@@ -48,12 +52,20 @@ export interface CreateEnrollmentOperationRequest {
 
 export interface DeleteEnrollmentRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     enrollmentId: string;
 }
 
 export interface ListEnrollmentsRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -73,6 +85,13 @@ export class EnrollmentsApi extends runtime.BaseAPI {
      * Creates request options for createEnrollment without sending the request
      */
     async createEnrollmentRequestOpts(requestParameters: CreateEnrollmentOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createEnrollment().'
+            );
+        }
+
         if (requestParameters['createEnrollmentRequest'] == null) {
             throw new runtime.RequiredError(
                 'createEnrollmentRequest',
@@ -95,7 +114,8 @@ export class EnrollmentsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/enrollments`;
+        let urlPath = `/v1/teams/{teamId}/enrollments`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -128,6 +148,13 @@ export class EnrollmentsApi extends runtime.BaseAPI {
      * Creates request options for deleteEnrollment without sending the request
      */
     async deleteEnrollmentRequestOpts(requestParameters: DeleteEnrollmentRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteEnrollment().'
+            );
+        }
+
         if (requestParameters['enrollmentId'] == null) {
             throw new runtime.RequiredError(
                 'enrollmentId',
@@ -148,7 +175,8 @@ export class EnrollmentsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/enrollments/{enrollmentId}`;
+        let urlPath = `/v1/teams/{teamId}/enrollments/{enrollmentId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{enrollmentId}', encodeURIComponent(String(requestParameters['enrollmentId'])));
 
         return {
@@ -181,6 +209,13 @@ export class EnrollmentsApi extends runtime.BaseAPI {
      * Creates request options for listEnrollments without sending the request
      */
     async listEnrollmentsRequestOpts(requestParameters: ListEnrollmentsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listEnrollments().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -202,7 +237,8 @@ export class EnrollmentsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/enrollments`;
+        let urlPath = `/v1/teams/{teamId}/enrollments`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -225,7 +261,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s enrollments
      */
-    async listEnrollments(requestParameters: ListEnrollmentsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListEnrollmentsResponse> {
+    async listEnrollments(requestParameters: ListEnrollmentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListEnrollmentsResponse> {
         const response = await this.listEnrollmentsRaw(requestParameters, initOverrides);
         return await response.value();
     }

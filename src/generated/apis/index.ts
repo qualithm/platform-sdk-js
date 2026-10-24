@@ -23,5 +23,4 @@ export * from './SpacesApi.js';
 export * from './TeamsApi.js';
 export * from './TelemetryApi.js';
 export * from './UsageApi.js';
-export * from './WorkspaceApi.js';
 export * from './ZonesApi.js';
