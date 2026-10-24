@@ -56,12 +56,20 @@ import {
 
 export interface CreateDashboardOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createDashboardRequest: CreateDashboardRequest;
 }
 
 export interface DeleteDashboardRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -70,12 +78,20 @@ export interface DeleteDashboardRequest {
 
 export interface GetDashboardRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     dashboardId: string;
 }
 
 export interface ListDashboardsRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -87,6 +103,10 @@ export interface ListDashboardsRequest {
 }
 
 export interface UpdateDashboardOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -106,6 +126,13 @@ export class DashboardsApi extends runtime.BaseAPI {
      * Creates request options for createDashboard without sending the request
      */
     async createDashboardRequestOpts(requestParameters: CreateDashboardOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createDashboard().'
+            );
+        }
+
         if (requestParameters['createDashboardRequest'] == null) {
             throw new runtime.RequiredError(
                 'createDashboardRequest',
@@ -128,7 +155,8 @@ export class DashboardsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/dashboards`;
+        let urlPath = `/v1/teams/{teamId}/dashboards`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -161,6 +189,13 @@ export class DashboardsApi extends runtime.BaseAPI {
      * Creates request options for deleteDashboard without sending the request
      */
     async deleteDashboardRequestOpts(requestParameters: DeleteDashboardRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteDashboard().'
+            );
+        }
+
         if (requestParameters['dashboardId'] == null) {
             throw new runtime.RequiredError(
                 'dashboardId',
@@ -181,7 +216,8 @@ export class DashboardsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/dashboards/{dashboardId}`;
+        let urlPath = `/v1/teams/{teamId}/dashboards/{dashboardId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{dashboardId}', encodeURIComponent(String(requestParameters['dashboardId'])));
 
         return {
@@ -214,6 +250,13 @@ export class DashboardsApi extends runtime.BaseAPI {
      * Creates request options for getDashboard without sending the request
      */
     async getDashboardRequestOpts(requestParameters: GetDashboardRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getDashboard().'
+            );
+        }
+
         if (requestParameters['dashboardId'] == null) {
             throw new runtime.RequiredError(
                 'dashboardId',
@@ -234,7 +277,8 @@ export class DashboardsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/dashboards/{dashboardId}`;
+        let urlPath = `/v1/teams/{teamId}/dashboards/{dashboardId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{dashboardId}', encodeURIComponent(String(requestParameters['dashboardId'])));
 
         return {
@@ -267,6 +311,13 @@ export class DashboardsApi extends runtime.BaseAPI {
      * Creates request options for listDashboards without sending the request
      */
     async listDashboardsRequestOpts(requestParameters: ListDashboardsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDashboards().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -288,7 +339,8 @@ export class DashboardsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/dashboards`;
+        let urlPath = `/v1/teams/{teamId}/dashboards`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -311,7 +363,7 @@ export class DashboardsApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s dashboards
      */
-    async listDashboards(requestParameters: ListDashboardsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDashboardsResponse> {
+    async listDashboards(requestParameters: ListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDashboardsResponse> {
         const response = await this.listDashboardsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -320,6 +372,13 @@ export class DashboardsApi extends runtime.BaseAPI {
      * Creates request options for updateDashboard without sending the request
      */
     async updateDashboardRequestOpts(requestParameters: UpdateDashboardOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling updateDashboard().'
+            );
+        }
+
         if (requestParameters['dashboardId'] == null) {
             throw new runtime.RequiredError(
                 'dashboardId',
@@ -349,7 +408,8 @@ export class DashboardsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/dashboards/{dashboardId}`;
+        let urlPath = `/v1/teams/{teamId}/dashboards/{dashboardId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{dashboardId}', encodeURIComponent(String(requestParameters['dashboardId'])));
 
         return {

@@ -80,7 +80,7 @@ export class SessionsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/sessions/{sessionId}`;
+        let urlPath = `/v1/account/sessions/{sessionId}`;
         urlPath = urlPath.replace('{sessionId}', encodeURIComponent(String(requestParameters['sessionId'])));
 
         return {
@@ -138,7 +138,7 @@ export class SessionsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/sessions`;
+        let urlPath = `/v1/account/sessions`;
 
         return {
             path: urlPath,

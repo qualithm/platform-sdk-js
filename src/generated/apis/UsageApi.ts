@@ -24,6 +24,13 @@ import {
     GetUsageResponseToJSON,
 } from '../models/GetUsageResponse.js';
 
+export interface GetUsageRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+}
+
 /**
  * 
  */
@@ -32,7 +39,14 @@ export class UsageApi extends runtime.BaseAPI {
     /**
      * Creates request options for getUsage without sending the request
      */
-    async getUsageRequestOpts(): Promise<runtime.RequestOpts> {
+    async getUsageRequestOpts(requestParameters: GetUsageRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getUsage().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -46,7 +60,8 @@ export class UsageApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/usage`;
+        let urlPath = `/v1/teams/{teamId}/usage`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -59,8 +74,8 @@ export class UsageApi extends runtime.BaseAPI {
     /**
      * Get the workspace\'s device and space counts and its plan quota
      */
-    async getUsageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsageResponse>> {
-        const requestOptions = await this.getUsageRequestOpts();
+    async getUsageRaw(requestParameters: GetUsageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsageResponse>> {
+        const requestOptions = await this.getUsageRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetUsageResponseFromJSON(jsonValue));
@@ -69,8 +84,8 @@ export class UsageApi extends runtime.BaseAPI {
     /**
      * Get the workspace\'s device and space counts and its plan quota
      */
-    async getUsage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsageResponse> {
-        const response = await this.getUsageRaw(initOverrides);
+    async getUsage(requestParameters: GetUsageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsageResponse> {
+        const response = await this.getUsageRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

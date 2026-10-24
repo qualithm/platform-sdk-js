@@ -39,11 +39,6 @@ import {
     GetSpaceResponseToJSON,
 } from '../models/GetSpaceResponse.js';
 import {
-    type ListSpaceDevicesResponse,
-    ListSpaceDevicesResponseFromJSON,
-    ListSpaceDevicesResponseToJSON,
-} from '../models/ListSpaceDevicesResponse.js';
-import {
     type ListSpacesResponse,
     ListSpacesResponseFromJSON,
     ListSpacesResponseToJSON,
@@ -61,12 +56,20 @@ import {
 
 export interface CreateSpaceOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createSpaceRequest: CreateSpaceRequest;
 }
 
 export interface DeleteSpaceRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -75,27 +78,24 @@ export interface DeleteSpaceRequest {
 
 export interface GetSpaceRequest {
     /**
-     * 
+     * The team the request acts on
      */
-    spaceId: string;
-}
-
-export interface ListSpaceDevicesRequest {
+    teamId: string;
     /**
      * 
      */
     spaceId: string;
-    /**
-     * Page number, from 1. Default 1.
-     */
-    page?: number;
-    /**
-     * Items per page, 1 to 100. Default 20.
-     */
-    limit?: number;
 }
 
 export interface ListSpacesRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
+     * Only the spaces in this zone
+     */
+    zone?: ListSpacesZoneEnum;
     /**
      * Page number, from 1. Default 1.
      */
@@ -107,6 +107,10 @@ export interface ListSpacesRequest {
 }
 
 export interface UpdateSpaceOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -126,6 +130,13 @@ export class SpacesApi extends runtime.BaseAPI {
      * Creates request options for createSpace without sending the request
      */
     async createSpaceRequestOpts(requestParameters: CreateSpaceOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createSpace().'
+            );
+        }
+
         if (requestParameters['createSpaceRequest'] == null) {
             throw new runtime.RequiredError(
                 'createSpaceRequest',
@@ -148,7 +159,8 @@ export class SpacesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/spaces`;
+        let urlPath = `/v1/teams/{teamId}/spaces`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -181,6 +193,13 @@ export class SpacesApi extends runtime.BaseAPI {
      * Creates request options for deleteSpace without sending the request
      */
     async deleteSpaceRequestOpts(requestParameters: DeleteSpaceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteSpace().'
+            );
+        }
+
         if (requestParameters['spaceId'] == null) {
             throw new runtime.RequiredError(
                 'spaceId',
@@ -201,7 +220,8 @@ export class SpacesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/spaces/{spaceId}`;
+        let urlPath = `/v1/teams/{teamId}/spaces/{spaceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{spaceId}', encodeURIComponent(String(requestParameters['spaceId'])));
 
         return {
@@ -234,6 +254,13 @@ export class SpacesApi extends runtime.BaseAPI {
      * Creates request options for getSpace without sending the request
      */
     async getSpaceRequestOpts(requestParameters: GetSpaceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getSpace().'
+            );
+        }
+
         if (requestParameters['spaceId'] == null) {
             throw new runtime.RequiredError(
                 'spaceId',
@@ -254,7 +281,8 @@ export class SpacesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/spaces/{spaceId}`;
+        let urlPath = `/v1/teams/{teamId}/spaces/{spaceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{spaceId}', encodeURIComponent(String(requestParameters['spaceId'])));
 
         return {
@@ -284,71 +312,21 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates request options for listSpaceDevices without sending the request
+     * Creates request options for listSpaces without sending the request
      */
-    async listSpaceDevicesRequestOpts(requestParameters: ListSpaceDevicesRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['spaceId'] == null) {
+    async listSpacesRequestOpts(requestParameters: ListSpacesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
             throw new runtime.RequiredError(
-                'spaceId',
-                'Required parameter "spaceId" was null or undefined when calling listSpaceDevices().'
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listSpaces().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['page'] != null) {
-            queryParameters['page'] = requestParameters['page'];
+        if (requestParameters['zone'] != null) {
+            queryParameters['zone'] = requestParameters['zone'];
         }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/spaces/{spaceId}/devices`;
-        urlPath = urlPath.replace('{spaceId}', encodeURIComponent(String(requestParameters['spaceId'])));
-
-        return {
-            path: urlPath,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * List a space\'s devices
-     */
-    async listSpaceDevicesRaw(requestParameters: ListSpaceDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSpaceDevicesResponse>> {
-        const requestOptions = await this.listSpaceDevicesRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListSpaceDevicesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List a space\'s devices
-     */
-    async listSpaceDevices(requestParameters: ListSpaceDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSpaceDevicesResponse> {
-        const response = await this.listSpaceDevicesRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates request options for listSpaces without sending the request
-     */
-    async listSpacesRequestOpts(requestParameters: ListSpacesRequest): Promise<runtime.RequestOpts> {
-        const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];
@@ -369,7 +347,8 @@ export class SpacesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/spaces`;
+        let urlPath = `/v1/teams/{teamId}/spaces`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -392,7 +371,7 @@ export class SpacesApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s spaces
      */
-    async listSpaces(requestParameters: ListSpacesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSpacesResponse> {
+    async listSpaces(requestParameters: ListSpacesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSpacesResponse> {
         const response = await this.listSpacesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -401,6 +380,13 @@ export class SpacesApi extends runtime.BaseAPI {
      * Creates request options for updateSpace without sending the request
      */
     async updateSpaceRequestOpts(requestParameters: UpdateSpaceOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling updateSpace().'
+            );
+        }
+
         if (requestParameters['spaceId'] == null) {
             throw new runtime.RequiredError(
                 'spaceId',
@@ -430,7 +416,8 @@ export class SpacesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/spaces/{spaceId}`;
+        let urlPath = `/v1/teams/{teamId}/spaces/{spaceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{spaceId}', encodeURIComponent(String(requestParameters['spaceId'])));
 
         return {
@@ -461,3 +448,12 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
 }
+
+/**
+ * @export
+ */
+export const ListSpacesZoneEnum = {
+    de_fra_a: 'de-fra-a',
+    sg_sin_a: 'sg-sin-a',
+} as const;
+export type ListSpacesZoneEnum = typeof ListSpacesZoneEnum[keyof typeof ListSpacesZoneEnum];

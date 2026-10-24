@@ -31,12 +31,20 @@ import {
 
 export interface DeleteApiTokenRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     tokenId: string;
 }
 
 export interface ListApiTokensRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -56,6 +64,13 @@ export class ApiTokensApi extends runtime.BaseAPI {
      * Creates request options for deleteApiToken without sending the request
      */
     async deleteApiTokenRequestOpts(requestParameters: DeleteApiTokenRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteApiToken().'
+            );
+        }
+
         if (requestParameters['tokenId'] == null) {
             throw new runtime.RequiredError(
                 'tokenId',
@@ -76,7 +91,8 @@ export class ApiTokensApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api-tokens/{tokenId}`;
+        let urlPath = `/v1/teams/{teamId}/api-tokens/{tokenId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{tokenId}', encodeURIComponent(String(requestParameters['tokenId'])));
 
         return {
@@ -109,6 +125,13 @@ export class ApiTokensApi extends runtime.BaseAPI {
      * Creates request options for listApiTokens without sending the request
      */
     async listApiTokensRequestOpts(requestParameters: ListApiTokensRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listApiTokens().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -130,7 +153,8 @@ export class ApiTokensApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api-tokens`;
+        let urlPath = `/v1/teams/{teamId}/api-tokens`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -153,7 +177,7 @@ export class ApiTokensApi extends runtime.BaseAPI {
     /**
      * List API tokens in this team: everyone\'s for an owner, otherwise the caller\'s own
      */
-    async listApiTokens(requestParameters: ListApiTokensRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListApiTokensResponse> {
+    async listApiTokens(requestParameters: ListApiTokensRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListApiTokensResponse> {
         const response = await this.listApiTokensRaw(requestParameters, initOverrides);
         return await response.value();
     }

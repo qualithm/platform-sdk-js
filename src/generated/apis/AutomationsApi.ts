@@ -101,12 +101,20 @@ import {
 
 export interface CreateAutomationOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createAutomationRequest: CreateAutomationRequest;
 }
 
 export interface CreateAutomationFromTemplateOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -115,12 +123,20 @@ export interface CreateAutomationFromTemplateOperationRequest {
 
 export interface CreateAutomationTriggerSecretRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     automationId: string;
 }
 
 export interface DeleteAutomationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -129,12 +145,20 @@ export interface DeleteAutomationRequest {
 
 export interface DisableAutomationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     automationId: string;
 }
 
 export interface EnableAutomationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -143,12 +167,20 @@ export interface EnableAutomationRequest {
 
 export interface GetAutomationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     automationId: string;
 }
 
 export interface ListAutomationRunsRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -165,6 +197,10 @@ export interface ListAutomationRunsRequest {
 
 export interface ListAutomationsRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * Page number, from 1. Default 1.
      */
     page?: number;
@@ -176,12 +212,20 @@ export interface ListAutomationsRequest {
 
 export interface ListDeviceAutomationTemplatesRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
 }
 
 export interface RunAutomationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -196,6 +240,10 @@ export interface TriggerAutomationRequest {
 }
 
 export interface UpdateAutomationOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -215,6 +263,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for createAutomation without sending the request
      */
     async createAutomationRequestOpts(requestParameters: CreateAutomationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createAutomation().'
+            );
+        }
+
         if (requestParameters['createAutomationRequest'] == null) {
             throw new runtime.RequiredError(
                 'createAutomationRequest',
@@ -237,7 +292,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations`;
+        let urlPath = `/v1/teams/{teamId}/automations`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -270,6 +326,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for createAutomationFromTemplate without sending the request
      */
     async createAutomationFromTemplateRequestOpts(requestParameters: CreateAutomationFromTemplateOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createAutomationFromTemplate().'
+            );
+        }
+
         if (requestParameters['createAutomationFromTemplateRequest'] == null) {
             throw new runtime.RequiredError(
                 'createAutomationFromTemplateRequest',
@@ -292,7 +355,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/from-template`;
+        let urlPath = `/v1/teams/{teamId}/automations/from-template`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -325,6 +389,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for createAutomationTriggerSecret without sending the request
      */
     async createAutomationTriggerSecretRequestOpts(requestParameters: CreateAutomationTriggerSecretRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createAutomationTriggerSecret().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -345,7 +416,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}/trigger-secret`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/trigger-secret`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -378,6 +450,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for deleteAutomation without sending the request
      */
     async deleteAutomationRequestOpts(requestParameters: DeleteAutomationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -398,7 +477,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -431,6 +511,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for disableAutomation without sending the request
      */
     async disableAutomationRequestOpts(requestParameters: DisableAutomationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling disableAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -451,7 +538,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}/disable`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/disable`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -484,6 +572,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for enableAutomation without sending the request
      */
     async enableAutomationRequestOpts(requestParameters: EnableAutomationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling enableAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -504,7 +599,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}/enable`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/enable`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -537,6 +633,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for getAutomation without sending the request
      */
     async getAutomationRequestOpts(requestParameters: GetAutomationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -557,7 +660,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -590,6 +694,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for listAutomationRuns without sending the request
      */
     async listAutomationRunsRequestOpts(requestParameters: ListAutomationRunsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listAutomationRuns().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -618,7 +729,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}/runs`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/runs`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -651,6 +763,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for listAutomations without sending the request
      */
     async listAutomationsRequestOpts(requestParameters: ListAutomationsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listAutomations().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -672,7 +791,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations`;
+        let urlPath = `/v1/teams/{teamId}/automations`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -695,7 +815,7 @@ export class AutomationsApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s automations
      */
-    async listAutomations(requestParameters: ListAutomationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAutomationsResponse> {
+    async listAutomations(requestParameters: ListAutomationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAutomationsResponse> {
         const response = await this.listAutomationsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -704,6 +824,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for listDeviceAutomationTemplates without sending the request
      */
     async listDeviceAutomationTemplatesRequestOpts(requestParameters: ListDeviceAutomationTemplatesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDeviceAutomationTemplates().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -724,7 +851,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/automation-templates`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/automation-templates`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -757,6 +885,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for runAutomation without sending the request
      */
     async runAutomationRequestOpts(requestParameters: RunAutomationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling runAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -777,7 +912,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}/run`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/run`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
@@ -817,7 +953,7 @@ export class AutomationsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
 
-        let urlPath = `/automations/trigger`;
+        let urlPath = `/v1/automations/trigger`;
 
         return {
             path: urlPath,
@@ -850,6 +986,13 @@ export class AutomationsApi extends runtime.BaseAPI {
      * Creates request options for updateAutomation without sending the request
      */
     async updateAutomationRequestOpts(requestParameters: UpdateAutomationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling updateAutomation().'
+            );
+        }
+
         if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
                 'automationId',
@@ -879,7 +1022,8 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/automations/{automationId}`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {

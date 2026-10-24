@@ -19,6 +19,13 @@ import {
     ApiErrorToJSON,
 } from '../models/ApiError.js';
 
+export interface StreamEventsRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+}
+
 /**
  * 
  */
@@ -27,7 +34,14 @@ export class EventsApi extends runtime.BaseAPI {
     /**
      * Creates request options for streamEvents without sending the request
      */
-    async streamEventsRequestOpts(): Promise<runtime.RequestOpts> {
+    async streamEventsRequestOpts(requestParameters: StreamEventsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling streamEvents().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -41,7 +55,8 @@ export class EventsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/events/stream`;
+        let urlPath = `/v1/teams/{teamId}/events`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -54,8 +69,8 @@ export class EventsApi extends runtime.BaseAPI {
     /**
      * Stream the team\'s live events
      */
-    async streamEventsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        const requestOptions = await this.streamEventsRequestOpts();
+    async streamEventsRaw(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.streamEventsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -68,8 +83,8 @@ export class EventsApi extends runtime.BaseAPI {
     /**
      * Stream the team\'s live events
      */
-    async streamEvents(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.streamEventsRaw(initOverrides);
+    async streamEvents(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.streamEventsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
