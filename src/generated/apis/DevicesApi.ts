@@ -71,12 +71,20 @@ import {
 
 export interface CreateDeviceOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createDeviceRequest: CreateDeviceRequest;
 }
 
 export interface DeleteDeviceRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -85,12 +93,24 @@ export interface DeleteDeviceRequest {
 
 export interface GetDeviceRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
 }
 
 export interface ListDevicesRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
+     * Only the devices in this space
+     */
+    spaceId?: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -110,6 +130,10 @@ export interface ListTeamDeviceStatesRequest {
 
 export interface ParkDeviceRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
@@ -117,12 +141,20 @@ export interface ParkDeviceRequest {
 
 export interface UnparkDeviceRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
 }
 
 export interface UpdateDeviceOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -142,6 +174,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for createDevice without sending the request
      */
     async createDeviceRequestOpts(requestParameters: CreateDeviceOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createDevice().'
+            );
+        }
+
         if (requestParameters['createDeviceRequest'] == null) {
             throw new runtime.RequiredError(
                 'createDeviceRequest',
@@ -164,7 +203,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices`;
+        let urlPath = `/v1/teams/{teamId}/devices`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -197,6 +237,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for deleteDevice without sending the request
      */
     async deleteDeviceRequestOpts(requestParameters: DeleteDeviceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteDevice().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -217,7 +264,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -250,6 +298,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for getDevice without sending the request
      */
     async getDeviceRequestOpts(requestParameters: GetDeviceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getDevice().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -270,7 +325,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -303,7 +359,18 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for listDevices without sending the request
      */
     async listDevicesRequestOpts(requestParameters: ListDevicesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDevices().'
+            );
+        }
+
         const queryParameters: any = {};
+
+        if (requestParameters['spaceId'] != null) {
+            queryParameters['spaceId'] = requestParameters['spaceId'];
+        }
 
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];
@@ -324,7 +391,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices`;
+        let urlPath = `/v1/teams/{teamId}/devices`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -335,7 +403,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the workspace\'s devices
+     * List the team\'s devices, optionally in one space
      */
     async listDevicesRaw(requestParameters: ListDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListDevicesResponse>> {
         const requestOptions = await this.listDevicesRequestOpts(requestParameters);
@@ -345,9 +413,9 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the workspace\'s devices
+     * List the team\'s devices, optionally in one space
      */
-    async listDevices(requestParameters: ListDevicesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDevicesResponse> {
+    async listDevices(requestParameters: ListDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDevicesResponse> {
         const response = await this.listDevicesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -376,7 +444,7 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/device-state`;
+        let urlPath = `/v1/teams/{teamId}/device-states`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -409,6 +477,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for parkDevice without sending the request
      */
     async parkDeviceRequestOpts(requestParameters: ParkDeviceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling parkDevice().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -429,7 +504,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/park`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/park`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -462,6 +538,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for unparkDevice without sending the request
      */
     async unparkDeviceRequestOpts(requestParameters: UnparkDeviceRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling unparkDevice().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -482,7 +565,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/unpark`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/unpark`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -515,6 +599,13 @@ export class DevicesApi extends runtime.BaseAPI {
      * Creates request options for updateDevice without sending the request
      */
     async updateDeviceRequestOpts(requestParameters: UpdateDeviceOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling updateDevice().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -544,7 +635,8 @@ export class DevicesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {

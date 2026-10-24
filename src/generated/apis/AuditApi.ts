@@ -26,6 +26,10 @@ import {
 
 export interface ListAuditEventsRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * Page number, from 1. Default 1.
      */
     page?: number;
@@ -44,6 +48,13 @@ export class AuditApi extends runtime.BaseAPI {
      * Creates request options for listAuditEvents without sending the request
      */
     async listAuditEventsRequestOpts(requestParameters: ListAuditEventsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listAuditEvents().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -65,7 +76,8 @@ export class AuditApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/audit`;
+        let urlPath = `/v1/teams/{teamId}/audit-events`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -88,7 +100,7 @@ export class AuditApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s audit trail, newest first
      */
-    async listAuditEvents(requestParameters: ListAuditEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuditEventsResponse> {
+    async listAuditEvents(requestParameters: ListAuditEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuditEventsResponse> {
         const response = await this.listAuditEventsRaw(requestParameters, initOverrides);
         return await response.value();
     }

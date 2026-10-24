@@ -155,7 +155,7 @@ export class MembersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/members`;
+        let urlPath = `/v1/teams/{teamId}/members`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -216,7 +216,7 @@ export class MembersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/members/{memberId}`;
+        let urlPath = `/v1/teams/{teamId}/members/{memberId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{memberId}', encodeURIComponent(String(requestParameters['memberId'])));
 
@@ -279,7 +279,7 @@ export class MembersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/members/{memberId}`;
+        let urlPath = `/v1/teams/{teamId}/members/{memberId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{memberId}', encodeURIComponent(String(requestParameters['memberId'])));
 
@@ -341,7 +341,7 @@ export class MembersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/members`;
+        let urlPath = `/v1/teams/{teamId}/members`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -410,7 +410,7 @@ export class MembersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/members/{memberId}`;
+        let urlPath = `/v1/teams/{teamId}/members/{memberId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{memberId}', encodeURIComponent(String(requestParameters['memberId'])));
 

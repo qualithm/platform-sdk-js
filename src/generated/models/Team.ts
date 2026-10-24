@@ -55,8 +55,52 @@ export interface Team {
      * 
      */
     memberRole: MemberRole;
+    /**
+     * What the caller can do in this team: their role, lowered to a token's ceiling
+     */
+    permissions: Array<TeamPermissionsEnum>;
 }
 
+
+/**
+ * @export
+ */
+export const TeamPermissionsEnum = {
+    team_read: 'team.read',
+    team_update: 'team.update',
+    team_delete: 'team.delete',
+    member_invite: 'member.invite',
+    member_update: 'member.update',
+    member_remove: 'member.remove',
+    billing_read: 'billing.read',
+    billing_manage: 'billing.manage',
+    usage_read: 'usage.read',
+    audit_read: 'audit.read',
+    token_read: 'token.read',
+    token_create: 'token.create',
+    token_revoke: 'token.revoke',
+    token_revoke_any: 'token.revoke_any',
+    space_read: 'space.read',
+    space_write: 'space.write',
+    device_read: 'device.read',
+    device_write: 'device.write',
+    device_command: 'device.command',
+    credential_read: 'credential.read',
+    credential_manage: 'credential.manage',
+    enrollment_read: 'enrollment.read',
+    enrollment_manage: 'enrollment.manage',
+    authority_read: 'authority.read',
+    authority_manage: 'authority.manage',
+    telemetry_read: 'telemetry.read',
+    capability_read: 'capability.read',
+    capability_update: 'capability.update',
+    dashboard_read: 'dashboard.read',
+    dashboard_write: 'dashboard.write',
+    automation_read: 'automation.read',
+    automation_write: 'automation.write',
+    automation_run: 'automation.run',
+} as const;
+export type TeamPermissionsEnum = typeof TeamPermissionsEnum[keyof typeof TeamPermissionsEnum];
 
 
 /**
@@ -70,6 +114,7 @@ export function instanceOfTeam(value: object): value is Team {
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     if (!('memberId' in value) || value['memberId'] === undefined) return false;
     if (!('memberRole' in value) || value['memberRole'] === undefined) return false;
+    if (!('permissions' in value) || value['permissions'] === undefined) return false;
     return true;
 }
 
@@ -90,6 +135,7 @@ export function TeamFromJSONTyped(json: any, ignoreDiscriminator: boolean): Team
         'updatedAt': json['updatedAt'],
         'memberId': json['memberId'],
         'memberRole': MemberRoleFromJSON(json['memberRole']),
+        'permissions': json['permissions'],
     };
 }
 
@@ -111,6 +157,7 @@ export function TeamToJSONTyped(value?: Team | null, ignoreDiscriminator: boolea
         'updatedAt': value['updatedAt'],
         'memberId': value['memberId'],
         'memberRole': MemberRoleToJSON(value['memberRole']),
+        'permissions': value['permissions'],
     };
 }
 

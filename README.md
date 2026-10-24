@@ -28,10 +28,15 @@ npm install @qualithm/platform
 Create an API token in the Qualithm app, on the team page under **API tokens**, then:
 
 ```ts
-import { DevicesApi, PlatformClient } from "@qualithm/platform"
+import { DevicesApi, PlatformClient, TeamsApi } from "@qualithm/platform"
 
 const platform = new PlatformClient({ token: "<your-api-token>" })
-const { data } = await platform.api(DevicesApi).listDevices()
+
+// An API token belongs to one team, so its team list has exactly that team.
+const teams = await platform.api(TeamsApi).listTeams()
+const teamId = teams.data.items[0].id
+
+const { data } = await platform.api(DevicesApi).listDevices({ teamId })
 
 for (const device of data.items) {
   console.log(device.name)
@@ -55,12 +60,13 @@ const platform = new PlatformClient({
 ### Call an operation
 
 `platform.api(SomeApi)` returns that resource group, bound to your token. Method names match the
-spec's `operationId`s. Every response is the API's envelope, so the result is in `data`:
+spec's `operationId`s. Every response is the API's envelope, so the result is in `data`. Operations
+on a team's resources take its `teamId`:
 
 ```ts
 import { AutomationsApi } from "@qualithm/platform"
 
-const { data } = await platform.api(AutomationsApi).listAutomations({ page: 1, limit: 50 })
+const { data } = await platform.api(AutomationsApi).listAutomations({ teamId, page: 1, limit: 50 })
 ```
 
 ### Error Handling
@@ -72,10 +78,10 @@ doesn't know yet reads as `unknown`, and a request that got no response has `sta
 import { DevicesApi, PlatformError } from "@qualithm/platform"
 
 try {
-  await platform.api(DevicesApi).getDevice({ deviceId: "<device-id>" })
+  await platform.api(DevicesApi).getDevice({ teamId, deviceId: "<device-id>" })
 } catch (error) {
   if (error instanceof PlatformError && error.code === "not_found") {
-    // the device doesn't exist, or isn't in this workspace
+    // the device doesn't exist, or isn't in this team
   }
   throw error
 }

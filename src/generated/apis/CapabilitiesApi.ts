@@ -41,6 +41,10 @@ import {
 
 export interface ListCapabilitiesRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * Only capabilities of this type
      */
     type?: ListCapabilitiesTypeEnum;
@@ -64,12 +68,20 @@ export interface ListCapabilitiesRequest {
 
 export interface ListDeviceCapabilitiesRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
 }
 
 export interface UpdateCapabilityOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -89,6 +101,13 @@ export class CapabilitiesApi extends runtime.BaseAPI {
      * Creates request options for listCapabilities without sending the request
      */
     async listCapabilitiesRequestOpts(requestParameters: ListCapabilitiesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listCapabilities().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['type'] != null) {
@@ -122,7 +141,8 @@ export class CapabilitiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/capabilities`;
+        let urlPath = `/v1/teams/{teamId}/capabilities`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -145,7 +165,7 @@ export class CapabilitiesApi extends runtime.BaseAPI {
     /**
      * List the capabilities of the workspace\'s devices
      */
-    async listCapabilities(requestParameters: ListCapabilitiesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListCapabilitiesResponse> {
+    async listCapabilities(requestParameters: ListCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListCapabilitiesResponse> {
         const response = await this.listCapabilitiesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -154,6 +174,13 @@ export class CapabilitiesApi extends runtime.BaseAPI {
      * Creates request options for listDeviceCapabilities without sending the request
      */
     async listDeviceCapabilitiesRequestOpts(requestParameters: ListDeviceCapabilitiesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDeviceCapabilities().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -174,7 +201,8 @@ export class CapabilitiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/capabilities`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/capabilities`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -207,6 +235,13 @@ export class CapabilitiesApi extends runtime.BaseAPI {
      * Creates request options for updateCapability without sending the request
      */
     async updateCapabilityRequestOpts(requestParameters: UpdateCapabilityOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling updateCapability().'
+            );
+        }
+
         if (requestParameters['capabilityId'] == null) {
             throw new runtime.RequiredError(
                 'capabilityId',
@@ -236,7 +271,8 @@ export class CapabilitiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/capabilities/{capabilityId}`;
+        let urlPath = `/v1/teams/{teamId}/capabilities/{capabilityId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{capabilityId}', encodeURIComponent(String(requestParameters['capabilityId'])));
 
         return {

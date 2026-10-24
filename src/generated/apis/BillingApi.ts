@@ -39,7 +39,18 @@ import {
     PreviewTierChangeResponseToJSON,
 } from '../models/PreviewTierChangeResponse.js';
 
+export interface GetBillingSummaryRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+}
+
 export interface ListInvoicesRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -51,6 +62,10 @@ export interface ListInvoicesRequest {
 }
 
 export interface PreviewTierChangeOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -65,7 +80,14 @@ export class BillingApi extends runtime.BaseAPI {
     /**
      * Creates request options for getBillingSummary without sending the request
      */
-    async getBillingSummaryRequestOpts(): Promise<runtime.RequestOpts> {
+    async getBillingSummaryRequestOpts(requestParameters: GetBillingSummaryRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling getBillingSummary().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -79,7 +101,8 @@ export class BillingApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/billing/summary`;
+        let urlPath = `/v1/teams/{teamId}/billing/summary`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -92,8 +115,8 @@ export class BillingApi extends runtime.BaseAPI {
     /**
      * Get the workspace\'s plan, usage, price and add-ons
      */
-    async getBillingSummaryRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetBillingSummaryResponse>> {
-        const requestOptions = await this.getBillingSummaryRequestOpts();
+    async getBillingSummaryRaw(requestParameters: GetBillingSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetBillingSummaryResponse>> {
+        const requestOptions = await this.getBillingSummaryRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GetBillingSummaryResponseFromJSON(jsonValue));
@@ -102,8 +125,8 @@ export class BillingApi extends runtime.BaseAPI {
     /**
      * Get the workspace\'s plan, usage, price and add-ons
      */
-    async getBillingSummary(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetBillingSummaryResponse> {
-        const response = await this.getBillingSummaryRaw(initOverrides);
+    async getBillingSummary(requestParameters: GetBillingSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetBillingSummaryResponse> {
+        const response = await this.getBillingSummaryRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -111,6 +134,13 @@ export class BillingApi extends runtime.BaseAPI {
      * Creates request options for listInvoices without sending the request
      */
     async listInvoicesRequestOpts(requestParameters: ListInvoicesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listInvoices().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -132,7 +162,8 @@ export class BillingApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/invoices`;
+        let urlPath = `/v1/teams/{teamId}/invoices`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -155,7 +186,7 @@ export class BillingApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s invoices
      */
-    async listInvoices(requestParameters: ListInvoicesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListInvoicesResponse> {
+    async listInvoices(requestParameters: ListInvoicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListInvoicesResponse> {
         const response = await this.listInvoicesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -164,6 +195,13 @@ export class BillingApi extends runtime.BaseAPI {
      * Creates request options for previewTierChange without sending the request
      */
     async previewTierChangeRequestOpts(requestParameters: PreviewTierChangeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling previewTierChange().'
+            );
+        }
+
         if (requestParameters['previewTierChangeRequest'] == null) {
             throw new runtime.RequiredError(
                 'previewTierChangeRequest',
@@ -186,7 +224,8 @@ export class BillingApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/billing/tier/preview`;
+        let urlPath = `/v1/teams/{teamId}/billing/tier/preview`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,

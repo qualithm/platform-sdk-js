@@ -107,7 +107,7 @@ export class TeamsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams`;
+        let urlPath = `/v1/teams`;
 
         return {
             path: urlPath,
@@ -161,7 +161,7 @@ export class TeamsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}`;
+        let urlPath = `/v1/teams/{teamId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -214,7 +214,7 @@ export class TeamsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}`;
+        let urlPath = `/v1/teams/{teamId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -226,7 +226,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get one of the caller\'s teams
+     * Get one of the caller\'s teams, with their role and permissions in it
      */
     async getTeamRaw(requestParameters: GetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetTeamResponse>> {
         const requestOptions = await this.getTeamRequestOpts(requestParameters);
@@ -236,7 +236,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get one of the caller\'s teams
+     * Get one of the caller\'s teams, with their role and permissions in it
      */
     async getTeam(requestParameters: GetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetTeamResponse> {
         const response = await this.getTeamRaw(requestParameters, initOverrides);
@@ -268,7 +268,7 @@ export class TeamsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams`;
+        let urlPath = `/v1/teams`;
 
         return {
             path: urlPath,
@@ -279,7 +279,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the caller\'s teams
+     * List the caller\'s teams; an API token sees only its own
      */
     async listTeamsRaw(requestParameters: ListTeamsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListTeamsResponse>> {
         const requestOptions = await this.listTeamsRequestOpts(requestParameters);
@@ -289,7 +289,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the caller\'s teams
+     * List the caller\'s teams; an API token sees only its own
      */
     async listTeams(requestParameters: ListTeamsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTeamsResponse> {
         const response = await this.listTeamsRaw(requestParameters, initOverrides);
@@ -329,7 +329,7 @@ export class TeamsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}`;
+        let urlPath = `/v1/teams/{teamId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {

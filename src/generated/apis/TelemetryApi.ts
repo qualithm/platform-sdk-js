@@ -26,7 +26,11 @@ import {
 
 export interface ListTelemetryRequest {
     /**
-     * The device to read
+     * 
+     */
+    teamId: string;
+    /**
+     * 
      */
     deviceId: string;
     /**
@@ -64,6 +68,13 @@ export class TelemetryApi extends runtime.BaseAPI {
      * Creates request options for listTelemetry without sending the request
      */
     async listTelemetryRequestOpts(requestParameters: ListTelemetryRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listTelemetry().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -93,10 +104,6 @@ export class TelemetryApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
-
-        if (requestParameters['deviceId'] != null) {
-            queryParameters['deviceId'] = requestParameters['deviceId'];
-        }
 
         if (requestParameters['metric'] != null) {
             queryParameters['metric'] = requestParameters['metric'];
@@ -133,7 +140,9 @@ export class TelemetryApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/telemetry`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/telemetry`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+        urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
             path: urlPath,

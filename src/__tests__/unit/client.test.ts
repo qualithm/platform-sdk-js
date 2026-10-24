@@ -22,11 +22,15 @@ function stubFetch(status: number, body: unknown): { fetch: typeof fetch; calls:
   return { fetch: fetchStub, calls }
 }
 
+const teamId = "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f"
+
 const device = {
   id: "0b9f8a1e-8c1d-4b6f-9a51-2f6c1e3d4a5b",
-  teamId: "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f",
-  spaceId: null,
+  teamId,
+  spaceId: "2d3e4f5a-6b7c-4d8e-9f0a-1b2c3d4e5f6a",
+  spaceName: "bench",
   name: "bench-pico",
+  payload: "{}",
   status: "claimed",
   createdAt: "2026-10-19 00:00:00",
   updatedAt: "2026-10-19 00:00:00"
@@ -42,10 +46,10 @@ describe("PlatformClient", () => {
     const { fetch, calls } = stubFetch(200, { data: { current: 1, items: [], last: 1 } })
     const platform = new PlatformClient({ token: "qmt_test", fetch })
 
-    const page = await platform.api(DevicesApi).listDevices({ page: 2, limit: 10 })
+    const page = await platform.api(DevicesApi).listDevices({ teamId, page: 2, limit: 10 })
 
     expect(page.data.items).toEqual([])
-    expect(calls[0]?.url).toBe(`${DEFAULT_BASE_URL}/devices?page=2&limit=10`)
+    expect(calls[0]?.url).toBe(`${DEFAULT_BASE_URL}/v1/teams/${teamId}/devices?page=2&limit=10`)
     expect(new Headers(calls[0]?.init.headers).get("Authorization")).toBe("Bearer qmt_test")
   })
 
@@ -56,10 +60,12 @@ describe("PlatformClient", () => {
 
     const got = await new PlatformClient({ fetch })
       .api(DevicesApi)
-      .getDevice({ deviceId: device.id })
+      .getDevice({ teamId, deviceId: device.id })
 
     expect(got.data.name).toBe("bench-pico")
-    expect(calls[0]?.url).toBe(`https://api.dev.qualithm.com/devices/${device.id}`)
+    expect(calls[0]?.url).toBe(
+      `https://api.dev.qualithm.com/v1/teams/${teamId}/devices/${device.id}`
+    )
     expect(new Headers(calls[0]?.init.headers).get("Authorization")).toBe("Bearer qmt_env")
   })
 
@@ -99,7 +105,7 @@ describe("PlatformError", () => {
     const { fetch } = stubFetch(status, body)
     const platform = new PlatformClient({ token: "qmt_test", fetch })
     try {
-      await platform.api(DevicesApi).getDevice({ deviceId: device.id })
+      await platform.api(DevicesApi).getDevice({ teamId, deviceId: device.id })
     } catch (error) {
       return error as PlatformError
     }

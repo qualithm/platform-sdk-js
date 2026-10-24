@@ -19,96 +19,15 @@ import {
     ApiErrorToJSON,
 } from '../models/ApiError.js';
 import {
-    type ListZoneSpacesResponse,
-    ListZoneSpacesResponseFromJSON,
-    ListZoneSpacesResponseToJSON,
-} from '../models/ListZoneSpacesResponse.js';
-import {
     type ListZonesResponse,
     ListZonesResponseFromJSON,
     ListZonesResponseToJSON,
 } from '../models/ListZonesResponse.js';
 
-export interface ListZoneSpacesRequest {
-    /**
-     * 
-     */
-    zone: ListZoneSpacesZoneEnum;
-    /**
-     * Page number, from 1. Default 1.
-     */
-    page?: number;
-    /**
-     * Items per page, 1 to 100. Default 20.
-     */
-    limit?: number;
-}
-
 /**
  * 
  */
 export class ZonesApi extends runtime.BaseAPI {
-
-    /**
-     * Creates request options for listZoneSpaces without sending the request
-     */
-    async listZoneSpacesRequestOpts(requestParameters: ListZoneSpacesRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['zone'] == null) {
-            throw new runtime.RequiredError(
-                'zone',
-                'Required parameter "zone" was null or undefined when calling listZoneSpaces().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['page'] != null) {
-            queryParameters['page'] = requestParameters['page'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/zones/{zone}/spaces`;
-        urlPath = urlPath.replace('{zone}', encodeURIComponent(String(requestParameters['zone'])));
-
-        return {
-            path: urlPath,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * List the workspace\'s spaces in a zone
-     */
-    async listZoneSpacesRaw(requestParameters: ListZoneSpacesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListZoneSpacesResponse>> {
-        const requestOptions = await this.listZoneSpacesRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListZoneSpacesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List the workspace\'s spaces in a zone
-     */
-    async listZoneSpaces(requestParameters: ListZoneSpacesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListZoneSpacesResponse> {
-        const response = await this.listZoneSpacesRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
 
     /**
      * Creates request options for listZones without sending the request
@@ -119,7 +38,7 @@ export class ZonesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
 
-        let urlPath = `/zones`;
+        let urlPath = `/v1/zones`;
 
         return {
             path: urlPath,
@@ -148,12 +67,3 @@ export class ZonesApi extends runtime.BaseAPI {
     }
 
 }
-
-/**
- * @export
- */
-export const ListZoneSpacesZoneEnum = {
-    de_fra_a: 'de-fra-a',
-    sg_sin_a: 'sg-sin-a',
-} as const;
-export type ListZoneSpacesZoneEnum = typeof ListZoneSpacesZoneEnum[keyof typeof ListZoneSpacesZoneEnum];
