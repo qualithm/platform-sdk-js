@@ -36,6 +36,10 @@ import {
 
 export interface CreateDeviceCommandOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     deviceId: string;
@@ -46,6 +50,10 @@ export interface CreateDeviceCommandOperationRequest {
 }
 
 export interface ListDeviceCommandsRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * 
      */
@@ -69,6 +77,13 @@ export class CommandsApi extends runtime.BaseAPI {
      * Creates request options for createDeviceCommand without sending the request
      */
     async createDeviceCommandRequestOpts(requestParameters: CreateDeviceCommandOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createDeviceCommand().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -98,7 +113,8 @@ export class CommandsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/commands`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/commands`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {
@@ -132,6 +148,13 @@ export class CommandsApi extends runtime.BaseAPI {
      * Creates request options for listDeviceCommands without sending the request
      */
     async listDeviceCommandsRequestOpts(requestParameters: ListDeviceCommandsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listDeviceCommands().'
+            );
+        }
+
         if (requestParameters['deviceId'] == null) {
             throw new runtime.RequiredError(
                 'deviceId',
@@ -160,7 +183,8 @@ export class CommandsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/devices/{deviceId}/commands`;
+        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/commands`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
 
         return {

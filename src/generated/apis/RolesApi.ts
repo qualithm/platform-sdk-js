@@ -65,7 +65,7 @@ export class RolesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/roles`;
+        let urlPath = `/v1/account/memberships`;
 
         return {
             path: urlPath,

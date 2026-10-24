@@ -1,14 +1,22 @@
 /**
- * List the workspace's devices.
+ * List the devices in the token's team.
  *
  *   QUALITHM_API_TOKEN=qmt_... bun run examples/list-devices.ts
  */
-import { DevicesApi, PlatformClient, PlatformError } from "@qualithm/platform"
+import { DevicesApi, PlatformClient, PlatformError, TeamsApi } from "@qualithm/platform"
 
 const platform = new PlatformClient()
 
 try {
-  const { data } = await platform.api(DevicesApi).listDevices({ limit: 20 })
+  // An API token belongs to one team, so its team list has exactly that team.
+  const teams = await platform.api(TeamsApi).listTeams()
+  const team = teams.data.items.at(0)
+  if (team === undefined) {
+    process.stderr.write("list-devices: the token has no team\n")
+    process.exit(1)
+  }
+
+  const { data } = await platform.api(DevicesApi).listDevices({ teamId: team.id, limit: 20 })
   for (const device of data.items) {
     process.stdout.write(`${device.id}  ${device.spaceName}  ${device.name}\n`)
   }

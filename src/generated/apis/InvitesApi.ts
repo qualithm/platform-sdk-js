@@ -114,7 +114,7 @@ export class InvitesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/invites`;
+        let urlPath = `/v1/teams/{teamId}/invites`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
@@ -175,7 +175,7 @@ export class InvitesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/invites/{inviteId}`;
+        let urlPath = `/v1/teams/{teamId}/invites/{inviteId}`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{inviteId}', encodeURIComponent(String(requestParameters['inviteId'])));
 
@@ -237,7 +237,7 @@ export class InvitesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/teams/{teamId}/invites`;
+        let urlPath = `/v1/teams/{teamId}/invites`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {

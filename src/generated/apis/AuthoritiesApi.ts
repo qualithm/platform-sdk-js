@@ -41,6 +41,10 @@ import {
 
 export interface CreateAuthorityOperationRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     createAuthorityRequest: CreateAuthorityRequest;
@@ -48,12 +52,20 @@ export interface CreateAuthorityOperationRequest {
 
 export interface DeleteAuthorityRequest {
     /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
      * 
      */
     authorityId: string;
 }
 
 export interface ListAuthoritiesRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
     /**
      * Page number, from 1. Default 1.
      */
@@ -73,6 +85,13 @@ export class AuthoritiesApi extends runtime.BaseAPI {
      * Creates request options for createAuthority without sending the request
      */
     async createAuthorityRequestOpts(requestParameters: CreateAuthorityOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createAuthority().'
+            );
+        }
+
         if (requestParameters['createAuthorityRequest'] == null) {
             throw new runtime.RequiredError(
                 'createAuthorityRequest',
@@ -95,7 +114,8 @@ export class AuthoritiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/authorities`;
+        let urlPath = `/v1/teams/{teamId}/authorities`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -128,6 +148,13 @@ export class AuthoritiesApi extends runtime.BaseAPI {
      * Creates request options for deleteAuthority without sending the request
      */
     async deleteAuthorityRequestOpts(requestParameters: DeleteAuthorityRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling deleteAuthority().'
+            );
+        }
+
         if (requestParameters['authorityId'] == null) {
             throw new runtime.RequiredError(
                 'authorityId',
@@ -148,7 +175,8 @@ export class AuthoritiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/authorities/{authorityId}`;
+        let urlPath = `/v1/teams/{teamId}/authorities/{authorityId}`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
         urlPath = urlPath.replace('{authorityId}', encodeURIComponent(String(requestParameters['authorityId'])));
 
         return {
@@ -181,6 +209,13 @@ export class AuthoritiesApi extends runtime.BaseAPI {
      * Creates request options for listAuthorities without sending the request
      */
     async listAuthoritiesRequestOpts(requestParameters: ListAuthoritiesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listAuthorities().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['page'] != null) {
@@ -202,7 +237,8 @@ export class AuthoritiesApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/authorities`;
+        let urlPath = `/v1/teams/{teamId}/authorities`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
 
         return {
             path: urlPath,
@@ -225,7 +261,7 @@ export class AuthoritiesApi extends runtime.BaseAPI {
     /**
      * List the workspace\'s certificate authorities
      */
-    async listAuthorities(requestParameters: ListAuthoritiesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuthoritiesResponse> {
+    async listAuthorities(requestParameters: ListAuthoritiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuthoritiesResponse> {
         const response = await this.listAuthoritiesRaw(requestParameters, initOverrides);
         return await response.value();
     }
