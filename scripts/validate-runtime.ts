@@ -42,7 +42,7 @@ try {
     });
   };
   const platform = new PlatformClient({ token: "qmt_test", fetch: fetchStub });
-  const page = await platform.api(DevicesApi).listDevices();
+  const page = await platform.api(DevicesApi).listDevices({ teamId: "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f" });
   if (auth === "Bearer qmt_test" && Array.isArray(page.data.items)) {
     passed++;
   } else {
