@@ -20,15 +20,15 @@ import { mapValues } from '../runtime.js';
  */
 export interface Enrollment {
     /**
-     * 
+     * An enrollment ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
     /**
@@ -40,7 +40,7 @@ export interface Enrollment {
      */
     status: EnrollmentStatusEnum;
     /**
-     * 
+     * A device ID
      */
     claimedDeviceId: string | null;
     /**

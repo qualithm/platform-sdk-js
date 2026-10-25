@@ -30,10 +30,6 @@ export interface ListAutomationsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: AutomationPage;
 }
 
@@ -55,7 +51,6 @@ export function ListAutomationsResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AutomationPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListAutomationsResponseToJSONTyped(value?: ListAutomationsRespon
 
     return {
         
-        'message': value['message'],
         'data': AutomationPageToJSON(value['data']),
     };
 }

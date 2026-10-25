@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { ApiErrorDetailsInner } from './ApiErrorDetailsInner.js';
+import {
+    ApiErrorDetailsInnerFromJSON,
+    ApiErrorDetailsInnerFromJSONTyped,
+    ApiErrorDetailsInnerToJSON,
+    ApiErrorDetailsInnerToJSONTyped,
+} from './ApiErrorDetailsInner.js';
 import type { ApiErrorCode } from './ApiErrorCode.js';
 import {
     ApiErrorCodeFromJSON,
@@ -35,6 +42,14 @@ export interface ApiError {
      * 
      */
     code: ApiErrorCode;
+    /**
+     * The `Request-Id` this response carried; quote it
+     */
+    requestId: string;
+    /**
+     * Each field that failed validation. Validation errors only.
+     */
+    details?: Array<ApiErrorDetailsInner>;
 }
 
 
@@ -45,6 +60,7 @@ export interface ApiError {
 export function instanceOfApiError(value: object): value is ApiError {
     if (!('message' in value) || value['message'] === undefined) return false;
     if (!('code' in value) || value['code'] === undefined) return false;
+    if (!('requestId' in value) || value['requestId'] === undefined) return false;
     return true;
 }
 
@@ -60,6 +76,8 @@ export function ApiErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'message': json['message'],
         'code': ApiErrorCodeFromJSON(json['code']),
+        'requestId': json['requestId'],
+        'details': json['details'] == null ? undefined : ((json['details'] as Array<any>).map(ApiErrorDetailsInnerFromJSON)),
     };
 }
 
@@ -76,6 +94,8 @@ export function ApiErrorToJSONTyped(value?: ApiError | null, ignoreDiscriminator
         
         'message': value['message'],
         'code': ApiErrorCodeToJSON(value['code']),
+        'requestId': value['requestId'],
+        'details': value['details'] == null ? undefined : ((value['details'] as Array<any>).map(ApiErrorDetailsInnerToJSON)),
     };
 }
 

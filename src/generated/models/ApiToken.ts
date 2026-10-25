@@ -28,15 +28,15 @@ import {
  */
 export interface ApiToken {
     /**
-     * 
+     * An API token ID
      */
     id: string;
     /**
-     * 
+     * An account ID
      */
     accountId: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

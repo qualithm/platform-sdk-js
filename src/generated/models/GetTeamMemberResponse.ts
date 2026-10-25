@@ -30,10 +30,6 @@ export interface GetTeamMemberResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: TeamMember;
 }
 
@@ -55,7 +51,6 @@ export function GetTeamMemberResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TeamMemberFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetTeamMemberResponseToJSONTyped(value?: GetTeamMemberResponse |
 
     return {
         
-        'message': value['message'],
         'data': TeamMemberToJSON(value['data']),
     };
 }

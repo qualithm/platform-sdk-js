@@ -20,7 +20,7 @@ import { mapValues } from '../runtime.js';
  */
 export interface QueuedCommand {
     /**
-     * 
+     * A command ID
      */
     id: string;
     /**

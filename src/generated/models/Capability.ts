@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface Capability {
     /**
-     * 
+     * A capability ID
      */
     id: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**

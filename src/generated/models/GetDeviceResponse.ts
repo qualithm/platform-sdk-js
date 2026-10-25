@@ -30,10 +30,6 @@ export interface GetDeviceResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Device;
 }
 
@@ -55,7 +51,6 @@ export function GetDeviceResponseFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DeviceFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetDeviceResponseToJSONTyped(value?: GetDeviceResponse | null, i
 
     return {
         
-        'message': value['message'],
         'data': DeviceToJSON(value['data']),
     };
 }

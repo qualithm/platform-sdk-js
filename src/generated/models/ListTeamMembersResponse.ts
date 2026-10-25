@@ -30,10 +30,6 @@ export interface ListTeamMembersResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: TeamMemberPage;
 }
 
@@ -55,7 +51,6 @@ export function ListTeamMembersResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TeamMemberPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListTeamMembersResponseToJSONTyped(value?: ListTeamMembersRespon
 
     return {
         
-        'message': value['message'],
         'data': TeamMemberPageToJSON(value['data']),
     };
 }

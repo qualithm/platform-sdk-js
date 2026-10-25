@@ -30,10 +30,6 @@ export interface CreateDeviceResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Device;
 }
 
@@ -55,7 +51,6 @@ export function CreateDeviceResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DeviceFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateDeviceResponseToJSONTyped(value?: CreateDeviceResponse | n
 
     return {
         
-        'message': value['message'],
         'data': DeviceToJSON(value['data']),
     };
 }

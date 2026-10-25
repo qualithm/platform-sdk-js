@@ -29,11 +29,6 @@ import {
     CreateTeamMemberResponseToJSON,
 } from '../models/CreateTeamMemberResponse.js';
 import {
-    type DeleteTeamMemberResponse,
-    DeleteTeamMemberResponseFromJSON,
-    DeleteTeamMemberResponseToJSON,
-} from '../models/DeleteTeamMemberResponse.js';
-import {
     type GetTeamMemberResponse,
     GetTeamMemberResponseFromJSON,
     GetTeamMemberResponseToJSON,
@@ -48,15 +43,10 @@ import {
     UpdateTeamMemberRequestFromJSON,
     UpdateTeamMemberRequestToJSON,
 } from '../models/UpdateTeamMemberRequest.js';
-import {
-    type UpdateTeamMemberResponse,
-    UpdateTeamMemberResponseFromJSON,
-    UpdateTeamMemberResponseToJSON,
-} from '../models/UpdateTeamMemberResponse.js';
 
 export interface CreateTeamMemberOperationRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -67,29 +57,29 @@ export interface CreateTeamMemberOperationRequest {
 
 export interface DeleteTeamMemberRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A member ID
      */
     memberId: string;
 }
 
 export interface GetTeamMemberRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A member ID
      */
     memberId: string;
 }
 
 export interface ListTeamMembersRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -104,11 +94,11 @@ export interface ListTeamMembersRequest {
 
 export interface UpdateTeamMemberOperationRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A member ID
      */
     memberId: string;
     /**
@@ -232,20 +222,19 @@ export class MembersApi extends runtime.BaseAPI {
      * A viewer can remove only themselves; a manager only viewers and themselves.
      * Remove a member from the team
      */
-    async deleteTeamMemberRaw(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteTeamMemberResponse>> {
+    async deleteTeamMemberRaw(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteTeamMemberRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteTeamMemberResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * A viewer can remove only themselves; a manager only viewers and themselves.
      * Remove a member from the team
      */
-    async deleteTeamMember(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteTeamMemberResponse> {
-        const response = await this.deleteTeamMemberRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteTeamMember(requestParameters: DeleteTeamMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTeamMemberRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -426,19 +415,18 @@ export class MembersApi extends runtime.BaseAPI {
     /**
      * Change a member\'s role
      */
-    async updateTeamMemberRaw(requestParameters: UpdateTeamMemberOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateTeamMemberResponse>> {
+    async updateTeamMemberRaw(requestParameters: UpdateTeamMemberOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateTeamMemberRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateTeamMemberResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Change a member\'s role
      */
-    async updateTeamMember(requestParameters: UpdateTeamMemberOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateTeamMemberResponse> {
-        const response = await this.updateTeamMemberRaw(requestParameters, initOverrides);
-        return await response.value();
+    async updateTeamMember(requestParameters: UpdateTeamMemberOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateTeamMemberRaw(requestParameters, initOverrides);
     }
 
 }

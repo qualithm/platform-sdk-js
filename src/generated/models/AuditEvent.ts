@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface AuditEvent {
     /**
-     * 
+     * An audit event ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -32,7 +32,7 @@ export interface AuditEvent {
      */
     actorKind: AuditEventActorKindEnum;
     /**
-     * The member or device that acted; null for the system
+     * An ID of any type
      */
     actorId: string | null;
     /**
@@ -44,7 +44,7 @@ export interface AuditEvent {
      */
     targetKind: string;
     /**
-     * 
+     * An ID of any type
      */
     targetId: string;
     /**

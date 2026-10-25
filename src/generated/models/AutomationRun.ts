@@ -28,11 +28,11 @@ import {
  */
 export interface AutomationRun {
     /**
-     * 
+     * An automation run ID
      */
     id: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
     /**

@@ -30,10 +30,6 @@ export interface GetAutomationResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Automation;
 }
 
@@ -55,7 +51,6 @@ export function GetAutomationResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AutomationFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetAutomationResponseToJSONTyped(value?: GetAutomationResponse |
 
     return {
         
-        'message': value['message'],
         'data': AutomationToJSON(value['data']),
     };
 }

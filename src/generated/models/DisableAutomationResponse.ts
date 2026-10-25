@@ -30,10 +30,6 @@ export interface DisableAutomationResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Automation;
 }
 
@@ -55,7 +51,6 @@ export function DisableAutomationResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AutomationFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function DisableAutomationResponseToJSONTyped(value?: DisableAutomationRe
 
     return {
         
-        'message': value['message'],
         'data': AutomationToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface ListApiTokensResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: ApiTokenPage;
 }
 
@@ -55,7 +51,6 @@ export function ListApiTokensResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ApiTokenPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListApiTokensResponseToJSONTyped(value?: ListApiTokensResponse |
 
     return {
         
-        'message': value['message'],
         'data': ApiTokenPageToJSON(value['data']),
     };
 }

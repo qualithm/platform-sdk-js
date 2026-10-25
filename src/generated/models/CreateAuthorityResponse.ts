@@ -30,10 +30,6 @@ export interface CreateAuthorityResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Authority;
 }
 
@@ -55,7 +51,6 @@ export function CreateAuthorityResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AuthorityFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateAuthorityResponseToJSONTyped(value?: CreateAuthorityRespon
 
     return {
         
-        'message': value['message'],
         'data': AuthorityToJSON(value['data']),
     };
 }

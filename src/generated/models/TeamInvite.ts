@@ -32,11 +32,11 @@ export interface TeamInvite {
      */
     id: string;
     /**
-     * 
+     * An account ID
      */
     accountId: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

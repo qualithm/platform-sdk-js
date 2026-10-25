@@ -30,10 +30,6 @@ export interface GetSessionResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Session;
 }
 
@@ -55,7 +51,6 @@ export function GetSessionResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': SessionFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetSessionResponseToJSONTyped(value?: GetSessionResponse | null,
 
     return {
         
-        'message': value['message'],
         'data': SessionToJSON(value['data']),
     };
 }

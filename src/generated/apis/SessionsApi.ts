@@ -31,7 +31,7 @@ import {
 
 export interface GetSessionRequest {
     /**
-     * 
+     * A session ID
      */
     sessionId: string;
 }
