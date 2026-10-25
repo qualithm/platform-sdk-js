@@ -39,11 +39,6 @@ import {
     CreateDeviceCredentialResponseToJSON,
 } from '../models/CreateDeviceCredentialResponse.js';
 import {
-    type DeleteDeviceCredentialResponse,
-    DeleteDeviceCredentialResponseFromJSON,
-    DeleteDeviceCredentialResponseToJSON,
-} from '../models/DeleteDeviceCredentialResponse.js';
-import {
     type ListDeviceCredentialsResponse,
     ListDeviceCredentialsResponseFromJSON,
     ListDeviceCredentialsResponseToJSON,
@@ -65,7 +60,7 @@ export interface CreateDeviceCertificateOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
@@ -80,7 +75,7 @@ export interface CreateDeviceCredentialOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
@@ -95,11 +90,11 @@ export interface DeleteDeviceCredentialRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
-     * 
+     * A credential ID
      */
     credentialId: string;
 }
@@ -110,7 +105,7 @@ export interface ListDeviceCredentialsRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -121,11 +116,11 @@ export interface RotateDeviceCredentialOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
-     * 
+     * A credential ID
      */
     credentialId: string;
     /**
@@ -332,19 +327,18 @@ export class CredentialsApi extends runtime.BaseAPI {
     /**
      * Revoke a device\'s credential
      */
-    async deleteDeviceCredentialRaw(requestParameters: DeleteDeviceCredentialRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteDeviceCredentialResponse>> {
+    async deleteDeviceCredentialRaw(requestParameters: DeleteDeviceCredentialRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteDeviceCredentialRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteDeviceCredentialResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Revoke a device\'s credential
      */
-    async deleteDeviceCredential(requestParameters: DeleteDeviceCredentialRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteDeviceCredentialResponse> {
-        const response = await this.deleteDeviceCredentialRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteDeviceCredential(requestParameters: DeleteDeviceCredentialRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteDeviceCredentialRaw(requestParameters, initOverrides);
     }
 
     /**

@@ -28,7 +28,7 @@ import {
  */
 export interface Team {
     /**
-     * 
+     * A team ID
      */
     id: string;
     /**

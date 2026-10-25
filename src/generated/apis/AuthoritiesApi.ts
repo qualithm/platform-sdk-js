@@ -29,11 +29,6 @@ import {
     CreateAuthorityResponseToJSON,
 } from '../models/CreateAuthorityResponse.js';
 import {
-    type DeleteAuthorityResponse,
-    DeleteAuthorityResponseFromJSON,
-    DeleteAuthorityResponseToJSON,
-} from '../models/DeleteAuthorityResponse.js';
-import {
     type ListAuthoritiesResponse,
     ListAuthoritiesResponseFromJSON,
     ListAuthoritiesResponseToJSON,
@@ -56,7 +51,7 @@ export interface DeleteAuthorityRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device authority ID
      */
     authorityId: string;
 }
@@ -190,19 +185,18 @@ export class AuthoritiesApi extends runtime.BaseAPI {
     /**
      * Revoke a certificate authority and every credential it issued
      */
-    async deleteAuthorityRaw(requestParameters: DeleteAuthorityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteAuthorityResponse>> {
+    async deleteAuthorityRaw(requestParameters: DeleteAuthorityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteAuthorityRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteAuthorityResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Revoke a certificate authority and every credential it issued
      */
-    async deleteAuthority(requestParameters: DeleteAuthorityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteAuthorityResponse> {
-        const response = await this.deleteAuthorityRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteAuthority(requestParameters: DeleteAuthorityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAuthorityRaw(requestParameters, initOverrides);
     }
 
     /**

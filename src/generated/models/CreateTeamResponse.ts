@@ -30,10 +30,6 @@ export interface CreateTeamResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Team;
 }
 
@@ -55,7 +51,6 @@ export function CreateTeamResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TeamFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateTeamResponseToJSONTyped(value?: CreateTeamResponse | null,
 
     return {
         
-        'message': value['message'],
         'data': TeamToJSON(value['data']),
     };
 }

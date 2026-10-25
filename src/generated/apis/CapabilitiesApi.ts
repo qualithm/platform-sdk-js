@@ -72,7 +72,7 @@ export interface ListDeviceCapabilitiesRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -83,7 +83,7 @@ export interface UpdateCapabilityOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A capability ID
      */
     capabilityId: string;
     /**

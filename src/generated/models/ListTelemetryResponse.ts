@@ -30,10 +30,6 @@ export interface ListTelemetryResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: ListTelemetryResponseData;
 }
 
@@ -55,7 +51,6 @@ export function ListTelemetryResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ListTelemetryResponseDataFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListTelemetryResponseToJSONTyped(value?: ListTelemetryResponse |
 
     return {
         
-        'message': value['message'],
         'data': ListTelemetryResponseDataToJSON(value['data']),
     };
 }

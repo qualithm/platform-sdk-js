@@ -30,10 +30,6 @@ export interface ListDeviceCommandsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: DeviceCommandPage;
 }
 
@@ -55,7 +51,6 @@ export function ListDeviceCommandsResponseFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DeviceCommandPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListDeviceCommandsResponseToJSONTyped(value?: ListDeviceCommands
 
     return {
         
-        'message': value['message'],
         'data': DeviceCommandPageToJSON(value['data']),
     };
 }

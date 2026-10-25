@@ -28,15 +28,15 @@ import {
  */
 export interface Dashboard {
     /**
-     * 
+     * A dashboard ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * The space it is scoped to; null for team-wide
+     * A space ID
      */
     spaceId: string | null;
     /**

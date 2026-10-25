@@ -28,11 +28,11 @@ import {
  */
 export interface Device {
     /**
-     * 
+     * A device ID
      */
     id: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
     /**
@@ -40,7 +40,7 @@ export interface Device {
      */
     spaceName: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface Session {
     /**
-     * 
+     * A session ID
      */
     id: string;
     /**
-     * 
+     * An account ID
      */
     accountId: string;
     /**

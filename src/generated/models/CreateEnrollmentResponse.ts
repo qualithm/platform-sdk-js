@@ -30,10 +30,6 @@ export interface CreateEnrollmentResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: EnrollmentCode;
 }
 
@@ -55,7 +51,6 @@ export function CreateEnrollmentResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': EnrollmentCodeFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateEnrollmentResponseToJSONTyped(value?: CreateEnrollmentResp
 
     return {
         
-        'message': value['message'],
         'data': EnrollmentCodeToJSON(value['data']),
     };
 }

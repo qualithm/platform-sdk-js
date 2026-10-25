@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface DeviceState {
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
     /**

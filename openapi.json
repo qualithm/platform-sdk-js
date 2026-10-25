@@ -33,32 +33,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "tokenId",
             "in": "path",
             "required": true,
+            "description": "An API token ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tok_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tok_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Revoke an API token: any in the team for an owner, otherwise the caller's own",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteApiTokenResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -123,32 +123,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "authorityId",
             "in": "path",
             "required": true,
+            "description": "A device authority ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Revoke a certificate authority and every credential it issued",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteAuthorityResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -214,18 +214,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -240,6 +241,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -302,18 +309,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -338,6 +346,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -403,32 +417,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete an automation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteAutomationResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -493,42 +507,43 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "credentialId",
             "in": "path",
             "required": true,
+            "description": "A credential ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Revoke a device's credential",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteDeviceCredentialResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -594,18 +609,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
+            "description": "A dashboard ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -620,6 +636,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -682,18 +704,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
+            "description": "A dashboard ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -718,6 +741,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -783,32 +812,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
+            "description": "A dashboard ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete a dashboard",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteDashboardResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -874,18 +903,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -900,6 +930,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -962,18 +998,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -988,16 +1025,15 @@
           }
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Rename a device or move it to another space in the same zone",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateDeviceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1063,32 +1099,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete a device and revoke its credentials",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteDeviceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1153,32 +1189,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "enrollmentId",
             "in": "path",
             "required": true,
+            "description": "An enrollment ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^enr_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "enr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Revoke a pending enrollment",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteEnrollmentResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1244,18 +1280,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
+            "description": "A space ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1270,6 +1307,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1332,18 +1375,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
+            "description": "A space ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1358,16 +1402,15 @@
           }
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Rename a space",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateSpaceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1433,32 +1476,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
+            "description": "A space ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete a space and its devices",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteSpaceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1520,34 +1563,35 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "inviteId",
             "in": "path",
             "required": true,
+            "description": "A member ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Revoke a pending invite",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteTeamInviteResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1610,20 +1654,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
+            "description": "A member ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1638,6 +1684,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1697,20 +1749,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
+            "description": "A member ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1725,16 +1779,15 @@
           }
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Change a member's role",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateTeamMemberResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1799,34 +1852,35 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
+            "description": "A member ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Remove a member from the team",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteTeamMemberResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1889,10 +1943,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1907,6 +1962,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1965,10 +2026,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1983,16 +2045,15 @@
           }
         },
         "responses": {
-          "200": {
+          "204": {
             "description": "Rename the team",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateTeamResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2054,24 +2115,24 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete the team with its spaces, devices and memberships",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteTeamResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2135,6 +2196,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2194,8 +2261,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2232,6 +2299,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2293,8 +2366,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2331,6 +2404,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2392,8 +2471,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2430,6 +2509,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2489,8 +2574,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2515,6 +2600,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2586,18 +2677,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2634,6 +2726,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2699,18 +2797,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2725,6 +2824,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2790,8 +2895,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2828,6 +2933,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2887,8 +2998,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2913,6 +3024,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2979,8 +3096,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2995,6 +3112,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3055,6 +3178,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3114,8 +3243,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3186,6 +3315,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3250,18 +3385,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3276,6 +3412,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3338,18 +3480,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3374,6 +3517,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3442,8 +3591,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3480,6 +3629,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3539,8 +3694,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3565,6 +3720,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3633,18 +3794,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3659,6 +3821,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3724,18 +3892,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3772,6 +3941,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3834,18 +4009,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3870,6 +4046,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -3935,10 +4117,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3953,6 +4136,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4018,8 +4207,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4029,8 +4218,8 @@
             "description": "Only the devices in this space",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4067,6 +4256,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4129,8 +4324,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -4155,6 +4350,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4222,8 +4423,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4260,6 +4461,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4319,8 +4526,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -4345,6 +4552,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4413,22 +4626,21 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "An event stream",
-            "content": {
-              "text/event-stream": {
+          "204": {
+            "description": "Stream the team's live events",
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
                 "schema": {
                   "type": "string"
                 }
-              }
-            },
-            "headers": {
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4486,6 +4698,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4544,8 +4762,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4582,6 +4800,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4638,6 +4862,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4712,6 +4942,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4759,10 +4995,11 @@
             "name": "sessionId",
             "in": "path",
             "required": true,
+            "description": "A session ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^ses_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "ses_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -4777,6 +5014,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4869,6 +5112,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -4928,8 +5177,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4979,6 +5228,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5041,8 +5296,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5067,6 +5322,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5131,10 +5392,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5171,6 +5433,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5230,10 +5498,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5258,6 +5527,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5326,10 +5601,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5366,6 +5642,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5420,10 +5702,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5448,6 +5731,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5534,6 +5823,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5587,6 +5882,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5640,20 +5941,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
+            "description": "A team ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5722,6 +6025,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5787,8 +6096,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5803,6 +6112,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5859,6 +6174,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -5911,18 +6232,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "capabilityId",
             "in": "path",
             "required": true,
+            "description": "A capability ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^cap_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "cap_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5947,6 +6269,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6013,8 +6341,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6039,6 +6367,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6109,18 +6443,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6135,6 +6470,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6199,18 +6540,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6225,6 +6567,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6289,8 +6637,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6315,6 +6663,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6382,18 +6736,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6408,6 +6763,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6477,6 +6838,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6541,18 +6908,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
+            "description": "An automation ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6567,6 +6935,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6631,18 +7005,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -6667,6 +7042,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6734,28 +7115,30 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "credentialId",
             "in": "path",
             "required": true,
+            "description": "A credential ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6789,6 +7172,12 @@
               }
             },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6856,32 +7245,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Park a device so it stops connecting and counting against the plan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ParkDeviceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -6946,32 +7335,32 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
+            "description": "A device ID",
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Return a parked device to live",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnparkDeviceResponse"
-                }
-              }
-            },
             "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -7024,6 +7413,7 @@
           "forbidden",
           "not_found",
           "conflict",
+          "precondition_failed",
           "unsupported_media_type",
           "unprocessable_entity",
           "failed_dependency",
@@ -7040,11 +7430,36 @@
           },
           "code": {
             "$ref": "#/components/schemas/ApiErrorCode"
+          },
+          "requestId": {
+            "type": "string",
+            "description": "The `Request-Id` this response carried; quote it"
+          },
+          "details": {
+            "description": "Each field that failed validation. Validation errors only.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "description": "A JSON pointer into the request"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "message"
+              ]
+            }
           }
         },
         "required": [
           "message",
-          "code"
+          "code",
+          "requestId"
         ]
       },
       "MemberRole": {
@@ -7060,8 +7475,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -7080,9 +7496,9 @@
           },
           "memberId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-            "description": "The caller's membership in this team"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "The caller's membership in this team",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "memberRole": {
             "$ref": "#/components/schemas/MemberRole"
@@ -7172,18 +7588,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -7249,18 +7668,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -7298,19 +7720,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-            "description": "The invite's id: the invited membership's id"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "The invite's id: the invited membership's id",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -7381,18 +7805,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tok_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An API token ID",
+            "example": "tok_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -7458,6 +7885,7 @@
             }
           },
           "expiresAt": {
+            "description": "ISO 8601 time",
             "anyOf": [
               {
                 "type": "string"
@@ -7465,8 +7893,7 @@
               {
                 "type": "null"
               }
-            ],
-            "description": "ISO 8601 time"
+            ]
           },
           "lastUsedAt": {
             "anyOf": [
@@ -7539,13 +7966,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -7677,20 +8106,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A credential ID",
+            "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "authorityId": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+                "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A device authority ID",
+                "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -7706,6 +8138,7 @@
             ]
           },
           "certFingerprint": {
+            "description": "SHA-256 of a cert credential's certificate",
             "anyOf": [
               {
                 "type": "string"
@@ -7713,8 +8146,7 @@
               {
                 "type": "null"
               }
-            ],
-            "description": "SHA-256 of a cert credential's certificate"
+            ]
           },
           "certSubject": {
             "anyOf": [
@@ -7762,8 +8194,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+                "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A credential ID",
+                "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -7847,13 +8280,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device authority ID",
+            "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -7876,6 +8311,7 @@
             ]
           },
           "fingerprint": {
+            "description": "SHA-256 of the CA certificate",
             "anyOf": [
               {
                 "type": "string"
@@ -7883,8 +8319,7 @@
               {
                 "type": "null"
               }
-            ],
-            "description": "SHA-256 of the CA certificate"
+            ]
           },
           "status": {
             "type": "string",
@@ -7950,18 +8385,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^enr_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An enrollment ID",
+            "example": "enr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "label": {
             "type": "string"
@@ -7978,8 +8416,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+                "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A device ID",
+                "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -8205,20 +8644,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation ID",
+            "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -8346,13 +8788,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation run ID",
+            "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "automationId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation ID",
+            "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "triggerType": {
             "type": "string",
@@ -8612,20 +9056,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A dashboard ID",
+            "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -8729,21 +9176,24 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceName": {
             "type": "string"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -8828,13 +9278,15 @@
         "properties": {
           "deviceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "online": {
             "type": "boolean",
@@ -8868,13 +9320,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^cmd_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A command ID",
+            "example": "cmd_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "source": {
             "type": "string",
@@ -8963,8 +9417,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^cmd_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A command ID",
+            "example": "cmd_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "duplicate": {
             "type": "boolean",
@@ -8981,13 +9436,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^cap_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A capability ID",
+            "example": "cap_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "key": {
             "type": "string"
@@ -9041,8 +9498,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "email": {
             "type": "string"
@@ -9100,13 +9558,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^ses_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A session ID",
+            "example": "ses_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "userAgent": {
             "type": "string"
@@ -9190,18 +9650,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID",
+            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamName": {
             "type": "string"
@@ -9285,13 +9748,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^evt_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An audit event ID",
+            "example": "evt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "actorKind": {
             "type": "string",
@@ -9304,7 +9769,10 @@
           "actorId": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|ses|spc|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "An ID of any type",
+                "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -9321,7 +9789,10 @@
             "description": "What the action acted on, e.g. `device`"
           },
           "targetId": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|ses|spc|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An ID of any type",
+            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "metadata": {
             "description": "Non-sensitive context for the action"
@@ -9520,13 +9991,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^inv_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An invoice ID",
+            "example": "inv_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "status": {
             "type": "string"
@@ -9799,6 +10272,7 @@
             "format": "int64"
           },
           "value": {
+            "description": "The bucket's aggregate. Null for a gap with no prior observation, and for the first bucket of a delta or rate series.",
             "anyOf": [
               {
                 "type": "number"
@@ -9806,8 +10280,7 @@
               {
                 "type": "null"
               }
-            ],
-            "description": "The bucket's aggregate. Null for a gap with no prior observation, and for the first bucket of a delta or rate series."
+            ]
           }
         },
         "required": [
@@ -9815,100 +10288,9 @@
           "value"
         ]
       },
-      "DeleteApiTokenResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteAuthorityResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteAutomationResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteDeviceCredentialResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteDashboardResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteDeviceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteEnrollmentResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteSpaceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteTeamInviteResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteTeamMemberResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "DeleteTeamResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
       "GetAccountResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Account"
           }
@@ -9920,9 +10302,6 @@
       "ListApiTokensResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/ApiTokenPage"
           }
@@ -9934,9 +10313,6 @@
       "ListAuditEventsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/AuditEventPage"
           }
@@ -9948,9 +10324,6 @@
       "ListAuthoritiesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/AuthorityPage"
           }
@@ -9962,9 +10335,6 @@
       "GetAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -9976,9 +10346,6 @@
       "ListAutomationRunsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/AutomationRunPage"
           }
@@ -9990,9 +10357,6 @@
       "ListDeviceAutomationTemplatesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "array",
             "items": {
@@ -10007,9 +10371,6 @@
       "ListAutomationsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/AutomationPage"
           }
@@ -10021,9 +10382,6 @@
       "GetBillingSummaryResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/BillingSummary"
           }
@@ -10035,9 +10393,6 @@
       "GetCommunicationPreferencesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/CommunicationPreferences"
           }
@@ -10049,9 +10404,6 @@
       "ListCapabilitiesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/CapabilityPage"
           }
@@ -10063,9 +10415,6 @@
       "ListDeviceCredentialsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "array",
             "items": {
@@ -10080,9 +10429,6 @@
       "GetDashboardResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Dashboard"
           }
@@ -10094,9 +10440,6 @@
       "ListDashboardsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/DashboardPage"
           }
@@ -10108,9 +10451,6 @@
       "GetDeviceResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Device"
           }
@@ -10122,9 +10462,6 @@
       "ListDeviceCapabilitiesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "array",
             "items": {
@@ -10139,9 +10476,6 @@
       "ListDeviceCommandsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/DeviceCommandPage"
           }
@@ -10153,9 +10487,6 @@
       "ListTeamDeviceStatesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "object",
             "properties": {
@@ -10178,9 +10509,6 @@
       "ListDevicesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/DevicePage"
           }
@@ -10192,9 +10520,6 @@
       "ListEnrollmentsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/EnrollmentPage"
           }
@@ -10206,9 +10531,6 @@
       "ListInvoicesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/InvoicePage"
           }
@@ -10227,9 +10549,6 @@
       "ListRolesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/RoleAssignmentPage"
           }
@@ -10241,9 +10560,6 @@
       "GetSessionResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Session"
           }
@@ -10255,9 +10571,6 @@
       "ListSessionsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/SessionPage"
           }
@@ -10269,9 +10582,6 @@
       "GetSpaceResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Space"
           }
@@ -10283,9 +10593,6 @@
       "ListSpacesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/SpacePage"
           }
@@ -10297,9 +10604,6 @@
       "ListTeamInvitesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamInvitePage"
           }
@@ -10311,9 +10615,6 @@
       "GetTeamMemberResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamMember"
           }
@@ -10325,9 +10626,6 @@
       "ListTeamMembersResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamMemberPage"
           }
@@ -10339,9 +10637,6 @@
       "GetTeamResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Team"
           }
@@ -10353,9 +10648,6 @@
       "ListTeamsResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamPage"
           }
@@ -10367,9 +10659,6 @@
       "ListTelemetryResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "object",
             "properties": {
@@ -10392,9 +10681,6 @@
       "GetUsageResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Usage"
           }
@@ -10406,9 +10692,6 @@
       "ListZonesResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/ZoneList"
           }
@@ -10420,9 +10703,6 @@
       "UpdateAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -10438,10 +10718,13 @@
             "type": "string"
           },
           "spaceId": {
-            "description": "A space id; null or empty clears the scope",
+            "description": "The space to scope it to; null clears the scope",
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10491,9 +10774,6 @@
       "UpdateCapabilityResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Capability"
           }
@@ -10528,9 +10808,6 @@
       "UpdateDashboardResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Dashboard"
           }
@@ -10549,7 +10826,10 @@
             "description": "A space id to scope the dashboard to; null or empty for team-wide",
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10572,14 +10852,6 @@
           }
         }
       },
-      "UpdateDeviceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
       "UpdateDeviceRequest": {
         "type": "object",
         "properties": {
@@ -10588,15 +10860,9 @@
           },
           "spaceId": {
             "description": "A space in the device's zone",
-            "type": "string"
-          }
-        }
-      },
-      "UpdateSpaceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         }
       },
@@ -10611,14 +10877,6 @@
           "name"
         ]
       },
-      "UpdateTeamMemberResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
       "UpdateTeamMemberRequest": {
         "type": "object",
         "properties": {
@@ -10629,14 +10887,6 @@
         "required": [
           "role"
         ]
-      },
-      "UpdateTeamResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
       },
       "UpdateTeamRequest": {
         "type": "object",
@@ -10653,9 +10903,6 @@
       "PreviewTierChangeResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TierChangePreview"
           }
@@ -10684,9 +10931,6 @@
       "CreateAuthorityResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Authority"
           }
@@ -10723,9 +10967,6 @@
       "CreateAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -10741,10 +10982,13 @@
             "type": "string"
           },
           "spaceId": {
-            "description": "A space id; null, empty or absent for a team-wide automation",
+            "description": "The space it is scoped to; null or absent for team-wide",
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10789,9 +11033,6 @@
       "DisableAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -10803,9 +11044,6 @@
       "EnableAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -10817,9 +11055,6 @@
       "CreateAutomationFromTemplateResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Automation"
           }
@@ -10850,17 +11085,14 @@
       "RunAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-                "description": "The queued run's id"
+                "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "The queued run's id",
+                "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
             },
             "required": [
@@ -10875,17 +11107,14 @@
       "TriggerAutomationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "type": "object",
             "properties": {
               "runId": {
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-                "description": "The queued run's id"
+                "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "The queued run's id",
+                "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
             },
             "required": [
@@ -10903,9 +11132,6 @@
       "CreateAutomationTriggerSecretResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/AutomationTriggerSecret"
           }
@@ -10917,9 +11143,6 @@
       "CreateDeviceCredentialResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/CredentialSecret"
           }
@@ -10944,9 +11167,6 @@
       "CreateDeviceCertificateResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/IssuedCertificate"
           }
@@ -10980,9 +11200,6 @@
       "RotateDeviceCredentialResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/CredentialSecret"
           }
@@ -11003,9 +11220,6 @@
       "CreateDashboardResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Dashboard"
           }
@@ -11024,7 +11238,10 @@
             "description": "A space id to scope the dashboard to; null or empty for team-wide",
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -11053,9 +11270,6 @@
       "CreateDeviceResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Device"
           }
@@ -11069,8 +11283,9 @@
         "properties": {
           "spaceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "required": [
@@ -11080,9 +11295,6 @@
       "CreateDeviceCommandResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/QueuedCommand"
           }
@@ -11111,28 +11323,9 @@
           "dedupKey"
         ]
       },
-      "ParkDeviceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "UnparkDeviceResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
       "CreateEnrollmentResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/EnrollmentCode"
           }
@@ -11146,8 +11339,9 @@
         "properties": {
           "spaceId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "label": {
             "description": "Up to 64 characters",
@@ -11167,9 +11361,6 @@
       "CreateSpaceResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Space"
           }
@@ -11192,9 +11383,6 @@
       "CreateTeamInviteResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamInvite"
           }
@@ -11222,9 +11410,6 @@
       "CreateTeamMemberResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/TeamMembership"
           }
@@ -11238,9 +11423,9 @@
         "properties": {
           "inviteId": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
-            "description": "The invite to accept"
+            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "The invite to accept",
+            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "required": [
@@ -11250,9 +11435,6 @@
       "CreateTeamResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string"
-          },
           "data": {
             "$ref": "#/components/schemas/Team"
           }

@@ -30,10 +30,6 @@ export interface UpdateDashboardResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Dashboard;
 }
 
@@ -55,7 +51,6 @@ export function UpdateDashboardResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DashboardFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function UpdateDashboardResponseToJSONTyped(value?: UpdateDashboardRespon
 
     return {
         
-        'message': value['message'],
         'data': DashboardToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface ListTeamDeviceStatesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: ListTeamDeviceStatesResponseData;
 }
 
@@ -55,7 +51,6 @@ export function ListTeamDeviceStatesResponseFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ListTeamDeviceStatesResponseDataFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListTeamDeviceStatesResponseToJSONTyped(value?: ListTeamDeviceSt
 
     return {
         
-        'message': value['message'],
         'data': ListTeamDeviceStatesResponseDataToJSON(value['data']),
     };
 }

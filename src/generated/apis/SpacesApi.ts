@@ -29,11 +29,6 @@ import {
     CreateSpaceResponseToJSON,
 } from '../models/CreateSpaceResponse.js';
 import {
-    type DeleteSpaceResponse,
-    DeleteSpaceResponseFromJSON,
-    DeleteSpaceResponseToJSON,
-} from '../models/DeleteSpaceResponse.js';
-import {
     type GetSpaceResponse,
     GetSpaceResponseFromJSON,
     GetSpaceResponseToJSON,
@@ -48,11 +43,6 @@ import {
     UpdateSpaceRequestFromJSON,
     UpdateSpaceRequestToJSON,
 } from '../models/UpdateSpaceRequest.js';
-import {
-    type UpdateSpaceResponse,
-    UpdateSpaceResponseFromJSON,
-    UpdateSpaceResponseToJSON,
-} from '../models/UpdateSpaceResponse.js';
 
 export interface CreateSpaceOperationRequest {
     /**
@@ -71,7 +61,7 @@ export interface DeleteSpaceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
 }
@@ -82,7 +72,7 @@ export interface GetSpaceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
 }
@@ -112,7 +102,7 @@ export interface UpdateSpaceOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
     /**
@@ -235,19 +225,18 @@ export class SpacesApi extends runtime.BaseAPI {
     /**
      * Delete a space and its devices
      */
-    async deleteSpaceRaw(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteSpaceResponse>> {
+    async deleteSpaceRaw(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteSpaceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteSpaceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Delete a space and its devices
      */
-    async deleteSpace(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteSpaceResponse> {
-        const response = await this.deleteSpaceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteSpace(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSpaceRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -432,19 +421,18 @@ export class SpacesApi extends runtime.BaseAPI {
     /**
      * Rename a space
      */
-    async updateSpaceRaw(requestParameters: UpdateSpaceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateSpaceResponse>> {
+    async updateSpaceRaw(requestParameters: UpdateSpaceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateSpaceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateSpaceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Rename a space
      */
-    async updateSpace(requestParameters: UpdateSpaceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateSpaceResponse> {
-        const response = await this.updateSpaceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async updateSpace(requestParameters: UpdateSpaceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateSpaceRaw(requestParameters, initOverrides);
     }
 
 }

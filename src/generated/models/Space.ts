@@ -28,11 +28,11 @@ import {
  */
 export interface Space {
     /**
-     * 
+     * A space ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

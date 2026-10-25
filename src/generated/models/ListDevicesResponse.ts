@@ -30,10 +30,6 @@ export interface ListDevicesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: DevicePage;
 }
 
@@ -55,7 +51,6 @@ export function ListDevicesResponseFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DevicePageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListDevicesResponseToJSONTyped(value?: ListDevicesResponse | nul
 
     return {
         
-        'message': value['message'],
         'data': DevicePageToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface CreateTeamInviteResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: TeamInvite;
 }
 
@@ -55,7 +51,6 @@ export function CreateTeamInviteResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TeamInviteFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateTeamInviteResponseToJSONTyped(value?: CreateTeamInviteResp
 
     return {
         
-        'message': value['message'],
         'data': TeamInviteToJSON(value['data']),
     };
 }
