@@ -26,5 +26,18 @@
     "Property",
     "Method",
     "TypeAlias"
+  ],
+  "intentionallyNotExported": [
+    "ApiClass",
+    "ApiResponse",
+    "BaseAPI",
+    "Configuration",
+    "FetchAPI",
+    "FetchParams",
+    "InitOverrideFunction",
+    "Middleware",
+    "RequestContext",
+    "RequestOpts",
+    "ResponseContext"
   ]
 }
