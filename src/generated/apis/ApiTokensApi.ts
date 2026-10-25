@@ -19,11 +19,6 @@ import {
     ApiErrorToJSON,
 } from '../models/ApiError.js';
 import {
-    type DeleteApiTokenResponse,
-    DeleteApiTokenResponseFromJSON,
-    DeleteApiTokenResponseToJSON,
-} from '../models/DeleteApiTokenResponse.js';
-import {
     type ListApiTokensResponse,
     ListApiTokensResponseFromJSON,
     ListApiTokensResponseToJSON,
@@ -35,7 +30,7 @@ export interface DeleteApiTokenRequest {
      */
     teamId: string;
     /**
-     * 
+     * An API token ID
      */
     tokenId: string;
 }
@@ -106,19 +101,18 @@ export class ApiTokensApi extends runtime.BaseAPI {
     /**
      * Revoke an API token: any in the team for an owner, otherwise the caller\'s own
      */
-    async deleteApiTokenRaw(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteApiTokenResponse>> {
+    async deleteApiTokenRaw(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteApiTokenRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteApiTokenResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Revoke an API token: any in the team for an owner, otherwise the caller\'s own
      */
-    async deleteApiToken(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteApiTokenResponse> {
-        const response = await this.deleteApiTokenRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteApiToken(requestParameters: DeleteApiTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteApiTokenRaw(requestParameters, initOverrides);
     }
 
     /**

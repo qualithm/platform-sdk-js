@@ -30,10 +30,6 @@ export interface ListDeviceCapabilitiesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Array<Capability>;
 }
 
@@ -55,7 +51,6 @@ export function ListDeviceCapabilitiesResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ((json['data'] as Array<any>).map(CapabilityFromJSON)),
     };
 }
@@ -71,7 +66,6 @@ export function ListDeviceCapabilitiesResponseToJSONTyped(value?: ListDeviceCapa
 
     return {
         
-        'message': value['message'],
         'data': ((value['data'] as Array<any>).map(CapabilityToJSON)),
     };
 }

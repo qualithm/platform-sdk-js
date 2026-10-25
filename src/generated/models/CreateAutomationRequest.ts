@@ -32,7 +32,7 @@ export interface CreateAutomationRequest {
      */
     name: string;
     /**
-     * A space id; null, empty or absent for a team-wide automation
+     * A space ID
      */
     spaceId?: string | null;
     /**

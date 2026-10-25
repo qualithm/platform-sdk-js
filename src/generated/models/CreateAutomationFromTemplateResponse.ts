@@ -30,10 +30,6 @@ export interface CreateAutomationFromTemplateResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Automation;
 }
 
@@ -55,7 +51,6 @@ export function CreateAutomationFromTemplateResponseFromJSONTyped(json: any, ign
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AutomationFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateAutomationFromTemplateResponseToJSONTyped(value?: CreateAu
 
     return {
         
-        'message': value['message'],
         'data': AutomationToJSON(value['data']),
     };
 }

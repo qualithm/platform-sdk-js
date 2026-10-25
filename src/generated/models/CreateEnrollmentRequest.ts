@@ -20,7 +20,7 @@ import { mapValues } from '../runtime.js';
  */
 export interface CreateEnrollmentRequest {
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
     /**

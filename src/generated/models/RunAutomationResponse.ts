@@ -30,10 +30,6 @@ export interface RunAutomationResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: RunAutomationResponseData;
 }
 
@@ -55,7 +51,6 @@ export function RunAutomationResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': RunAutomationResponseDataFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function RunAutomationResponseToJSONTyped(value?: RunAutomationResponse |
 
     return {
         
-        'message': value['message'],
         'data': RunAutomationResponseDataToJSON(value['data']),
     };
 }

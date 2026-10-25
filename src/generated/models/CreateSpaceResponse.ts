@@ -30,10 +30,6 @@ export interface CreateSpaceResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Space;
 }
 
@@ -55,7 +51,6 @@ export function CreateSpaceResponseFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': SpaceFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateSpaceResponseToJSONTyped(value?: CreateSpaceResponse | nul
 
     return {
         
-        'message': value['message'],
         'data': SpaceToJSON(value['data']),
     };
 }

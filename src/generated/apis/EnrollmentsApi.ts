@@ -29,11 +29,6 @@ import {
     CreateEnrollmentResponseToJSON,
 } from '../models/CreateEnrollmentResponse.js';
 import {
-    type DeleteEnrollmentResponse,
-    DeleteEnrollmentResponseFromJSON,
-    DeleteEnrollmentResponseToJSON,
-} from '../models/DeleteEnrollmentResponse.js';
-import {
     type ListEnrollmentsResponse,
     ListEnrollmentsResponseFromJSON,
     ListEnrollmentsResponseToJSON,
@@ -56,7 +51,7 @@ export interface DeleteEnrollmentRequest {
      */
     teamId: string;
     /**
-     * 
+     * An enrollment ID
      */
     enrollmentId: string;
 }
@@ -190,19 +185,18 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     /**
      * Revoke a pending enrollment
      */
-    async deleteEnrollmentRaw(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteEnrollmentResponse>> {
+    async deleteEnrollmentRaw(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteEnrollmentRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteEnrollmentResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Revoke a pending enrollment
      */
-    async deleteEnrollment(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteEnrollmentResponse> {
-        const response = await this.deleteEnrollmentRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteEnrollment(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteEnrollmentRaw(requestParameters, initOverrides);
     }
 
     /**

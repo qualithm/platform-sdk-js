@@ -30,10 +30,6 @@ export interface CreateAutomationTriggerSecretResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: AutomationTriggerSecret;
 }
 
@@ -55,7 +51,6 @@ export function CreateAutomationTriggerSecretResponseFromJSONTyped(json: any, ig
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AutomationTriggerSecretFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateAutomationTriggerSecretResponseToJSONTyped(value?: CreateA
 
     return {
         
-        'message': value['message'],
         'data': AutomationTriggerSecretToJSON(value['data']),
     };
 }

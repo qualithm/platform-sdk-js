@@ -40,7 +40,7 @@ export interface CreateDeviceCommandOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
@@ -55,7 +55,7 @@ export interface ListDeviceCommandsRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**

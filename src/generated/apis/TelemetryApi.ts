@@ -26,11 +26,11 @@ import {
 
 export interface ListTelemetryRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**

@@ -30,10 +30,6 @@ export interface ListRolesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: RoleAssignmentPage;
 }
 
@@ -55,7 +51,6 @@ export function ListRolesResponseFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': RoleAssignmentPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListRolesResponseToJSONTyped(value?: ListRolesResponse | null, i
 
     return {
         
-        'message': value['message'],
         'data': RoleAssignmentPageToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface ListCapabilitiesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: CapabilityPage;
 }
 
@@ -55,7 +51,6 @@ export function ListCapabilitiesResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': CapabilityPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListCapabilitiesResponseToJSONTyped(value?: ListCapabilitiesResp
 
     return {
         
-        'message': value['message'],
         'data': CapabilityPageToJSON(value['data']),
     };
 }

@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface DeviceCommand {
     /**
-     * 
+     * A command ID
      */
     id: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**

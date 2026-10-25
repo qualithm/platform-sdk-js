@@ -30,10 +30,6 @@ export interface ListAuditEventsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: AuditEventPage;
 }
 
@@ -55,7 +51,6 @@ export function ListAuditEventsResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AuditEventPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListAuditEventsResponseToJSONTyped(value?: ListAuditEventsRespon
 
     return {
         
-        'message': value['message'],
         'data': AuditEventPageToJSON(value['data']),
     };
 }

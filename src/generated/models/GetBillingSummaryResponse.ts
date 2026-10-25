@@ -30,10 +30,6 @@ export interface GetBillingSummaryResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: BillingSummary;
 }
 
@@ -55,7 +51,6 @@ export function GetBillingSummaryResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': BillingSummaryFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetBillingSummaryResponseToJSONTyped(value?: GetBillingSummaryRe
 
     return {
         
-        'message': value['message'],
         'data': BillingSummaryToJSON(value['data']),
     };
 }

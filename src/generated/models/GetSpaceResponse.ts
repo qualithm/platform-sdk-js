@@ -30,10 +30,6 @@ export interface GetSpaceResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Space;
 }
 
@@ -55,7 +51,6 @@ export function GetSpaceResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': SpaceFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetSpaceResponseToJSONTyped(value?: GetSpaceResponse | null, ign
 
     return {
         
-        'message': value['message'],
         'data': SpaceToJSON(value['data']),
     };
 }

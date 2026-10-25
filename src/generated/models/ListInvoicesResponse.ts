@@ -30,10 +30,6 @@ export interface ListInvoicesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: InvoicePage;
 }
 
@@ -55,7 +51,6 @@ export function ListInvoicesResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': InvoicePageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListInvoicesResponseToJSONTyped(value?: ListInvoicesResponse | n
 
     return {
         
-        'message': value['message'],
         'data': InvoicePageToJSON(value['data']),
     };
 }

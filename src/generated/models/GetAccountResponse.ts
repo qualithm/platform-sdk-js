@@ -30,10 +30,6 @@ export interface GetAccountResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Account;
 }
 
@@ -55,7 +51,6 @@ export function GetAccountResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AccountFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetAccountResponseToJSONTyped(value?: GetAccountResponse | null,
 
     return {
         
-        'message': value['message'],
         'data': AccountToJSON(value['data']),
     };
 }

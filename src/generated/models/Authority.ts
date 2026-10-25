@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface Authority {
     /**
-     * 
+     * A device authority ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

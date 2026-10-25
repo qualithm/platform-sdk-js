@@ -30,10 +30,6 @@ export interface ListDeviceCredentialsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Array<Credential>;
 }
 
@@ -55,7 +51,6 @@ export function ListDeviceCredentialsResponseFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ((json['data'] as Array<any>).map(CredentialFromJSON)),
     };
 }
@@ -71,7 +66,6 @@ export function ListDeviceCredentialsResponseToJSONTyped(value?: ListDeviceCrede
 
     return {
         
-        'message': value['message'],
         'data': ((value['data'] as Array<any>).map(CredentialToJSON)),
     };
 }

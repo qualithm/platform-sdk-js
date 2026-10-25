@@ -30,10 +30,6 @@ export interface UpdateCapabilityResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Capability;
 }
 
@@ -55,7 +51,6 @@ export function UpdateCapabilityResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': CapabilityFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function UpdateCapabilityResponseToJSONTyped(value?: UpdateCapabilityResp
 
     return {
         
-        'message': value['message'],
         'data': CapabilityToJSON(value['data']),
     };
 }
