@@ -20,7 +20,7 @@ import { mapValues } from '../runtime.js';
  */
 export interface CreateDeviceRequest {
     /**
-     * 
+     * A space ID
      */
     spaceId: string;
 }

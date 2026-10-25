@@ -20,7 +20,7 @@ import { mapValues } from '../runtime.js';
  */
 export interface Account {
     /**
-     * 
+     * An account ID
      */
     id: string;
     /**

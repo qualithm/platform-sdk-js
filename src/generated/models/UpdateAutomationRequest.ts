@@ -32,7 +32,7 @@ export interface UpdateAutomationRequest {
      */
     name?: string;
     /**
-     * A space id; null or empty clears the scope
+     * A space ID
      */
     spaceId?: string | null;
     /**

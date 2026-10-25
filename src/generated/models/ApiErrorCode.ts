@@ -23,6 +23,7 @@ export const ApiErrorCode = {
     forbidden: 'forbidden',
     not_found: 'not_found',
     conflict: 'conflict',
+    precondition_failed: 'precondition_failed',
     unsupported_media_type: 'unsupported_media_type',
     unprocessable_entity: 'unprocessable_entity',
     failed_dependency: 'failed_dependency',

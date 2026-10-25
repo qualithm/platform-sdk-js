@@ -44,11 +44,6 @@ import {
     CreateAutomationTriggerSecretResponseToJSON,
 } from '../models/CreateAutomationTriggerSecretResponse.js';
 import {
-    type DeleteAutomationResponse,
-    DeleteAutomationResponseFromJSON,
-    DeleteAutomationResponseToJSON,
-} from '../models/DeleteAutomationResponse.js';
-import {
     type DisableAutomationResponse,
     DisableAutomationResponseFromJSON,
     DisableAutomationResponseToJSON,
@@ -127,7 +122,7 @@ export interface CreateAutomationTriggerSecretRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -138,7 +133,7 @@ export interface DeleteAutomationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -149,7 +144,7 @@ export interface DisableAutomationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -160,7 +155,7 @@ export interface EnableAutomationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -171,7 +166,7 @@ export interface GetAutomationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -182,7 +177,7 @@ export interface ListAutomationRunsRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
     /**
@@ -216,7 +211,7 @@ export interface ListDeviceAutomationTemplatesRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -227,7 +222,7 @@ export interface RunAutomationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
 }
@@ -245,7 +240,7 @@ export interface UpdateAutomationOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
     automationId: string;
     /**
@@ -492,19 +487,18 @@ export class AutomationsApi extends runtime.BaseAPI {
     /**
      * Delete an automation
      */
-    async deleteAutomationRaw(requestParameters: DeleteAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteAutomationResponse>> {
+    async deleteAutomationRaw(requestParameters: DeleteAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteAutomationRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteAutomationResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Delete an automation
      */
-    async deleteAutomation(requestParameters: DeleteAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteAutomationResponse> {
-        const response = await this.deleteAutomationRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteAutomation(requestParameters: DeleteAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAutomationRaw(requestParameters, initOverrides);
     }
 
     /**

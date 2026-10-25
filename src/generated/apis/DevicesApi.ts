@@ -29,11 +29,6 @@ import {
     CreateDeviceResponseToJSON,
 } from '../models/CreateDeviceResponse.js';
 import {
-    type DeleteDeviceResponse,
-    DeleteDeviceResponseFromJSON,
-    DeleteDeviceResponseToJSON,
-} from '../models/DeleteDeviceResponse.js';
-import {
     type GetDeviceResponse,
     GetDeviceResponseFromJSON,
     GetDeviceResponseToJSON,
@@ -49,25 +44,10 @@ import {
     ListTeamDeviceStatesResponseToJSON,
 } from '../models/ListTeamDeviceStatesResponse.js';
 import {
-    type ParkDeviceResponse,
-    ParkDeviceResponseFromJSON,
-    ParkDeviceResponseToJSON,
-} from '../models/ParkDeviceResponse.js';
-import {
-    type UnparkDeviceResponse,
-    UnparkDeviceResponseFromJSON,
-    UnparkDeviceResponseToJSON,
-} from '../models/UnparkDeviceResponse.js';
-import {
     type UpdateDeviceRequest,
     UpdateDeviceRequestFromJSON,
     UpdateDeviceRequestToJSON,
 } from '../models/UpdateDeviceRequest.js';
-import {
-    type UpdateDeviceResponse,
-    UpdateDeviceResponseFromJSON,
-    UpdateDeviceResponseToJSON,
-} from '../models/UpdateDeviceResponse.js';
 
 export interface CreateDeviceOperationRequest {
     /**
@@ -86,7 +66,7 @@ export interface DeleteDeviceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -97,7 +77,7 @@ export interface GetDeviceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -123,7 +103,7 @@ export interface ListDevicesRequest {
 
 export interface ListTeamDeviceStatesRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
 }
@@ -134,7 +114,7 @@ export interface ParkDeviceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -145,7 +125,7 @@ export interface UnparkDeviceRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
 }
@@ -156,7 +136,7 @@ export interface UpdateDeviceOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
@@ -279,19 +259,18 @@ export class DevicesApi extends runtime.BaseAPI {
     /**
      * Delete a device and revoke its credentials
      */
-    async deleteDeviceRaw(requestParameters: DeleteDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteDeviceResponse>> {
+    async deleteDeviceRaw(requestParameters: DeleteDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteDeviceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteDeviceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Delete a device and revoke its credentials
      */
-    async deleteDevice(requestParameters: DeleteDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteDeviceResponse> {
-        const response = await this.deleteDeviceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteDevice(requestParameters: DeleteDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteDeviceRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -519,19 +498,18 @@ export class DevicesApi extends runtime.BaseAPI {
     /**
      * Park a device so it stops connecting and counting against the plan
      */
-    async parkDeviceRaw(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ParkDeviceResponse>> {
+    async parkDeviceRaw(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.parkDeviceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ParkDeviceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Park a device so it stops connecting and counting against the plan
      */
-    async parkDevice(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ParkDeviceResponse> {
-        const response = await this.parkDeviceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async parkDevice(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.parkDeviceRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -580,19 +558,18 @@ export class DevicesApi extends runtime.BaseAPI {
     /**
      * Return a parked device to live
      */
-    async unparkDeviceRaw(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UnparkDeviceResponse>> {
+    async unparkDeviceRaw(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.unparkDeviceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UnparkDeviceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Return a parked device to live
      */
-    async unparkDevice(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UnparkDeviceResponse> {
-        const response = await this.unparkDeviceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async unparkDevice(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.unparkDeviceRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -651,19 +628,18 @@ export class DevicesApi extends runtime.BaseAPI {
     /**
      * Rename a device or move it to another space in the same zone
      */
-    async updateDeviceRaw(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateDeviceResponse>> {
+    async updateDeviceRaw(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateDeviceRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateDeviceResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Rename a device or move it to another space in the same zone
      */
-    async updateDevice(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateDeviceResponse> {
-        const response = await this.updateDeviceRaw(requestParameters, initOverrides);
-        return await response.value();
+    async updateDevice(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateDeviceRaw(requestParameters, initOverrides);
     }
 
 }

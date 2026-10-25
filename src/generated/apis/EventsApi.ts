@@ -69,23 +69,18 @@ export class EventsApi extends runtime.BaseAPI {
     /**
      * Stream the team\'s live events
      */
-    async streamEventsRaw(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async streamEventsRaw(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.streamEventsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Stream the team\'s live events
      */
-    async streamEvents(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.streamEventsRaw(requestParameters, initOverrides);
-        return await response.value();
+    async streamEvents(requestParameters: StreamEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.streamEventsRaw(requestParameters, initOverrides);
     }
 
 }

@@ -30,10 +30,6 @@ export interface GetCommunicationPreferencesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: CommunicationPreferences;
 }
 
@@ -55,7 +51,6 @@ export function GetCommunicationPreferencesResponseFromJSONTyped(json: any, igno
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': CommunicationPreferencesFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetCommunicationPreferencesResponseToJSONTyped(value?: GetCommun
 
     return {
         
-        'message': value['message'],
         'data': CommunicationPreferencesToJSON(value['data']),
     };
 }

@@ -29,11 +29,6 @@ import {
     CreateTeamInviteResponseToJSON,
 } from '../models/CreateTeamInviteResponse.js';
 import {
-    type DeleteTeamInviteResponse,
-    DeleteTeamInviteResponseFromJSON,
-    DeleteTeamInviteResponseToJSON,
-} from '../models/DeleteTeamInviteResponse.js';
-import {
     type ListTeamInvitesResponse,
     ListTeamInvitesResponseFromJSON,
     ListTeamInvitesResponseToJSON,
@@ -41,7 +36,7 @@ import {
 
 export interface CreateTeamInviteOperationRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -52,18 +47,18 @@ export interface CreateTeamInviteOperationRequest {
 
 export interface DeleteTeamInviteRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * 
+     * A member ID
      */
     inviteId: string;
 }
 
 export interface ListTeamInvitesRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -190,19 +185,18 @@ export class InvitesApi extends runtime.BaseAPI {
     /**
      * Revoke a pending invite
      */
-    async deleteTeamInviteRaw(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteTeamInviteResponse>> {
+    async deleteTeamInviteRaw(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteTeamInviteRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteTeamInviteResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Revoke a pending invite
      */
-    async deleteTeamInvite(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteTeamInviteResponse> {
-        const response = await this.deleteTeamInviteRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteTeamInvite(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTeamInviteRaw(requestParameters, initOverrides);
     }
 
     /**

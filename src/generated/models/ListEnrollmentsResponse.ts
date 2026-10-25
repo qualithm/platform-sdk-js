@@ -30,10 +30,6 @@ export interface ListEnrollmentsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: EnrollmentPage;
 }
 
@@ -55,7 +51,6 @@ export function ListEnrollmentsResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': EnrollmentPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListEnrollmentsResponseToJSONTyped(value?: ListEnrollmentsRespon
 
     return {
         
-        'message': value['message'],
         'data': EnrollmentPageToJSON(value['data']),
     };
 }

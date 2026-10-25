@@ -28,15 +28,15 @@ import {
  */
 export interface TeamMembership {
     /**
-     * 
+     * A member ID
      */
     id: string;
     /**
-     * 
+     * An account ID
      */
     accountId: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**

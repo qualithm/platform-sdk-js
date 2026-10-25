@@ -30,10 +30,6 @@ export interface ListZonesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: ZoneList;
 }
 
@@ -55,7 +51,6 @@ export function ListZonesResponseFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ZoneListFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListZonesResponseToJSONTyped(value?: ListZonesResponse | null, i
 
     return {
         
-        'message': value['message'],
         'data': ZoneListToJSON(value['data']),
     };
 }

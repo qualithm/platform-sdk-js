@@ -30,10 +30,6 @@ export interface TriggerAutomationResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: TriggerAutomationResponseData;
 }
 
@@ -55,7 +51,6 @@ export function TriggerAutomationResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TriggerAutomationResponseDataFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function TriggerAutomationResponseToJSONTyped(value?: TriggerAutomationRe
 
     return {
         
-        'message': value['message'],
         'data': TriggerAutomationResponseDataToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface RotateDeviceCredentialResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: CredentialSecret;
 }
 
@@ -55,7 +51,6 @@ export function RotateDeviceCredentialResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': CredentialSecretFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function RotateDeviceCredentialResponseToJSONTyped(value?: RotateDeviceCr
 
     return {
         
-        'message': value['message'],
         'data': CredentialSecretToJSON(value['data']),
     };
 }

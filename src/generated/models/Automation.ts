@@ -28,15 +28,15 @@ import {
  */
 export interface Automation {
     /**
-     * 
+     * An automation ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
-     * Null for a team-wide automation
+     * A space ID
      */
     spaceId: string | null;
     /**

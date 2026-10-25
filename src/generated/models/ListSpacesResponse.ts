@@ -30,10 +30,6 @@ export interface ListSpacesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: SpacePage;
 }
 
@@ -55,7 +51,6 @@ export function ListSpacesResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': SpacePageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListSpacesResponseToJSONTyped(value?: ListSpacesResponse | null,
 
     return {
         
-        'message': value['message'],
         'data': SpacePageToJSON(value['data']),
     };
 }

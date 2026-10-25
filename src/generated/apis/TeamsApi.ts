@@ -24,11 +24,6 @@ import {
     CreateTeamResponseToJSON,
 } from '../models/CreateTeamResponse.js';
 import {
-    type DeleteTeamResponse,
-    DeleteTeamResponseFromJSON,
-    DeleteTeamResponseToJSON,
-} from '../models/DeleteTeamResponse.js';
-import {
     type GetTeamResponse,
     GetTeamResponseFromJSON,
     GetTeamResponseToJSON,
@@ -43,22 +38,17 @@ import {
     UpdateTeamRequestFromJSON,
     UpdateTeamRequestToJSON,
 } from '../models/UpdateTeamRequest.js';
-import {
-    type UpdateTeamResponse,
-    UpdateTeamResponseFromJSON,
-    UpdateTeamResponseToJSON,
-} from '../models/UpdateTeamResponse.js';
 
 export interface DeleteTeamRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
 }
 
 export interface GetTeamRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
 }
@@ -76,7 +66,7 @@ export interface ListTeamsRequest {
 
 export interface UpdateTeamOperationRequest {
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
@@ -175,19 +165,18 @@ export class TeamsApi extends runtime.BaseAPI {
     /**
      * Delete the team with its spaces, devices and memberships
      */
-    async deleteTeamRaw(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteTeamResponse>> {
+    async deleteTeamRaw(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteTeamRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteTeamResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Delete the team with its spaces, devices and memberships
      */
-    async deleteTeam(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteTeamResponse> {
-        const response = await this.deleteTeamRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteTeam(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTeamRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -344,19 +333,18 @@ export class TeamsApi extends runtime.BaseAPI {
     /**
      * Rename the team
      */
-    async updateTeamRaw(requestParameters: UpdateTeamOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateTeamResponse>> {
+    async updateTeamRaw(requestParameters: UpdateTeamOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateTeamRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateTeamResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Rename the team
      */
-    async updateTeam(requestParameters: UpdateTeamOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateTeamResponse> {
-        const response = await this.updateTeamRaw(requestParameters, initOverrides);
-        return await response.value();
+    async updateTeam(requestParameters: UpdateTeamOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateTeamRaw(requestParameters, initOverrides);
     }
 
 }

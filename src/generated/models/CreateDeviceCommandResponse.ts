@@ -30,10 +30,6 @@ export interface CreateDeviceCommandResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: QueuedCommand;
 }
 
@@ -55,7 +51,6 @@ export function CreateDeviceCommandResponseFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': QueuedCommandFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateDeviceCommandResponseToJSONTyped(value?: CreateDeviceComma
 
     return {
         
-        'message': value['message'],
         'data': QueuedCommandToJSON(value['data']),
     };
 }

@@ -30,10 +30,6 @@ export interface ListAuthoritiesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: AuthorityPage;
 }
 
@@ -55,7 +51,6 @@ export function ListAuthoritiesResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': AuthorityPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListAuthoritiesResponseToJSONTyped(value?: ListAuthoritiesRespon
 
     return {
         
-        'message': value['message'],
         'data': AuthorityPageToJSON(value['data']),
     };
 }

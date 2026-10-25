@@ -29,11 +29,6 @@ import {
     CreateDashboardResponseToJSON,
 } from '../models/CreateDashboardResponse.js';
 import {
-    type DeleteDashboardResponse,
-    DeleteDashboardResponseFromJSON,
-    DeleteDashboardResponseToJSON,
-} from '../models/DeleteDashboardResponse.js';
-import {
     type GetDashboardResponse,
     GetDashboardResponseFromJSON,
     GetDashboardResponseToJSON,
@@ -71,7 +66,7 @@ export interface DeleteDashboardRequest {
      */
     teamId: string;
     /**
-     * 
+     * A dashboard ID
      */
     dashboardId: string;
 }
@@ -82,7 +77,7 @@ export interface GetDashboardRequest {
      */
     teamId: string;
     /**
-     * 
+     * A dashboard ID
      */
     dashboardId: string;
 }
@@ -108,7 +103,7 @@ export interface UpdateDashboardOperationRequest {
      */
     teamId: string;
     /**
-     * 
+     * A dashboard ID
      */
     dashboardId: string;
     /**
@@ -231,19 +226,18 @@ export class DashboardsApi extends runtime.BaseAPI {
     /**
      * Delete a dashboard
      */
-    async deleteDashboardRaw(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteDashboardResponse>> {
+    async deleteDashboardRaw(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteDashboardRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteDashboardResponseFromJSON(jsonValue));
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Delete a dashboard
      */
-    async deleteDashboard(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteDashboardResponse> {
-        const response = await this.deleteDashboardRaw(requestParameters, initOverrides);
-        return await response.value();
+    async deleteDashboard(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteDashboardRaw(requestParameters, initOverrides);
     }
 
     /**

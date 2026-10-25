@@ -30,10 +30,6 @@ export interface ListDashboardsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: DashboardPage;
 }
 
@@ -55,7 +51,6 @@ export function ListDashboardsResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': DashboardPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListDashboardsResponseToJSONTyped(value?: ListDashboardsResponse
 
     return {
         
-        'message': value['message'],
         'data': DashboardPageToJSON(value['data']),
     };
 }

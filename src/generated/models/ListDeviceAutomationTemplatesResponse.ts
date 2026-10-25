@@ -30,10 +30,6 @@ export interface ListDeviceAutomationTemplatesResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Array<AutomationTemplate>;
 }
 
@@ -55,7 +51,6 @@ export function ListDeviceAutomationTemplatesResponseFromJSONTyped(json: any, ig
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': ((json['data'] as Array<any>).map(AutomationTemplateFromJSON)),
     };
 }
@@ -71,7 +66,6 @@ export function ListDeviceAutomationTemplatesResponseToJSONTyped(value?: ListDev
 
     return {
         
-        'message': value['message'],
         'data': ((value['data'] as Array<any>).map(AutomationTemplateToJSON)),
     };
 }

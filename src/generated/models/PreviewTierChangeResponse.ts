@@ -30,10 +30,6 @@ export interface PreviewTierChangeResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: TierChangePreview;
 }
 
@@ -55,7 +51,6 @@ export function PreviewTierChangeResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': TierChangePreviewFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function PreviewTierChangeResponseToJSONTyped(value?: PreviewTierChangeRe
 
     return {
         
-        'message': value['message'],
         'data': TierChangePreviewToJSON(value['data']),
     };
 }

@@ -20,15 +20,15 @@ import { mapValues } from '../runtime.js';
  */
 export interface Credential {
     /**
-     * 
+     * A credential ID
      */
     id: string;
     /**
-     * 
+     * A device ID
      */
     deviceId: string;
     /**
-     * The authority that issued a cert credential
+     * A device authority ID
      */
     authorityId: string | null;
     /**
@@ -60,7 +60,7 @@ export interface Credential {
      */
     lastUsedAt: string | null;
     /**
-     * The credential this one replaced on rotation
+     * A credential ID
      */
     rotatedFrom: string | null;
     /**

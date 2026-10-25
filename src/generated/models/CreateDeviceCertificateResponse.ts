@@ -30,10 +30,6 @@ export interface CreateDeviceCertificateResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: IssuedCertificate;
 }
 
@@ -55,7 +51,6 @@ export function CreateDeviceCertificateResponseFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': IssuedCertificateFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function CreateDeviceCertificateResponseToJSONTyped(value?: CreateDeviceC
 
     return {
         
-        'message': value['message'],
         'data': IssuedCertificateToJSON(value['data']),
     };
 }

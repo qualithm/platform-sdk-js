@@ -32,7 +32,7 @@ export interface UpdateDashboardRequest {
      */
     name?: string;
     /**
-     * A space id to scope the dashboard to; null or empty for team-wide
+     * A space ID
      */
     spaceId?: string | null;
     /**

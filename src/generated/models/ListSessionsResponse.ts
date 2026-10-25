@@ -30,10 +30,6 @@ export interface ListSessionsResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: SessionPage;
 }
 
@@ -55,7 +51,6 @@ export function ListSessionsResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': SessionPageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function ListSessionsResponseToJSONTyped(value?: ListSessionsResponse | n
 
     return {
         
-        'message': value['message'],
         'data': SessionPageToJSON(value['data']),
     };
 }

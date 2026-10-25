@@ -30,10 +30,6 @@ export interface GetUsageResponse {
     /**
      * 
      */
-    message?: string;
-    /**
-     * 
-     */
     data: Usage;
 }
 
@@ -55,7 +51,6 @@ export function GetUsageResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
-        'message': json['message'] == null ? undefined : json['message'],
         'data': UsageFromJSON(json['data']),
     };
 }
@@ -71,7 +66,6 @@ export function GetUsageResponseToJSONTyped(value?: GetUsageResponse | null, ign
 
     return {
         
-        'message': value['message'],
         'data': UsageToJSON(value['data']),
     };
 }

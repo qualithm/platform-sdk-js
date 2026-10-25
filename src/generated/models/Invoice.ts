@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface Invoice {
     /**
-     * 
+     * An invoice ID
      */
     id: string;
     /**
-     * 
+     * A team ID
      */
     teamId: string;
     /**
