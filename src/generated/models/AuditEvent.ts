@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -52,9 +52,9 @@ export interface AuditEvent {
      */
     metadata: any | null;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    occurredAt: string;
+    occurredAt: Date;
 }
 
 
@@ -103,7 +103,7 @@ export function AuditEventFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'targetKind': json['targetKind'],
         'targetId': json['targetId'],
         'metadata': json['metadata'],
-        'occurredAt': json['occurredAt'],
+        'occurredAt': (json['occurredAt'] == null ? json['occurredAt'] : parseDateTime(json['occurredAt'])),
     };
 }
 
@@ -126,7 +126,7 @@ export function AuditEventToJSONTyped(value?: AuditEvent | null, ignoreDiscrimin
         'targetKind': value['targetKind'],
         'targetId': value['targetId'],
         'metadata': value['metadata'],
-        'occurredAt': value['occurredAt'],
+        'occurredAt': value['occurredAt'] == null ? value['occurredAt'] : serializeDateTime(value['occurredAt']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { DashboardWidget } from './DashboardWidget.js';
 import {
     DashboardWidgetFromJSON,
@@ -52,13 +52,13 @@ export interface Dashboard {
      */
     payload: Array<DashboardWidget>;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 /**
@@ -92,8 +92,8 @@ export function DashboardFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'spaceName': json['spaceName'],
         'name': json['name'],
         'payload': ((json['payload'] as Array<any>).map(DashboardWidgetFromJSON)),
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -114,8 +114,8 @@ export function DashboardToJSONTyped(value?: Dashboard | null, ignoreDiscriminat
         'spaceName': value['spaceName'],
         'name': value['name'],
         'payload': ((value['payload'] as Array<any>).map(DashboardWidgetToJSON)),
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

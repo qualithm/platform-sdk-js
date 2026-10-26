@@ -38,13 +38,13 @@ export interface ListTelemetryRequest {
      */
     metric: string;
     /**
-     * Range start, epoch milliseconds, inclusive
+     * Range start, RFC 3339, inclusive
      */
-    from: string;
+    from: Date;
     /**
-     * Range end, epoch milliseconds, exclusive
+     * Range end, RFC 3339, exclusive
      */
-    to: string;
+    to: Date;
     /**
      * Bucket width in seconds. Default 60.
      */
@@ -110,11 +110,11 @@ export class TelemetryApi extends runtime.BaseAPI {
         }
 
         if (requestParameters['from'] != null) {
-            queryParameters['from'] = requestParameters['from'];
+            queryParameters['from'] = runtime.serializeDateTime(requestParameters['from'] as any);
         }
 
         if (requestParameters['to'] != null) {
-            queryParameters['to'] = requestParameters['to'];
+            queryParameters['to'] = runtime.serializeDateTime(requestParameters['to'] as any);
         }
 
         if (requestParameters['bucket'] != null) {

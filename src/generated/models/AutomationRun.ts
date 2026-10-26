@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { AutomationRunStep } from './AutomationRunStep.js';
 import {
     AutomationRunStepFromJSON,
@@ -52,13 +52,13 @@ export interface AutomationRun {
      */
     lastError: string | null;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    triggeredAt: string;
+    triggeredAt: Date;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    executedAt: string | null;
+    executedAt: Date | null;
 }
 
 
@@ -118,8 +118,8 @@ export function AutomationRunFromJSONTyped(json: any, ignoreDiscriminator: boole
         'status': json['status'],
         'steps': ((json['steps'] as Array<any>).map(AutomationRunStepFromJSON)),
         'lastError': json['lastError'],
-        'triggeredAt': json['triggeredAt'],
-        'executedAt': json['executedAt'],
+        'triggeredAt': (json['triggeredAt'] == null ? json['triggeredAt'] : parseDateTime(json['triggeredAt'])),
+        'executedAt': (json['executedAt'] == null ? null : parseDateTime(json['executedAt'])),
     };
 }
 
@@ -140,8 +140,8 @@ export function AutomationRunToJSONTyped(value?: AutomationRun | null, ignoreDis
         'status': value['status'],
         'steps': ((value['steps'] as Array<any>).map(AutomationRunStepToJSON)),
         'lastError': value['lastError'],
-        'triggeredAt': value['triggeredAt'],
-        'executedAt': value['executedAt'],
+        'triggeredAt': value['triggeredAt'] == null ? value['triggeredAt'] : serializeDateTime(value['triggeredAt']),
+        'executedAt': value['executedAt'] == null ? value['executedAt'] : serializeDateTime(value['executedAt']),
     };
 }
 

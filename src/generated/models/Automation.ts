@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { AutomationPayload } from './AutomationPayload.js';
 import {
     AutomationPayloadFromJSON,
@@ -56,13 +56,13 @@ export interface Automation {
      */
     payload: AutomationPayload;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * On a single read of a template-built automation: true when its chain no longer matches its template
      */
@@ -102,8 +102,8 @@ export function AutomationFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'name': json['name'],
         'enabled': json['enabled'],
         'payload': AutomationPayloadFromJSON(json['payload']),
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'templateDrift': json['templateDrift'] == null ? undefined : json['templateDrift'],
     };
 }
@@ -126,8 +126,8 @@ export function AutomationToJSONTyped(value?: Automation | null, ignoreDiscrimin
         'name': value['name'],
         'enabled': value['enabled'],
         'payload': AutomationPayloadToJSON(value['payload']),
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'templateDrift': value['templateDrift'],
     };
 }

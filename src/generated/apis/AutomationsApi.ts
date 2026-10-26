@@ -19,16 +19,6 @@ import {
     ApiErrorToJSON,
 } from '../models/ApiError.js';
 import {
-    type CreateAutomationFromTemplateRequest,
-    CreateAutomationFromTemplateRequestFromJSON,
-    CreateAutomationFromTemplateRequestToJSON,
-} from '../models/CreateAutomationFromTemplateRequest.js';
-import {
-    type CreateAutomationFromTemplateResponse,
-    CreateAutomationFromTemplateResponseFromJSON,
-    CreateAutomationFromTemplateResponseToJSON,
-} from '../models/CreateAutomationFromTemplateResponse.js';
-import {
     type CreateAutomationRequest,
     CreateAutomationRequestFromJSON,
     CreateAutomationRequestToJSON,
@@ -39,20 +29,15 @@ import {
     CreateAutomationResponseToJSON,
 } from '../models/CreateAutomationResponse.js';
 import {
+    type CreateAutomationRunResponse,
+    CreateAutomationRunResponseFromJSON,
+    CreateAutomationRunResponseToJSON,
+} from '../models/CreateAutomationRunResponse.js';
+import {
     type CreateAutomationTriggerSecretResponse,
     CreateAutomationTriggerSecretResponseFromJSON,
     CreateAutomationTriggerSecretResponseToJSON,
 } from '../models/CreateAutomationTriggerSecretResponse.js';
-import {
-    type DisableAutomationResponse,
-    DisableAutomationResponseFromJSON,
-    DisableAutomationResponseToJSON,
-} from '../models/DisableAutomationResponse.js';
-import {
-    type EnableAutomationResponse,
-    EnableAutomationResponseFromJSON,
-    EnableAutomationResponseToJSON,
-} from '../models/EnableAutomationResponse.js';
 import {
     type GetAutomationResponse,
     GetAutomationResponseFromJSON,
@@ -73,11 +58,6 @@ import {
     ListDeviceAutomationTemplatesResponseFromJSON,
     ListDeviceAutomationTemplatesResponseToJSON,
 } from '../models/ListDeviceAutomationTemplatesResponse.js';
-import {
-    type RunAutomationResponse,
-    RunAutomationResponseFromJSON,
-    RunAutomationResponseToJSON,
-} from '../models/RunAutomationResponse.js';
 import {
     type TriggerAutomationResponse,
     TriggerAutomationResponseFromJSON,
@@ -103,17 +83,25 @@ export interface CreateAutomationOperationRequest {
      * 
      */
     createAutomationRequest: CreateAutomationRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
-export interface CreateAutomationFromTemplateOperationRequest {
+export interface CreateAutomationRunRequest {
     /**
      * The team the request acts on
      */
     teamId: string;
     /**
-     * 
+     * An automation ID
      */
-    createAutomationFromTemplateRequest: CreateAutomationFromTemplateRequest;
+    automationId: string;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface CreateAutomationTriggerSecretRequest {
@@ -125,6 +113,10 @@ export interface CreateAutomationTriggerSecretRequest {
      * An automation ID
      */
     automationId: string;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface DeleteAutomationRequest {
@@ -136,28 +128,10 @@ export interface DeleteAutomationRequest {
      * An automation ID
      */
     automationId: string;
-}
-
-export interface DisableAutomationRequest {
     /**
-     * The team the request acts on
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
      */
-    teamId: string;
-    /**
-     * An automation ID
-     */
-    automationId: string;
-}
-
-export interface EnableAutomationRequest {
-    /**
-     * The team the request acts on
-     */
-    teamId: string;
-    /**
-     * An automation ID
-     */
-    automationId: string;
+    ifMatch?: string;
 }
 
 export interface GetAutomationRequest {
@@ -216,18 +190,11 @@ export interface ListDeviceAutomationTemplatesRequest {
     deviceId: string;
 }
 
-export interface RunAutomationRequest {
-    /**
-     * The team the request acts on
-     */
-    teamId: string;
-    /**
-     * An automation ID
-     */
-    automationId: string;
-}
-
 export interface TriggerAutomationRequest {
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
     /**
      * 
      */
@@ -247,6 +214,10 @@ export interface UpdateAutomationOperationRequest {
      * 
      */
     updateAutomationRequest: UpdateAutomationRequest;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 /**
@@ -277,6 +248,10 @@ export class AutomationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -318,20 +293,20 @@ export class AutomationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates request options for createAutomationFromTemplate without sending the request
+     * Creates request options for createAutomationRun without sending the request
      */
-    async createAutomationFromTemplateRequestOpts(requestParameters: CreateAutomationFromTemplateOperationRequest): Promise<runtime.RequestOpts> {
+    async createAutomationRunRequestOpts(requestParameters: CreateAutomationRunRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['teamId'] == null) {
             throw new runtime.RequiredError(
                 'teamId',
-                'Required parameter "teamId" was null or undefined when calling createAutomationFromTemplate().'
+                'Required parameter "teamId" was null or undefined when calling createAutomationRun().'
             );
         }
 
-        if (requestParameters['createAutomationFromTemplateRequest'] == null) {
+        if (requestParameters['automationId'] == null) {
             throw new runtime.RequiredError(
-                'createAutomationFromTemplateRequest',
-                'Required parameter "createAutomationFromTemplateRequest" was null or undefined when calling createAutomationFromTemplate().'
+                'automationId',
+                'Required parameter "automationId" was null or undefined when calling createAutomationRun().'
             );
         }
 
@@ -339,7 +314,9 @@ export class AutomationsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters['Content-Type'] = 'application/json';
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -350,33 +327,33 @@ export class AutomationsApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/v1/teams/{teamId}/automations/from-template`;
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/runs`;
         urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+        urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
 
         return {
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateAutomationFromTemplateRequestToJSON(requestParameters['createAutomationFromTemplateRequest']),
         };
     }
 
     /**
-     * Create an automation from a template
+     * Start a run of an automation\'s chain now
      */
-    async createAutomationFromTemplateRaw(requestParameters: CreateAutomationFromTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateAutomationFromTemplateResponse>> {
-        const requestOptions = await this.createAutomationFromTemplateRequestOpts(requestParameters);
+    async createAutomationRunRaw(requestParameters: CreateAutomationRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateAutomationRunResponse>> {
+        const requestOptions = await this.createAutomationRunRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateAutomationFromTemplateResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateAutomationRunResponseFromJSON(jsonValue));
     }
 
     /**
-     * Create an automation from a template
+     * Start a run of an automation\'s chain now
      */
-    async createAutomationFromTemplate(requestParameters: CreateAutomationFromTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateAutomationFromTemplateResponse> {
-        const response = await this.createAutomationFromTemplateRaw(requestParameters, initOverrides);
+    async createAutomationRun(requestParameters: CreateAutomationRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateAutomationRunResponse> {
+        const response = await this.createAutomationRunRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -401,6 +378,10 @@ export class AutomationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -463,6 +444,10 @@ export class AutomationsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
             const tokenString = await token("apiToken", []);
@@ -499,128 +484,6 @@ export class AutomationsApi extends runtime.BaseAPI {
      */
     async deleteAutomation(requestParameters: DeleteAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteAutomationRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * Creates request options for disableAutomation without sending the request
-     */
-    async disableAutomationRequestOpts(requestParameters: DisableAutomationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['teamId'] == null) {
-            throw new runtime.RequiredError(
-                'teamId',
-                'Required parameter "teamId" was null or undefined when calling disableAutomation().'
-            );
-        }
-
-        if (requestParameters['automationId'] == null) {
-            throw new runtime.RequiredError(
-                'automationId',
-                'Required parameter "automationId" was null or undefined when calling disableAutomation().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/disable`;
-        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
-        urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Disable an automation
-     */
-    async disableAutomationRaw(requestParameters: DisableAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DisableAutomationResponse>> {
-        const requestOptions = await this.disableAutomationRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => DisableAutomationResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Disable an automation
-     */
-    async disableAutomation(requestParameters: DisableAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DisableAutomationResponse> {
-        const response = await this.disableAutomationRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates request options for enableAutomation without sending the request
-     */
-    async enableAutomationRequestOpts(requestParameters: EnableAutomationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['teamId'] == null) {
-            throw new runtime.RequiredError(
-                'teamId',
-                'Required parameter "teamId" was null or undefined when calling enableAutomation().'
-            );
-        }
-
-        if (requestParameters['automationId'] == null) {
-            throw new runtime.RequiredError(
-                'automationId',
-                'Required parameter "automationId" was null or undefined when calling enableAutomation().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/enable`;
-        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
-        urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Enable an automation
-     */
-    async enableAutomationRaw(requestParameters: EnableAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EnableAutomationResponse>> {
-        const requestOptions = await this.enableAutomationRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EnableAutomationResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Enable an automation
-     */
-    async enableAutomation(requestParameters: EnableAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EnableAutomationResponse> {
-        const response = await this.enableAutomationRaw(requestParameters, initOverrides);
-        return await response.value();
     }
 
     /**
@@ -876,67 +739,6 @@ export class AutomationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates request options for runAutomation without sending the request
-     */
-    async runAutomationRequestOpts(requestParameters: RunAutomationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['teamId'] == null) {
-            throw new runtime.RequiredError(
-                'teamId',
-                'Required parameter "teamId" was null or undefined when calling runAutomation().'
-            );
-        }
-
-        if (requestParameters['automationId'] == null) {
-            throw new runtime.RequiredError(
-                'automationId',
-                'Required parameter "automationId" was null or undefined when calling runAutomation().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/run`;
-        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
-        urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Run an automation\'s chain now
-     */
-    async runAutomationRaw(requestParameters: RunAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RunAutomationResponse>> {
-        const requestOptions = await this.runAutomationRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => RunAutomationResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Run an automation\'s chain now
-     */
-    async runAutomation(requestParameters: RunAutomationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RunAutomationResponse> {
-        const response = await this.runAutomationRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Creates request options for triggerAutomation without sending the request
      */
     async triggerAutomationRequestOpts(requestParameters: TriggerAutomationRequest): Promise<runtime.RequestOpts> {
@@ -945,6 +747,10 @@ export class AutomationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
 
         let urlPath = `/v1/automations/trigger`;
@@ -1006,6 +812,10 @@ export class AutomationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

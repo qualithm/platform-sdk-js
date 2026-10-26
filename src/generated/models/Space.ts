@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { ZoneId } from './ZoneId.js';
 import {
     ZoneIdFromJSON,
@@ -48,13 +48,13 @@ export interface Space {
      */
     zone: ZoneId;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * The space's live devices. Absent when listing a zone's spaces.
      */
@@ -92,8 +92,8 @@ export function SpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Spa
         'name': json['name'],
         'payload': json['payload'],
         'zone': ZoneIdFromJSON(json['zone']),
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'deviceTotal': json['deviceTotal'] == null ? undefined : json['deviceTotal'],
     };
 }
@@ -114,8 +114,8 @@ export function SpaceToJSONTyped(value?: Space | null, ignoreDiscriminator: bool
         'name': value['name'],
         'payload': value['payload'],
         'zone': ZoneIdToJSON(value['zone']),
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'deviceTotal': value['deviceTotal'],
     };
 }

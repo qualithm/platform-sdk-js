@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -44,21 +44,21 @@ export interface Session {
      */
     thisDevice: boolean;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    lastUsedAt: string;
+    lastUsedAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    expiresAt: string;
+    expiresAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    revokedAt: string | null;
+    revokedAt: Date | null;
 }
 
 /**
@@ -94,10 +94,10 @@ export function SessionFromJSONTyped(json: any, ignoreDiscriminator: boolean): S
         'ipAddress': json['ipAddress'],
         'mfaVerified': json['mfaVerified'],
         'thisDevice': json['thisDevice'],
-        'createdAt': json['createdAt'],
-        'lastUsedAt': json['lastUsedAt'],
-        'expiresAt': json['expiresAt'],
-        'revokedAt': json['revokedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'lastUsedAt': (json['lastUsedAt'] == null ? json['lastUsedAt'] : parseDateTime(json['lastUsedAt'])),
+        'expiresAt': (json['expiresAt'] == null ? json['expiresAt'] : parseDateTime(json['expiresAt'])),
+        'revokedAt': (json['revokedAt'] == null ? null : parseDateTime(json['revokedAt'])),
     };
 }
 
@@ -118,10 +118,10 @@ export function SessionToJSONTyped(value?: Session | null, ignoreDiscriminator: 
         'ipAddress': value['ipAddress'],
         'mfaVerified': value['mfaVerified'],
         'thisDevice': value['thisDevice'],
-        'createdAt': value['createdAt'],
-        'lastUsedAt': value['lastUsedAt'],
-        'expiresAt': value['expiresAt'],
-        'revokedAt': value['revokedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'lastUsedAt': value['lastUsedAt'] == null ? value['lastUsedAt'] : serializeDateTime(value['lastUsedAt']),
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
+        'revokedAt': value['revokedAt'] == null ? value['revokedAt'] : serializeDateTime(value['revokedAt']),
     };
 }
 

@@ -53,6 +53,10 @@ export interface CreateSpaceOperationRequest {
      * 
      */
     createSpaceRequest: CreateSpaceRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface DeleteSpaceRequest {
@@ -64,6 +68,10 @@ export interface DeleteSpaceRequest {
      * A space ID
      */
     spaceId: string;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 export interface GetSpaceRequest {
@@ -109,6 +117,10 @@ export interface UpdateSpaceOperationRequest {
      * 
      */
     updateSpaceRequest: UpdateSpaceRequest;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 /**
@@ -139,6 +151,10 @@ export class SpacesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -200,6 +216,10 @@ export class SpacesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -395,6 +415,10 @@ export class SpacesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
