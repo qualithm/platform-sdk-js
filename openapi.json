@@ -9213,6 +9213,17 @@
               }
             ]
           },
+          "capabilitiesDeclared": {
+            "description": "Whether the device's latest session declared its capabilities before sending data; null until a session has done either",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "level": {
             "type": "string",
             "enum": [
