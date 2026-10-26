@@ -64,6 +64,10 @@ export interface Device {
      */
     parkedAt?: Date | null;
     /**
+     * Whether the device's latest session declared its capabilities before sending data; null until a session has done either
+     */
+    capabilitiesDeclared?: boolean | null;
+    /**
      * 
      */
     level?: DeviceLevelEnum;
@@ -118,6 +122,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
+        'capabilitiesDeclared': json['capabilitiesDeclared'] === undefined ? undefined : json['capabilitiesDeclared'] === null ? null : json['capabilitiesDeclared'],
         'level': json['level'] == null ? undefined : json['level'],
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(DeviceCheckFromJSON)),
     };
@@ -143,6 +148,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),
+        'capabilitiesDeclared': value['capabilitiesDeclared'],
         'level': value['level'],
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(DeviceCheckToJSON)),
     };
