@@ -247,6 +247,12 @@
                   "type": "string"
                 }
               },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -323,6 +329,15 @@
               "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -348,6 +363,12 @@
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -430,6 +451,15 @@
               "type": "string",
               "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -642,6 +672,12 @@
                   "type": "string"
                 }
               },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -718,6 +754,15 @@
               "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -743,6 +788,12 @@
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -825,6 +876,15 @@
               "type": "string",
               "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -936,6 +996,12 @@
                   "type": "string"
                 }
               },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -976,7 +1042,7 @@
       "patch": {
         "operationId": "updateDevice",
         "x-qualithm-audience": "management",
-        "summary": "Rename a device or move it to another space in the same zone",
+        "summary": "Rename, move or park a device",
         "tags": [
           "Devices"
         ],
@@ -1012,6 +1078,15 @@
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1026,10 +1101,16 @@
         },
         "responses": {
           "204": {
-            "description": "Rename a device or move it to another space in the same zone",
+            "description": "Rename, move or park a device",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -1059,6 +1140,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -1112,6 +1196,15 @@
               "type": "string",
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -1313,6 +1406,12 @@
                   "type": "string"
                 }
               },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -1389,6 +1488,15 @@
               "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1407,6 +1515,12 @@
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -1489,6 +1603,15 @@
               "type": "string",
               "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -1968,6 +2091,12 @@
                   "type": "string"
                 }
               },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
               "RateLimit": {
                 "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
                 "schema": {
@@ -2032,6 +2161,15 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -2050,6 +2188,12 @@
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -2120,6 +2264,15 @@
               "type": "string",
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2577,6 +2730,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -2757,6 +2921,115 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createAutomationRun",
+        "x-qualithm-audience": "management",
+        "summary": "Start a run of an automation's chain now",
+        "tags": [
+          "Automations"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "automation.run",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "automationId",
+            "in": "path",
+            "required": true,
+            "description": "An automation ID",
+            "schema": {
+              "type": "string",
+              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Start a run of an automation's chain now",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAutomationRunResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -3001,6 +3274,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -3055,6 +3339,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -3494,6 +3781,17 @@
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -3548,6 +3846,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -3697,6 +3998,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -3751,6 +4063,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -4023,6 +4338,17 @@
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -4077,6 +4403,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -4327,6 +4656,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -4381,6 +4721,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -4529,6 +4872,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -4583,6 +4937,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -5299,6 +5656,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -5353,6 +5721,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -5503,6 +5874,17 @@
               "type": "string",
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
             }
           }
         ],
@@ -5708,6 +6090,17 @@
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -5759,6 +6152,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -5870,7 +6266,19 @@
             "apiToken": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Create a team with the caller as owner",
@@ -5904,6 +6312,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -5972,18 +6383,24 @@
             "name": "from",
             "in": "query",
             "required": true,
-            "description": "Range start, epoch milliseconds, inclusive",
+            "description": "Range start, RFC 3339, inclusive",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "example": "2026-10-26T09:30:00Z"
             }
           },
           {
             "name": "to",
             "in": "query",
             "required": true,
-            "description": "Range end, epoch milliseconds, exclusive",
+            "description": "Range end, RFC 3339, exclusive",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "example": "2026-10-26T09:30:00Z"
             }
           },
           {
@@ -6246,6 +6663,15 @@
               "pattern": "^cap_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "cap_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -6271,6 +6697,12 @@
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
                 "schema": {
                   "type": "string"
                 }
@@ -6343,6 +6775,17 @@
               "type": "string",
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
             }
           }
         ],
@@ -6417,396 +6860,6 @@
         }
       }
     },
-    "/v1/teams/{teamId}/automations/{automationId}/disable": {
-      "post": {
-        "operationId": "disableAutomation",
-        "x-qualithm-audience": "management",
-        "summary": "Disable an automation",
-        "tags": [
-          "Automations"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "automation.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "automationId",
-            "in": "path",
-            "required": true,
-            "description": "An automation ID",
-            "schema": {
-              "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Disable an automation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DisableAutomationResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/automations/{automationId}/enable": {
-      "post": {
-        "operationId": "enableAutomation",
-        "x-qualithm-audience": "management",
-        "summary": "Enable an automation",
-        "tags": [
-          "Automations"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "automation.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "automationId",
-            "in": "path",
-            "required": true,
-            "description": "An automation ID",
-            "schema": {
-              "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Enable an automation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnableAutomationResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/automations/from-template": {
-      "post": {
-        "operationId": "createAutomationFromTemplate",
-        "x-qualithm-audience": "management",
-        "summary": "Create an automation from a template",
-        "tags": [
-          "Automations"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "automation.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAutomationFromTemplateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Create an automation from a template",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateAutomationFromTemplateResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "415": {
-            "$ref": "#/components/responses/UnsupportedMediaType"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/automations/{automationId}/run": {
-      "post": {
-        "operationId": "runAutomation",
-        "x-qualithm-audience": "management",
-        "summary": "Run an automation's chain now",
-        "tags": [
-          "Automations"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "automation.run",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "automationId",
-            "in": "path",
-            "required": true,
-            "description": "An automation ID",
-            "schema": {
-              "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Run an automation's chain now",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RunAutomationResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
     "/v1/automations/trigger": {
       "post": {
         "operationId": "triggerAutomation",
@@ -6816,7 +6869,19 @@
           "Automations"
         ],
         "security": [],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
         "requestBody": {
           "required": false,
           "content": {
@@ -6866,6 +6931,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -6922,6 +6990,17 @@
               "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "responses": {
@@ -6966,6 +7045,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -7018,6 +7100,17 @@
               "type": "string",
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
             }
           }
         ],
@@ -7073,6 +7166,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -7149,6 +7245,17 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
           }
         ],
         "requestBody": {
@@ -7204,191 +7311,11 @@
           "404": {
             "$ref": "#/components/responses/NotFound"
           },
-          "415": {
-            "$ref": "#/components/responses/UnsupportedMediaType"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/devices/{deviceId}/park": {
-      "post": {
-        "operationId": "parkDevice",
-        "x-qualithm-audience": "management",
-        "summary": "Park a device so it stops connecting and counting against the plan",
-        "tags": [
-          "Devices"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "device.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "deviceId",
-            "in": "path",
-            "required": true,
-            "description": "A device ID",
-            "schema": {
-              "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Park a device so it stops connecting and counting against the plan",
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/devices/{deviceId}/unpark": {
-      "post": {
-        "operationId": "unparkDevice",
-        "x-qualithm-audience": "management",
-        "summary": "Return a parked device to live",
-        "tags": [
-          "Devices"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "device.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "deviceId",
-            "in": "path",
-            "required": true,
-            "description": "A device ID",
-            "schema": {
-              "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Return a parked device to live",
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
           "409": {
             "$ref": "#/components/responses/Conflict"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -7488,11 +7415,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "memberId": {
             "type": "string",
@@ -7609,11 +7542,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "accountEmail": {
             "type": "string"
@@ -7698,11 +7637,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -7745,11 +7690,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "accountEmail": {
             "type": "string"
@@ -7885,10 +7836,13 @@
             }
           },
           "expiresAt": {
-            "description": "ISO 8601 time",
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -7899,7 +7853,10 @@
             "anyOf": [
               {
                 "type": "string",
-                "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -7908,11 +7865,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -7988,11 +7951,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "deviceTotal": {
             "description": "The space's live devices. Absent when listing a zone's spaces.",
@@ -8172,7 +8141,10 @@
             "anyOf": [
               {
                 "type": "string",
-                "description": "ISO 8601 time"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -8183,7 +8155,10 @@
             "anyOf": [
               {
                 "type": "string",
-                "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -8210,11 +8185,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -8334,11 +8315,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -8429,7 +8416,10 @@
             "anyOf": [
               {
                 "type": "string",
-                "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -8438,7 +8428,10 @@
           },
           "expiresAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "payload": {
             "type": "string",
@@ -8446,11 +8439,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -8689,11 +8688,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "templateDrift": {
             "description": "On a single read of a template-built automation: true when its chain no longer matches its template",
@@ -8836,13 +8841,19 @@
           },
           "triggeredAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "executedAt": {
             "anyOf": [
               {
                 "type": "string",
-                "description": "ISO 8601 time"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -9101,11 +9112,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -9204,18 +9221,27 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "parkedAt": {
             "description": "Set while the device is parked: it cannot connect or write",
             "anyOf": [
               {
                 "type": "string",
-                "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -9293,8 +9319,11 @@
             "description": "Whether the device was seen within the offline window"
           },
           "lastSeenAt": {
-            "type": "number",
-            "description": "Last sighting, epoch milliseconds"
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "When the device was last seen",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "metrics": {
             "type": "object",
@@ -9361,13 +9390,19 @@
           },
           "enqueuedAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "settledAt": {
             "anyOf": [
               {
                 "type": "string",
-                "description": "ISO 8601 time"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -9514,11 +9549,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -9584,21 +9625,33 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "lastUsedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "expiresAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "revokedAt": {
             "anyOf": [
               {
                 "type": "string",
-                "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
               },
               {
                 "type": "null"
@@ -9674,11 +9727,17 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -9799,7 +9858,10 @@
           },
           "occurredAt": {
             "type": "string",
-            "description": "ISO 8601 time"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
@@ -9860,6 +9922,26 @@
         "required": [
           "used",
           "limit"
+        ]
+      },
+      "Money": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "description": "The amount in minor units, e.g. cents",
+            "format": "int64"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "An ISO 4217 currency code",
+            "example": "USD"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
         ]
       },
       "BillingSummary": {
@@ -9950,8 +10032,8 @@
             ]
           },
           "monthlyTotal": {
-            "type": "number",
-            "description": "The plan's monthly price with add-ons, in USD"
+            "description": "The plan's monthly price with add-ons",
+            "$ref": "#/components/schemas/Money"
           },
           "addons": {
             "type": "object",
@@ -10004,27 +10086,16 @@
           "status": {
             "type": "string"
           },
-          "totalC": {
+          "total": {
             "anyOf": [
               {
-                "type": "integer",
-                "format": "int64"
+                "$ref": "#/components/schemas/Money"
               },
               {
                 "type": "null"
               }
             ],
-            "description": "The invoice total in minor units"
-          },
-          "currency": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "description": "The invoice total; null until Stripe sets it"
           },
           "payload": {
             "type": "string",
@@ -10032,19 +10103,24 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "updatedAt": {
             "type": "string",
-            "description": "UTC time, `YYYY-MM-DD HH:MM:SS`"
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
           }
         },
         "required": [
           "id",
           "teamId",
           "status",
-          "totalC",
-          "currency",
+          "total",
           "payload",
           "createdAt",
           "updatedAt"
@@ -10096,12 +10172,8 @@
             ]
           },
           "amountDue": {
-            "type": "integer",
-            "description": "What the change bills now, in minor units; negative for a credit",
-            "format": "int64"
-          },
-          "currency": {
-            "type": "string"
+            "description": "What the change bills now; a negative amount is a credit",
+            "$ref": "#/components/schemas/Money"
           },
           "nextPaymentAttempt": {
             "anyOf": [
@@ -10120,7 +10192,6 @@
           "from",
           "to",
           "amountDue",
-          "currency",
           "nextPaymentAttempt"
         ]
       },
@@ -10717,6 +10788,10 @@
           "name": {
             "type": "string"
           },
+          "enabled": {
+            "description": "Whether its trigger fires",
+            "type": "boolean"
+          },
           "spaceId": {
             "description": "The space to scope it to; null clears the scope",
             "anyOf": [
@@ -10769,7 +10844,7 @@
             "description": "The template's slot values, keyed by slot name; used with `template`"
           }
         },
-        "description": "At least one of name, spaceId, payload or template"
+        "description": "At least one of name, enabled, spaceId, payload or template"
       },
       "UpdateCapabilityResponse": {
         "type": "object",
@@ -10863,6 +10938,10 @@
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "parked": {
+            "description": "A parked device can't connect and doesn't count against the plan; its credentials and history stay",
+            "type": "boolean"
           }
         }
       },
@@ -10996,6 +11075,7 @@
             ]
           },
           "payload": {
+            "description": "The chain; exclusive with `template`",
             "type": "object",
             "properties": {
               "trigger": {
@@ -11023,66 +11103,21 @@
               "trigger",
               "chain"
             ]
-          }
-        },
-        "required": [
-          "name",
-          "payload"
-        ]
-      },
-      "DisableAutomationResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Automation"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "EnableAutomationResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Automation"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "CreateAutomationFromTemplateResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Automation"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "CreateAutomationFromTemplateRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
           },
           "template": {
-            "type": "string",
-            "description": "The template id"
+            "description": "A template id to expand the chain from; exclusive with `payload`",
+            "type": "string"
           },
           "params": {
-            "description": "The template's slot values, keyed by slot name"
+            "description": "The template's slot values, keyed by slot name; used with `template`"
           }
         },
         "required": [
-          "name",
-          "template"
-        ]
+          "name"
+        ],
+        "description": "A name, and either a payload or a template"
       },
-      "RunAutomationResponse": {
+      "CreateAutomationRunResponse": {
         "type": "object",
         "properties": {
           "data": {
@@ -11159,8 +11194,11 @@
             "type": "string"
           },
           "expiresAt": {
-            "description": "ISO 8601 time in the future",
-            "type": "string"
+            "description": "A time in the future",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "example": "2026-10-26T09:30:00Z"
           }
         }
       },
@@ -11212,8 +11250,11 @@
         "type": "object",
         "properties": {
           "expiresAt": {
-            "description": "ISO 8601 time in the future",
-            "type": "string"
+            "description": "A time in the future",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "example": "2026-10-26T09:30:00Z"
           }
         }
       },

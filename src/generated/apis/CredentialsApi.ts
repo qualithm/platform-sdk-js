@@ -67,6 +67,10 @@ export interface CreateDeviceCertificateOperationRequest {
      * 
      */
     createDeviceCertificateRequest: CreateDeviceCertificateRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface CreateDeviceCredentialOperationRequest {
@@ -78,6 +82,10 @@ export interface CreateDeviceCredentialOperationRequest {
      * A device ID
      */
     deviceId: string;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
     /**
      * 
      */
@@ -128,6 +136,10 @@ export interface RotateDeviceCredentialOperationRequest {
      */
     revoke?: string;
     /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+    /**
      * 
      */
     rotateDeviceCredentialRequest?: RotateDeviceCredentialRequest;
@@ -168,6 +180,10 @@ export class CredentialsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -232,6 +248,10 @@ export class CredentialsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -436,6 +456,10 @@ export class CredentialsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

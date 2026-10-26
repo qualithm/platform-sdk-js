@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -44,13 +44,13 @@ export interface DeviceCommand {
      */
     lastError: string | null;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    enqueuedAt: string;
+    enqueuedAt: Date;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    settledAt: string | null;
+    settledAt: Date | null;
 }
 
 
@@ -106,8 +106,8 @@ export function DeviceCommandFromJSONTyped(json: any, ignoreDiscriminator: boole
         'topic': json['topic'],
         'status': json['status'],
         'lastError': json['lastError'],
-        'enqueuedAt': json['enqueuedAt'],
-        'settledAt': json['settledAt'],
+        'enqueuedAt': (json['enqueuedAt'] == null ? json['enqueuedAt'] : parseDateTime(json['enqueuedAt'])),
+        'settledAt': (json['settledAt'] == null ? null : parseDateTime(json['settledAt'])),
     };
 }
 
@@ -128,8 +128,8 @@ export function DeviceCommandToJSONTyped(value?: DeviceCommand | null, ignoreDis
         'topic': value['topic'],
         'status': value['status'],
         'lastError': value['lastError'],
-        'enqueuedAt': value['enqueuedAt'],
-        'settledAt': value['settledAt'],
+        'enqueuedAt': value['enqueuedAt'] == null ? value['enqueuedAt'] : serializeDateTime(value['enqueuedAt']),
+        'settledAt': value['settledAt'] == null ? value['settledAt'] : serializeDateTime(value['settledAt']),
     };
 }
 

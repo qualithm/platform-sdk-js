@@ -47,6 +47,10 @@ export interface CreateDeviceCommandOperationRequest {
      * 
      */
     createDeviceCommandRequest: CreateDeviceCommandRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface ListDeviceCommandsRequest {
@@ -103,6 +107,10 @@ export class CommandsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

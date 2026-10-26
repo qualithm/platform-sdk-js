@@ -27,6 +27,13 @@ import {
     BillingSummaryLimitGraceToJSON,
     BillingSummaryLimitGraceToJSONTyped,
 } from './BillingSummaryLimitGrace.js';
+import type { Money } from './Money.js';
+import {
+    MoneyFromJSON,
+    MoneyFromJSONTyped,
+    MoneyToJSON,
+    MoneyToJSONTyped,
+} from './Money.js';
 import type { BillingSummaryAddons } from './BillingSummaryAddons.js';
 import {
     BillingSummaryAddonsFromJSON,
@@ -69,9 +76,9 @@ export interface BillingSummary {
      */
     usage: BillingSummaryUsage;
     /**
-     * The plan's monthly price with add-ons, in USD
+     * The plan's monthly price with add-ons
      */
-    monthlyTotal: number;
+    monthlyTotal: Money;
     /**
      * 
      */
@@ -120,7 +127,7 @@ export function BillingSummaryFromJSONTyped(json: any, ignoreDiscriminator: bool
         'limitGrace': BillingSummaryLimitGraceFromJSON(json['limitGrace']),
         'limits': BillingSummaryLimitsFromJSON(json['limits']),
         'usage': BillingSummaryUsageFromJSON(json['usage']),
-        'monthlyTotal': json['monthlyTotal'],
+        'monthlyTotal': MoneyFromJSON(json['monthlyTotal']),
         'addons': BillingSummaryAddonsFromJSON(json['addons']),
     };
 }
@@ -141,7 +148,7 @@ export function BillingSummaryToJSONTyped(value?: BillingSummary | null, ignoreD
         'limitGrace': BillingSummaryLimitGraceToJSON(value['limitGrace']),
         'limits': BillingSummaryLimitsToJSON(value['limits']),
         'usage': BillingSummaryUsageToJSON(value['usage']),
-        'monthlyTotal': value['monthlyTotal'],
+        'monthlyTotal': MoneyToJSON(value['monthlyTotal']),
         'addons': BillingSummaryAddonsToJSON(value['addons']),
     };
 }

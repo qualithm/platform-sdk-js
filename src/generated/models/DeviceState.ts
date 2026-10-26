@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -32,9 +32,9 @@ export interface DeviceState {
      */
     online: boolean;
     /**
-     * Last sighting, epoch milliseconds
+     * When the device was last seen
      */
-    lastSeenAt: number;
+    lastSeenAt: Date;
     /**
      * The device's current metrics
      */
@@ -66,7 +66,7 @@ export function DeviceStateFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'deviceId': json['deviceId'],
         'spaceId': json['spaceId'],
         'online': json['online'],
-        'lastSeenAt': json['lastSeenAt'],
+        'lastSeenAt': (json['lastSeenAt'] == null ? json['lastSeenAt'] : parseDateTime(json['lastSeenAt'])),
         'metrics': json['metrics'],
     };
 }
@@ -85,7 +85,7 @@ export function DeviceStateToJSONTyped(value?: DeviceState | null, ignoreDiscrim
         'deviceId': value['deviceId'],
         'spaceId': value['spaceId'],
         'online': value['online'],
-        'lastSeenAt': value['lastSeenAt'],
+        'lastSeenAt': value['lastSeenAt'] == null ? value['lastSeenAt'] : serializeDateTime(value['lastSeenAt']),
         'metrics': value['metrics'],
     };
 }

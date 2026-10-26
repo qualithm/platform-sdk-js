@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { MemberRole } from './MemberRole.js';
 import {
     MemberRoleFromJSON,
@@ -44,13 +44,13 @@ export interface TeamMember {
      */
     role: MemberRole;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * 
      */
@@ -97,8 +97,8 @@ export function TeamMemberFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'accountId': json['accountId'],
         'teamId': json['teamId'],
         'role': MemberRoleFromJSON(json['role']),
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'accountEmail': json['accountEmail'],
         'accountName': json['accountName'],
         'teamName': json['teamName'],
@@ -120,8 +120,8 @@ export function TeamMemberToJSONTyped(value?: TeamMember | null, ignoreDiscrimin
         'accountId': value['accountId'],
         'teamId': value['teamId'],
         'role': MemberRoleToJSON(value['role']),
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'accountEmail': value['accountEmail'],
         'accountName': value['accountName'],
         'teamName': value['teamName'],
