@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { MemberRole } from './MemberRole.js';
 import {
     MemberRoleFromJSON,
@@ -48,13 +48,13 @@ export interface TeamInvite {
      */
     status: TeamInviteStatusEnum;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * 
      */
@@ -112,8 +112,8 @@ export function TeamInviteFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'teamId': json['teamId'],
         'role': MemberRoleFromJSON(json['role']),
         'status': json['status'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'accountEmail': json['accountEmail'],
         'accountName': json['accountName'],
         'teamName': json['teamName'] == null ? undefined : json['teamName'],
@@ -136,8 +136,8 @@ export function TeamInviteToJSONTyped(value?: TeamInvite | null, ignoreDiscrimin
         'teamId': value['teamId'],
         'role': MemberRoleToJSON(value['role']),
         'status': value['status'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'accountEmail': value['accountEmail'],
         'accountName': value['accountName'],
         'teamName': value['teamName'],

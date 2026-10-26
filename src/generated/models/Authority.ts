@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -52,13 +52,13 @@ export interface Authority {
      */
     payload: string;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 
@@ -116,8 +116,8 @@ export function AuthorityFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'fingerprint': json['fingerprint'],
         'status': json['status'],
         'payload': json['payload'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -140,8 +140,8 @@ export function AuthorityToJSONTyped(value?: Authority | null, ignoreDiscriminat
         'fingerprint': value['fingerprint'],
         'status': value['status'],
         'payload': value['payload'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

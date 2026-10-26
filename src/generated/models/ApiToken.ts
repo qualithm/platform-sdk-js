@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { MemberRole } from './MemberRole.js';
 import {
     MemberRoleFromJSON,
@@ -56,21 +56,21 @@ export interface ApiToken {
      */
     permissions?: Array<ApiTokenPermissionsEnum>;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    expiresAt: string | null;
+    expiresAt: Date | null;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    lastUsedAt: string | null;
+    lastUsedAt: Date | null;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 
@@ -158,10 +158,10 @@ export function ApiTokenFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'status': json['status'],
         'role': MemberRoleFromJSON(json['role']),
         'permissions': json['permissions'] == null ? undefined : json['permissions'],
-        'expiresAt': json['expiresAt'],
-        'lastUsedAt': json['lastUsedAt'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'expiresAt': (json['expiresAt'] == null ? null : parseDateTime(json['expiresAt'])),
+        'lastUsedAt': (json['lastUsedAt'] == null ? null : parseDateTime(json['lastUsedAt'])),
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -183,10 +183,10 @@ export function ApiTokenToJSONTyped(value?: ApiToken | null, ignoreDiscriminator
         'status': value['status'],
         'role': MemberRoleToJSON(value['role']),
         'permissions': value['permissions'],
-        'expiresAt': value['expiresAt'],
-        'lastUsedAt': value['lastUsedAt'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
+        'lastUsedAt': value['lastUsedAt'] == null ? value['lastUsedAt'] : serializeDateTime(value['lastUsedAt']),
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

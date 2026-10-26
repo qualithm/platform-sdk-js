@@ -39,11 +39,22 @@ import {
     UpdateTeamRequestToJSON,
 } from '../models/UpdateTeamRequest.js';
 
+export interface CreateTeamRequest {
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+}
+
 export interface DeleteTeamRequest {
     /**
      * A team ID
      */
     teamId: string;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 export interface GetTeamRequest {
@@ -73,6 +84,10 @@ export interface UpdateTeamOperationRequest {
      * 
      */
     updateTeamRequest: UpdateTeamRequest;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 /**
@@ -83,10 +98,14 @@ export class TeamsApi extends runtime.BaseAPI {
     /**
      * Creates request options for createTeam without sending the request
      */
-    async createTeamRequestOpts(): Promise<runtime.RequestOpts> {
+    async createTeamRequestOpts(requestParameters: CreateTeamRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -111,8 +130,8 @@ export class TeamsApi extends runtime.BaseAPI {
      * The platform names the team; rename it with `updateTeam`. The caller\'s workspace switches to the new team.
      * Create a team with the caller as owner
      */
-    async createTeamRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateTeamResponse>> {
-        const requestOptions = await this.createTeamRequestOpts();
+    async createTeamRaw(requestParameters: CreateTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateTeamResponse>> {
+        const requestOptions = await this.createTeamRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CreateTeamResponseFromJSON(jsonValue));
@@ -122,8 +141,8 @@ export class TeamsApi extends runtime.BaseAPI {
      * The platform names the team; rename it with `updateTeam`. The caller\'s workspace switches to the new team.
      * Create a team with the caller as owner
      */
-    async createTeam(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateTeamResponse> {
-        const response = await this.createTeamRaw(initOverrides);
+    async createTeam(requestParameters: CreateTeamRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateTeamResponse> {
+        const response = await this.createTeamRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -141,6 +160,10 @@ export class TeamsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -308,6 +331,10 @@ export class TeamsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

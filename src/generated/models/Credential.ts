@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -52,13 +52,13 @@ export interface Credential {
      */
     status: CredentialStatusEnum;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    expiresAt: string | null;
+    expiresAt: Date | null;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    lastUsedAt: string | null;
+    lastUsedAt: Date | null;
     /**
      * A credential ID
      */
@@ -68,13 +68,13 @@ export interface Credential {
      */
     payload: string;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 
@@ -136,12 +136,12 @@ export function CredentialFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'certSubject': json['certSubject'],
         'label': json['label'],
         'status': json['status'],
-        'expiresAt': json['expiresAt'],
-        'lastUsedAt': json['lastUsedAt'],
+        'expiresAt': (json['expiresAt'] == null ? null : parseDateTime(json['expiresAt'])),
+        'lastUsedAt': (json['lastUsedAt'] == null ? null : parseDateTime(json['lastUsedAt'])),
         'rotatedFrom': json['rotatedFrom'],
         'payload': json['payload'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -164,12 +164,12 @@ export function CredentialToJSONTyped(value?: Credential | null, ignoreDiscrimin
         'certSubject': value['certSubject'],
         'label': value['label'],
         'status': value['status'],
-        'expiresAt': value['expiresAt'],
-        'lastUsedAt': value['lastUsedAt'],
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
+        'lastUsedAt': value['lastUsedAt'] == null ? value['lastUsedAt'] : serializeDateTime(value['lastUsedAt']),
         'rotatedFrom': value['rotatedFrom'],
         'payload': value['payload'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

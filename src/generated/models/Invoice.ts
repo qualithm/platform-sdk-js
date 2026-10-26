@@ -12,7 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
+import type { Money } from './Money.js';
+import {
+    MoneyFromJSON,
+    MoneyFromJSONTyped,
+    MoneyToJSON,
+    MoneyToJSONTyped,
+} from './Money.js';
+
 /**
  * 
  * @export
@@ -32,25 +40,21 @@ export interface Invoice {
      */
     status: string;
     /**
-     * The invoice total in minor units
+     * The invoice total; null until Stripe sets it
      */
-    totalC: number | null;
-    /**
-     * 
-     */
-    currency: string | null;
+    total: Money | null;
     /**
      * The invoice detail: a JSON object, encoded as a string
      */
     payload: string;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 /**
@@ -60,8 +64,7 @@ export function instanceOfInvoice(value: object): value is Invoice {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
-    if (!('totalC' in value) || value['totalC'] === undefined) return false;
-    if (!('currency' in value) || value['currency'] === undefined) return false;
+    if (!('total' in value) || value['total'] === undefined) return false;
     if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
@@ -81,11 +84,10 @@ export function InvoiceFromJSONTyped(json: any, ignoreDiscriminator: boolean): I
         'id': json['id'],
         'teamId': json['teamId'],
         'status': json['status'],
-        'totalC': json['totalC'],
-        'currency': json['currency'],
+        'total': MoneyFromJSON(json['total']),
         'payload': json['payload'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -103,11 +105,10 @@ export function InvoiceToJSONTyped(value?: Invoice | null, ignoreDiscriminator: 
         'id': value['id'],
         'teamId': value['teamId'],
         'status': value['status'],
-        'totalC': value['totalC'],
-        'currency': value['currency'],
+        'total': MoneyToJSON(value['total']),
         'payload': value['payload'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

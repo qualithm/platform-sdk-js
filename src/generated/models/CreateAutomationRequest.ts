@@ -22,7 +22,7 @@ import {
 } from './CreateAutomationRequestPayload.js';
 
 /**
- * 
+ * A name, and either a payload or a template
  * @export
  * @interface CreateAutomationRequest
  */
@@ -38,7 +38,15 @@ export interface CreateAutomationRequest {
     /**
      * 
      */
-    payload: CreateAutomationRequestPayload;
+    payload?: CreateAutomationRequestPayload;
+    /**
+     * A template id to expand the chain from; exclusive with `payload`
+     */
+    template?: string;
+    /**
+     * The template's slot values, keyed by slot name; used with `template`
+     */
+    params?: any | null;
 }
 
 /**
@@ -46,7 +54,6 @@ export interface CreateAutomationRequest {
  */
 export function instanceOfCreateAutomationRequest(value: object): value is CreateAutomationRequest {
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     return true;
 }
 
@@ -62,7 +69,9 @@ export function CreateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
         
         'name': json['name'],
         'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
-        'payload': CreateAutomationRequestPayloadFromJSON(json['payload']),
+        'payload': json['payload'] == null ? undefined : CreateAutomationRequestPayloadFromJSON(json['payload']),
+        'template': json['template'] == null ? undefined : json['template'],
+        'params': json['params'] === undefined ? undefined : json['params'] === null ? null : json['params'],
     };
 }
 
@@ -80,6 +89,8 @@ export function CreateAutomationRequestToJSONTyped(value?: CreateAutomationReque
         'name': value['name'],
         'spaceId': value['spaceId'],
         'payload': CreateAutomationRequestPayloadToJSON(value['payload']),
+        'template': value['template'],
+        'params': value['params'],
     };
 }
 

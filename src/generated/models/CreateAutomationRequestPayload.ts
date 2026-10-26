@@ -29,7 +29,7 @@ import {
 } from './AutomationPayloadChainInner.js';
 
 /**
- * 
+ * The chain; exclusive with `template`
  * @export
  * @interface CreateAutomationRequestPayload
  */
