@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -20,9 +20,9 @@ import { mapValues } from '../runtime.js';
  */
 export interface RotateDeviceCredentialRequest {
     /**
-     * ISO 8601 time in the future
+     * A time in the future
      */
-    expiresAt?: string;
+    expiresAt?: Date;
 }
 
 /**
@@ -42,7 +42,7 @@ export function RotateDeviceCredentialRequestFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'expiresAt': json['expiresAt'] == null ? undefined : json['expiresAt'],
+        'expiresAt': json['expiresAt'] == null ? undefined : (parseDateTime(json['expiresAt'])),
     };
 }
 
@@ -57,7 +57,7 @@ export function RotateDeviceCredentialRequestToJSONTyped(value?: RotateDeviceCre
 
     return {
         
-        'expiresAt': value['expiresAt'],
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
     };
 }
 

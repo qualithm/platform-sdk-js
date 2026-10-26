@@ -90,6 +90,10 @@ export interface UpdateCapabilityOperationRequest {
      * 
      */
     updateCapabilityRequest: UpdateCapabilityRequest;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 /**
@@ -261,6 +265,10 @@ export class CapabilitiesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

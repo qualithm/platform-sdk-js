@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { Money } from './Money.js';
+import {
+    MoneyFromJSON,
+    MoneyFromJSONTyped,
+    MoneyToJSON,
+    MoneyToJSONTyped,
+} from './Money.js';
+
 /**
  * 
  * @export
@@ -28,13 +36,9 @@ export interface TierChangePreview {
      */
     to: TierChangePreviewToEnum;
     /**
-     * What the change bills now, in minor units; negative for a credit
+     * What the change bills now; a negative amount is a credit
      */
-    amountDue: number;
-    /**
-     * 
-     */
-    currency: string;
+    amountDue: Money;
     /**
      * When the change is billed, in Unix seconds
      */
@@ -70,7 +74,6 @@ export function instanceOfTierChangePreview(value: object): value is TierChangeP
     if (!('from' in value) || value['from'] === undefined) return false;
     if (!('to' in value) || value['to'] === undefined) return false;
     if (!('amountDue' in value) || value['amountDue'] === undefined) return false;
-    if (!('currency' in value) || value['currency'] === undefined) return false;
     if (!('nextPaymentAttempt' in value) || value['nextPaymentAttempt'] === undefined) return false;
     return true;
 }
@@ -87,8 +90,7 @@ export function TierChangePreviewFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'from': json['from'],
         'to': json['to'],
-        'amountDue': json['amountDue'],
-        'currency': json['currency'],
+        'amountDue': MoneyFromJSON(json['amountDue']),
         'nextPaymentAttempt': json['nextPaymentAttempt'],
     };
 }
@@ -106,8 +108,7 @@ export function TierChangePreviewToJSONTyped(value?: TierChangePreview | null, i
         
         'from': value['from'],
         'to': value['to'],
-        'amountDue': value['amountDue'],
-        'currency': value['currency'],
+        'amountDue': MoneyToJSON(value['amountDue']),
         'nextPaymentAttempt': value['nextPaymentAttempt'],
     };
 }

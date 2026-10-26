@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -24,9 +24,9 @@ export interface CreateDeviceCredentialRequest {
      */
     label?: string;
     /**
-     * ISO 8601 time in the future
+     * A time in the future
      */
-    expiresAt?: string;
+    expiresAt?: Date;
 }
 
 /**
@@ -47,7 +47,7 @@ export function CreateDeviceCredentialRequestFromJSONTyped(json: any, ignoreDisc
     return {
         
         'label': json['label'] == null ? undefined : json['label'],
-        'expiresAt': json['expiresAt'] == null ? undefined : json['expiresAt'],
+        'expiresAt': json['expiresAt'] == null ? undefined : (parseDateTime(json['expiresAt'])),
     };
 }
 
@@ -63,7 +63,7 @@ export function CreateDeviceCredentialRequestToJSONTyped(value?: CreateDeviceCre
     return {
         
         'label': value['label'],
-        'expiresAt': value['expiresAt'],
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
     };
 }
 

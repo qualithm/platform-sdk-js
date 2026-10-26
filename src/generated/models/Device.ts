@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 import type { DeviceCheck } from './DeviceCheck.js';
 import {
     DeviceCheckFromJSON,
@@ -52,17 +52,17 @@ export interface Device {
      */
     payload: string;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    parkedAt?: string | null;
+    parkedAt?: Date | null;
     /**
      * 
      */
@@ -115,9 +115,9 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'teamId': json['teamId'],
         'name': json['name'],
         'payload': json['payload'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
-        'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : json['parkedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
+        'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
         'level': json['level'] == null ? undefined : json['level'],
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(DeviceCheckFromJSON)),
     };
@@ -140,9 +140,9 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'teamId': value['teamId'],
         'name': value['name'],
         'payload': value['payload'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
-        'parkedAt': value['parkedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
+        'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),
         'level': value['level'],
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(DeviceCheckToJSON)),
     };

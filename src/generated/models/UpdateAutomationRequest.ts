@@ -22,7 +22,7 @@ import {
 } from './UpdateAutomationRequestPayload.js';
 
 /**
- * At least one of name, spaceId, payload or template
+ * At least one of name, enabled, spaceId, payload or template
  * @export
  * @interface UpdateAutomationRequest
  */
@@ -31,6 +31,10 @@ export interface UpdateAutomationRequest {
      * 
      */
     name?: string;
+    /**
+     * Whether its trigger fires
+     */
+    enabled?: boolean;
     /**
      * A space ID
      */
@@ -67,6 +71,7 @@ export function UpdateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'name': json['name'] == null ? undefined : json['name'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
         'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] == null ? undefined : UpdateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
@@ -86,6 +91,7 @@ export function UpdateAutomationRequestToJSONTyped(value?: UpdateAutomationReque
     return {
         
         'name': value['name'],
+        'enabled': value['enabled'],
         'spaceId': value['spaceId'],
         'payload': UpdateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],

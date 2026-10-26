@@ -58,6 +58,10 @@ export interface CreateDeviceOperationRequest {
      * 
      */
     createDeviceRequest: CreateDeviceRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
 }
 
 export interface DeleteDeviceRequest {
@@ -69,6 +73,10 @@ export interface DeleteDeviceRequest {
      * A device ID
      */
     deviceId: string;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 export interface GetDeviceRequest {
@@ -108,28 +116,6 @@ export interface ListTeamDeviceStatesRequest {
     teamId: string;
 }
 
-export interface ParkDeviceRequest {
-    /**
-     * The team the request acts on
-     */
-    teamId: string;
-    /**
-     * A device ID
-     */
-    deviceId: string;
-}
-
-export interface UnparkDeviceRequest {
-    /**
-     * The team the request acts on
-     */
-    teamId: string;
-    /**
-     * A device ID
-     */
-    deviceId: string;
-}
-
 export interface UpdateDeviceOperationRequest {
     /**
      * The team the request acts on
@@ -143,6 +129,10 @@ export interface UpdateDeviceOperationRequest {
      * 
      */
     updateDeviceRequest: UpdateDeviceRequest;
+    /**
+     * The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.
+     */
+    ifMatch?: string;
 }
 
 /**
@@ -173,6 +163,10 @@ export class DevicesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -234,6 +228,10 @@ export class DevicesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -453,126 +451,6 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates request options for parkDevice without sending the request
-     */
-    async parkDeviceRequestOpts(requestParameters: ParkDeviceRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['teamId'] == null) {
-            throw new runtime.RequiredError(
-                'teamId',
-                'Required parameter "teamId" was null or undefined when calling parkDevice().'
-            );
-        }
-
-        if (requestParameters['deviceId'] == null) {
-            throw new runtime.RequiredError(
-                'deviceId',
-                'Required parameter "deviceId" was null or undefined when calling parkDevice().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/park`;
-        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
-        urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Park a device so it stops connecting and counting against the plan
-     */
-    async parkDeviceRaw(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const requestOptions = await this.parkDeviceRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Park a device so it stops connecting and counting against the plan
-     */
-    async parkDevice(requestParameters: ParkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.parkDeviceRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * Creates request options for unparkDevice without sending the request
-     */
-    async unparkDeviceRequestOpts(requestParameters: UnparkDeviceRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['teamId'] == null) {
-            throw new runtime.RequiredError(
-                'teamId',
-                'Required parameter "teamId" was null or undefined when calling unparkDevice().'
-            );
-        }
-
-        if (requestParameters['deviceId'] == null) {
-            throw new runtime.RequiredError(
-                'deviceId',
-                'Required parameter "deviceId" was null or undefined when calling unparkDevice().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("apiToken", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/v1/teams/{teamId}/devices/{deviceId}/unpark`;
-        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
-        urlPath = urlPath.replace('{deviceId}', encodeURIComponent(String(requestParameters['deviceId'])));
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Return a parked device to live
-     */
-    async unparkDeviceRaw(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const requestOptions = await this.unparkDeviceRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Return a parked device to live
-     */
-    async unparkDevice(requestParameters: UnparkDeviceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.unparkDeviceRaw(requestParameters, initOverrides);
-    }
-
-    /**
      * Creates request options for updateDevice without sending the request
      */
     async updateDeviceRequestOpts(requestParameters: UpdateDeviceOperationRequest): Promise<runtime.RequestOpts> {
@@ -603,6 +481,10 @@ export class DevicesApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (requestParameters['ifMatch'] != null) {
+            headerParameters['If-Match'] = String(requestParameters['ifMatch']);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
             const tokenString = await token("apiToken", []);
@@ -626,7 +508,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rename a device or move it to another space in the same zone
+     * Rename, move or park a device
      */
     async updateDeviceRaw(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateDeviceRequestOpts(requestParameters);
@@ -636,7 +518,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rename a device or move it to another space in the same zone
+     * Rename, move or park a device
      */
     async updateDevice(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateDeviceRaw(requestParameters, initOverrides);

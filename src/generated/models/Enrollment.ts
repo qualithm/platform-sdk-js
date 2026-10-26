@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime.js';
+import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
  * 
  * @export
@@ -44,25 +44,25 @@ export interface Enrollment {
      */
     claimedDeviceId: string | null;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    claimedAt: string | null;
+    claimedAt: Date | null;
     /**
-     * ISO 8601 time
+     * UTC time, RFC 3339
      */
-    expiresAt: string;
+    expiresAt: Date;
     /**
      * JSON text
      */
     payload: string;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    createdAt: string;
+    createdAt: Date;
     /**
-     * UTC time, `YYYY-MM-DD HH:MM:SS`
+     * UTC time, RFC 3339
      */
-    updatedAt: string;
+    updatedAt: Date;
 }
 
 
@@ -111,11 +111,11 @@ export function EnrollmentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'label': json['label'],
         'status': json['status'],
         'claimedDeviceId': json['claimedDeviceId'],
-        'claimedAt': json['claimedAt'],
-        'expiresAt': json['expiresAt'],
+        'claimedAt': (json['claimedAt'] == null ? null : parseDateTime(json['claimedAt'])),
+        'expiresAt': (json['expiresAt'] == null ? json['expiresAt'] : parseDateTime(json['expiresAt'])),
         'payload': json['payload'],
-        'createdAt': json['createdAt'],
-        'updatedAt': json['updatedAt'],
+        'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
+        'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
 }
 
@@ -136,11 +136,11 @@ export function EnrollmentToJSONTyped(value?: Enrollment | null, ignoreDiscrimin
         'label': value['label'],
         'status': value['status'],
         'claimedDeviceId': value['claimedDeviceId'],
-        'claimedAt': value['claimedAt'],
-        'expiresAt': value['expiresAt'],
+        'claimedAt': value['claimedAt'] == null ? value['claimedAt'] : serializeDateTime(value['claimedAt']),
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
         'payload': value['payload'],
-        'createdAt': value['createdAt'],
-        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
+        'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
 }
 

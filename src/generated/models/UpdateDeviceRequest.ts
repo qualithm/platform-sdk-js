@@ -27,6 +27,10 @@ export interface UpdateDeviceRequest {
      * A space in the device's zone
      */
     spaceId?: string;
+    /**
+     * A parked device can't connect and doesn't count against the plan; its credentials and history stay
+     */
+    parked?: boolean;
 }
 
 /**
@@ -48,6 +52,7 @@ export function UpdateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
         
         'name': json['name'] == null ? undefined : json['name'],
         'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
+        'parked': json['parked'] == null ? undefined : json['parked'],
     };
 }
 
@@ -64,6 +69,7 @@ export function UpdateDeviceRequestToJSONTyped(value?: UpdateDeviceRequest | nul
         
         'name': value['name'],
         'spaceId': value['spaceId'],
+        'parked': value['parked'],
     };
 }
 
