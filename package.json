@@ -1,6 +1,6 @@
 {
   "name": "@qualithm/platform",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "TypeScript client for the Qualithm Platform API, generated from its OpenAPI spec.",
   "private": false,
   "type": "module",
