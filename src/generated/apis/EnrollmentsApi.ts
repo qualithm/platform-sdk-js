@@ -66,13 +66,17 @@ export interface ListEnrollmentsRequest {
      */
     teamId: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 /**
@@ -130,7 +134,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a claim code for a device to enroll into a space
+     * Create a claim code for a device to enroll into a scope
      */
     async createEnrollmentRaw(requestParameters: CreateEnrollmentOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateEnrollmentResponse>> {
         const requestOptions = await this.createEnrollmentRequestOpts(requestParameters);
@@ -140,7 +144,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a claim code for a device to enroll into a space
+     * Create a claim code for a device to enroll into a scope
      */
     async createEnrollment(requestParameters: CreateEnrollmentOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateEnrollmentResponse> {
         const response = await this.createEnrollmentRaw(requestParameters, initOverrides);
@@ -228,6 +232,10 @@ export class EnrollmentsApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -251,6 +259,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the workspace\'s enrollments
      */
     async listEnrollmentsRaw(requestParameters: ListEnrollmentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListEnrollmentsResponse>> {
@@ -261,6 +270,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the workspace\'s enrollments
      */
     async listEnrollments(requestParameters: ListEnrollmentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListEnrollmentsResponse> {

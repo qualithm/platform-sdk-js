@@ -32,6 +32,10 @@ export interface UpdateDashboardRequest {
      */
     name?: string;
     /**
+     * A scope ID
+     */
+    scopeId?: string | null;
+    /**
      * A space ID
      */
     spaceId?: string | null;
@@ -59,6 +63,7 @@ export function UpdateDashboardRequestFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'name': json['name'] == null ? undefined : json['name'],
+        'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
         'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] === undefined ? undefined : json['payload'] === null ? null : ((json['payload'] as Array<any>).map(DashboardWidgetFromJSON)),
     };
@@ -76,6 +81,7 @@ export function UpdateDashboardRequestToJSONTyped(value?: UpdateDashboardRequest
     return {
         
         'name': value['name'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'payload': value['payload'] == null ? undefined : ((value['payload'] as Array<any>).map(DashboardWidgetToJSON)),
     };

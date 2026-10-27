@@ -39,6 +39,10 @@ export interface AutomationPage {
      * The last page's number
      */
     last: number;
+    /**
+     * Pass as `cursor` to read the next page; `null` on the last page
+     */
+    nextCursor: string | null;
 }
 
 /**
@@ -48,6 +52,7 @@ export function instanceOfAutomationPage(value: object): value is AutomationPage
     if (!('current' in value) || value['current'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     if (!('last' in value) || value['last'] === undefined) return false;
+    if (!('nextCursor' in value) || value['nextCursor'] === undefined) return false;
     return true;
 }
 
@@ -64,6 +69,7 @@ export function AutomationPageFromJSONTyped(json: any, ignoreDiscriminator: bool
         'current': json['current'],
         'items': ((json['items'] as Array<any>).map(AutomationFromJSON)),
         'last': json['last'],
+        'nextCursor': json['nextCursor'],
     };
 }
 
@@ -81,6 +87,7 @@ export function AutomationPageToJSONTyped(value?: AutomationPage | null, ignoreD
         'current': value['current'],
         'items': ((value['items'] as Array<any>).map(AutomationToJSON)),
         'last': value['last'],
+        'nextCursor': value['nextCursor'],
     };
 }
 

@@ -26,13 +26,17 @@ import {
 
 export interface ListRolesRequest {
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 /**
@@ -52,6 +56,10 @@ export class RolesApi extends runtime.BaseAPI {
 
         if (requestParameters['limit'] != null) {
             queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -76,6 +84,7 @@ export class RolesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest team first, by the team\'s `createdAt` then the membership `id`.
      * List the teams the caller belongs to and their role in each
      */
     async listRolesRaw(requestParameters: ListRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListRolesResponse>> {
@@ -86,6 +95,7 @@ export class RolesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest team first, by the team\'s `createdAt` then the membership `id`.
      * List the teams the caller belongs to and their role in each
      */
     async listRoles(requestParameters: ListRolesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListRolesResponse> {

@@ -14,22 +14,26 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * The scope to create it in
  * @export
  * @interface CreateDeviceRequest
  */
 export interface CreateDeviceRequest {
     /**
-     * A space ID
+     * A scope ID
      */
-    spaceId: string;
+    scopeId?: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
+     */
+    spaceId?: string;
 }
 
 /**
  * Check if a given object implements the CreateDeviceRequest interface.
  */
 export function instanceOfCreateDeviceRequest(value: object): value is CreateDeviceRequest {
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     return true;
 }
 
@@ -43,7 +47,8 @@ export function CreateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'spaceId': json['spaceId'],
+        'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
+        'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
     };
 }
 
@@ -58,6 +63,7 @@ export function CreateDeviceRequestToJSONTyped(value?: CreateDeviceRequest | nul
 
     return {
         
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
     };
 }

@@ -32,7 +32,12 @@ export interface Device {
      */
     id: string;
     /**
-     * A space ID
+     * A scope ID
+     */
+    scopeId: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
      */
     spaceId: string;
     /**
@@ -89,6 +94,7 @@ export type DeviceLevelEnum = typeof DeviceLevelEnum[keyof typeof DeviceLevelEnu
  */
 export function instanceOfDevice(value: object): value is Device {
     if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
     if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
@@ -109,6 +115,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
     return {
         
         'id': json['id'],
+        'scopeId': json['scopeId'],
         'spaceId': json['spaceId'],
         'spaceName': json['spaceName'],
         'teamId': json['teamId'],
@@ -134,6 +141,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
     return {
         
         'id': value['id'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'spaceName': value['spaceName'],
         'teamId': value['teamId'],

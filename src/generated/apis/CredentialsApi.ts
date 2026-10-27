@@ -116,6 +116,18 @@ export interface ListDeviceCredentialsRequest {
      * A device ID
      */
     deviceId: string;
+    /**
+     * Page number, from 1. Default 1. Ignored with `cursor`.
+     */
+    page?: number;
+    /**
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
+     */
+    limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface RotateDeviceCredentialOperationRequest {
@@ -381,6 +393,18 @@ export class CredentialsApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -405,6 +429,7 @@ export class CredentialsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List a device\'s credentials
      */
     async listDeviceCredentialsRaw(requestParameters: ListDeviceCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListDeviceCredentialsResponse>> {
@@ -415,6 +440,7 @@ export class CredentialsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List a device\'s credentials
      */
     async listDeviceCredentials(requestParameters: ListDeviceCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDeviceCredentialsResponse> {

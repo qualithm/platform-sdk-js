@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { Credential } from './Credential.js';
+import type { CredentialPage } from './CredentialPage.js';
 import {
-    CredentialFromJSON,
-    CredentialFromJSONTyped,
-    CredentialToJSON,
-    CredentialToJSONTyped,
-} from './Credential.js';
+    CredentialPageFromJSON,
+    CredentialPageFromJSONTyped,
+    CredentialPageToJSON,
+    CredentialPageToJSONTyped,
+} from './CredentialPage.js';
 
 /**
  * 
@@ -30,7 +30,7 @@ export interface ListDeviceCredentialsResponse {
     /**
      * 
      */
-    data: Array<Credential>;
+    data: CredentialPage;
 }
 
 /**
@@ -51,7 +51,7 @@ export function ListDeviceCredentialsResponseFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'data': ((json['data'] as Array<any>).map(CredentialFromJSON)),
+        'data': CredentialPageFromJSON(json['data']),
     };
 }
 
@@ -66,7 +66,7 @@ export function ListDeviceCredentialsResponseToJSONTyped(value?: ListDeviceCrede
 
     return {
         
-        'data': ((value['data'] as Array<any>).map(CredentialToJSON)),
+        'data': CredentialPageToJSON(value['data']),
     };
 }
 
