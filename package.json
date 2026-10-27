@@ -47,6 +47,7 @@
     "build:watch": "tsc -p tsconfig.build.json --watch",
     "clean": "rm -rf dist",
     "docs": "typedoc",
+    "example": "bun run build && bun run",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "generate": "scripts/generate",
