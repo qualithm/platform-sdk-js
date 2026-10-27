@@ -22,7 +22,7 @@ import {
 } from './UpdateAutomationRequestPayload.js';
 
 /**
- * At least one of name, enabled, spaceId, payload or template
+ * At least one of name, enabled, scopeId, payload or template
  * @export
  * @interface UpdateAutomationRequest
  */
@@ -35,6 +35,10 @@ export interface UpdateAutomationRequest {
      * Whether its trigger fires
      */
     enabled?: boolean;
+    /**
+     * A scope ID
+     */
+    scopeId?: string | null;
     /**
      * A space ID
      */
@@ -72,6 +76,7 @@ export function UpdateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
         
         'name': json['name'] == null ? undefined : json['name'],
         'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
         'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] == null ? undefined : UpdateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
@@ -92,6 +97,7 @@ export function UpdateAutomationRequestToJSONTyped(value?: UpdateAutomationReque
         
         'name': value['name'],
         'enabled': value['enabled'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'payload': UpdateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],

@@ -399,6 +399,9 @@
           "404": {
             "$ref": "#/components/responses/NotFound"
           },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -823,6 +826,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -1346,6 +1352,327 @@
         }
       }
     },
+    "/v1/teams/{teamId}/scopes/{scopeId}": {
+      "get": {
+        "operationId": "getScope",
+        "x-qualithm-audience": "management",
+        "summary": "Get a scope",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "space.read",
+        "x-qualithm-roles": [
+          "owner",
+          "manager",
+          "viewer"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "required": true,
+            "description": "A scope ID",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetScopeResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateScope",
+        "x-qualithm-audience": "management",
+        "summary": "Rename a scope",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "space.write",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "required": true,
+            "description": "A scope ID",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScopeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Rename a scope",
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "The resource's version; send it back as If-Match to edit only that version",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteScope",
+        "x-qualithm-audience": "management",
+        "summary": "Delete an empty scope",
+        "description": "Refused while the scope holds devices or scopes.",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "space.write",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "required": true,
+            "description": "A scope ID",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete an empty scope",
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
     "/v1/teams/{teamId}/spaces/{spaceId}": {
       "get": {
         "operationId": "getSpace",
@@ -1569,6 +1896,7 @@
         "operationId": "deleteSpace",
         "x-qualithm-audience": "management",
         "summary": "Delete a space and its devices",
+        "description": "Refused while scopes sit under it.",
         "tags": [
           "Spaces"
         ],
@@ -1650,6 +1978,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -2392,6 +2723,7 @@
         "operationId": "listApiTokens",
         "x-qualithm-audience": "management",
         "summary": "List API tokens in this team: everyone's for an owner, otherwise the caller's own",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "ApiTokens"
         ],
@@ -2422,7 +2754,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -2433,11 +2765,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2472,6 +2813,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
@@ -2498,6 +2842,7 @@
         "operationId": "listAuditEvents",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's audit trail, newest first",
+        "description": "Newest first, by `occurredAt` then `id`.",
         "tags": [
           "Audit"
         ],
@@ -2527,7 +2872,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -2538,11 +2883,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2577,6 +2931,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
@@ -2603,6 +2960,7 @@
         "operationId": "listAuthorities",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's certificate authorities",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Authorities"
         ],
@@ -2632,7 +2990,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -2643,11 +3001,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2681,6 +3048,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -2819,6 +3189,7 @@
         "operationId": "listAutomationRuns",
         "x-qualithm-audience": "management",
         "summary": "List an automation's runs",
+        "description": "Newest first, by `triggeredAt` then `id`.",
         "tags": [
           "Automations"
         ],
@@ -2860,7 +3231,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -2871,11 +3242,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -3146,6 +3526,7 @@
         "operationId": "listAutomations",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's automations",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Automations"
         ],
@@ -3176,7 +3557,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -3187,11 +3568,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -3225,6 +3615,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -3508,6 +3901,7 @@
         "operationId": "listCapabilities",
         "x-qualithm-audience": "management",
         "summary": "List the capabilities of the workspace's devices",
+        "description": "By `key`, then `id`, ascending.",
         "tags": [
           "Capabilities"
         ],
@@ -3572,7 +3966,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -3583,11 +3977,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -3651,6 +4054,7 @@
         "operationId": "listDeviceCredentials",
         "x-qualithm-audience": "management",
         "summary": "List a device's credentials",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Credentials"
         ],
@@ -3685,6 +4089,37 @@
               "type": "string",
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -3870,6 +4305,7 @@
         "operationId": "listDashboards",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's dashboards",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Dashboards"
         ],
@@ -3900,7 +4336,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -3911,11 +4347,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -3949,6 +4394,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -4087,6 +4535,7 @@
         "operationId": "listDeviceCapabilities",
         "x-qualithm-audience": "management",
         "summary": "List the capabilities a device declares",
+        "description": "By `key`, then `id`, ascending.",
         "tags": [
           "Capabilities"
         ],
@@ -4122,6 +4571,37 @@
               "type": "string",
               "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -4185,6 +4665,7 @@
         "operationId": "listDeviceCommands",
         "x-qualithm-audience": "management",
         "summary": "List a device's recent command deliveries",
+        "description": "Newest first, by `settledAt` (or `enqueuedAt` while unsettled) then `id`.",
         "tags": [
           "Commands"
         ],
@@ -4226,7 +4707,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4237,11 +4718,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -4427,6 +4917,7 @@
         "operationId": "listTeamDeviceStates",
         "x-qualithm-audience": "management",
         "summary": "List the live state of a team's devices",
+        "description": "By `deviceId`, ascending.",
         "tags": [
           "Devices"
         ],
@@ -4451,6 +4942,37 @@
               "type": "string",
               "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -4513,7 +5035,8 @@
       "get": {
         "operationId": "listDevices",
         "x-qualithm-audience": "management",
-        "summary": "List the team's devices, optionally in one space",
+        "summary": "List the team's devices, optionally in one scope",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Devices"
         ],
@@ -4541,11 +5064,23 @@
             }
           },
           {
+            "name": "scopeId",
+            "in": "query",
+            "required": false,
+            "description": "Only the devices directly in this scope, not the scopes under it",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
             "name": "spaceId",
             "in": "query",
             "required": false,
-            "description": "Only the devices in this space",
+            "description": "Deprecated: use scopeId",
             "schema": {
+              "deprecated": true,
               "type": "string",
               "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
@@ -4555,7 +5090,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4566,17 +5101,26 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
             }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "List the team's devices, optionally in one space",
+            "description": "List the team's devices, optionally in one scope",
             "content": {
               "application/json": {
                 "schema": {
@@ -4631,7 +5175,7 @@
       "post": {
         "operationId": "createDevice",
         "x-qualithm-audience": "management",
-        "summary": "Create a device in a space",
+        "summary": "Create a device in a scope",
         "tags": [
           "Devices"
         ],
@@ -4681,7 +5225,7 @@
         },
         "responses": {
           "201": {
-            "description": "Create a device in a space",
+            "description": "Create a device in a scope",
             "content": {
               "application/json": {
                 "schema": {
@@ -4745,6 +5289,7 @@
         "operationId": "listEnrollments",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's enrollments",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Enrollments"
         ],
@@ -4774,7 +5319,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4785,11 +5330,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -4824,6 +5378,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
@@ -4847,7 +5404,7 @@
       "post": {
         "operationId": "createEnrollment",
         "x-qualithm-audience": "management",
-        "summary": "Create a claim code for a device to enroll into a space",
+        "summary": "Create a claim code for a device to enroll into a scope",
         "tags": [
           "Enrollments"
         ],
@@ -4897,7 +5454,7 @@
         },
         "responses": {
           "201": {
-            "description": "Create a claim code for a device to enroll into a space",
+            "description": "Create a claim code for a device to enroll into a scope",
             "content": {
               "application/json": {
                 "schema": {
@@ -5099,6 +5656,7 @@
         "operationId": "listInvoices",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's invoices",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Billing"
         ],
@@ -5127,7 +5685,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5138,11 +5696,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -5176,6 +5743,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -5256,6 +5826,7 @@
         "operationId": "listRoles",
         "x-qualithm-audience": "management",
         "summary": "List the teams the caller belongs to and their role in each",
+        "description": "Newest team first, by the team's `createdAt` then the membership `id`.",
         "tags": [
           "Roles"
         ],
@@ -5269,7 +5840,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5280,11 +5851,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -5319,8 +5899,395 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/teams/{teamId}/scopes/{scopeId}/devices": {
+      "get": {
+        "operationId": "listScopeDevices",
+        "x-qualithm-audience": "management",
+        "summary": "List the devices in a scope and every scope under it",
+        "description": "Newest first, by `createdAt` then `id`.",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "device.read",
+        "x-qualithm-roles": [
+          "owner",
+          "manager",
+          "viewer"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "required": true,
+            "description": "A scope ID",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List the devices in a scope and every scope under it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListScopeDevicesResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/teams/{teamId}/scopes": {
+      "get": {
+        "operationId": "listScopes",
+        "x-qualithm-audience": "management",
+        "summary": "List the team's scopes",
+        "description": "Newest first, by `createdAt` then `id`.",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "space.read",
+        "x-qualithm-roles": [
+          "owner",
+          "manager",
+          "viewer"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "zone",
+            "in": "query",
+            "required": false,
+            "description": "Only the scopes in this zone",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "de-fra-a",
+                "sg-sin-a"
+              ]
+            }
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": false,
+            "description": "Only the scopes directly under this one",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List the team's scopes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListScopesResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createScope",
+        "x-qualithm-audience": "management",
+        "summary": "Create a scope, top-level in a zone or under a parent",
+        "tags": [
+          "Scopes"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "space.write",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScopeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create a scope, top-level in a zone or under a parent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateScopeResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -5417,6 +6384,7 @@
         "operationId": "listSessions",
         "x-qualithm-audience": "management",
         "summary": "List the caller's live sessions",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Sessions"
         ],
@@ -5439,7 +6407,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5450,11 +6418,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -5512,6 +6489,7 @@
         "operationId": "listSpaces",
         "x-qualithm-audience": "management",
         "summary": "List the workspace's spaces",
+        "description": "Top-level scopes only, newest first, by `createdAt` then `id`. Use listScopes to see nested ones.",
         "tags": [
           "Spaces"
         ],
@@ -5555,7 +6533,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5566,11 +6544,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -5745,6 +6732,7 @@
         "operationId": "listTeamInvites",
         "x-qualithm-audience": "management",
         "summary": "List the team's pending invites",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Invites"
         ],
@@ -5774,7 +6762,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5785,11 +6773,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -5964,6 +6961,7 @@
         "operationId": "listTeamMembers",
         "x-qualithm-audience": "management",
         "summary": "List the team's active members",
+        "description": "By `accountName`, then `id`, ascending. Names compare byte by byte, so uppercase sorts before lowercase.",
         "tags": [
           "Members"
         ],
@@ -5994,7 +6992,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -6005,11 +7003,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -6176,6 +7183,7 @@
         "operationId": "listTeams",
         "x-qualithm-audience": "management",
         "summary": "List the caller's teams; an API token sees only its own",
+        "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Teams"
         ],
@@ -6189,7 +7197,7 @@
             "name": "page",
             "in": "query",
             "required": false,
-            "description": "Page number, from 1. Default 1.",
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -6200,11 +7208,20 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Items per page, 1 to 100. Default 20.",
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -6238,6 +7255,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -6333,6 +7353,7 @@
         "operationId": "listTelemetry",
         "x-qualithm-audience": "management",
         "summary": "Read a device metric as bucketed points",
+        "description": "By bucket start `ts`, ascending, within `from` and `to`. Every page reads the same range, so pass the same query with each cursor.",
         "tags": [
           "Telemetry"
         ],
@@ -6424,6 +7445,37 @@
             "in": "query",
             "required": false,
             "description": "`locf` carries the last observation forward across empty buckets",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "A previous page's `nextCursor`, to read the page after it",
             "schema": {
               "type": "string"
             }
@@ -7499,12 +8551,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "TeamMember": {
@@ -7583,12 +8647,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "TeamMembership": {
@@ -7728,12 +8804,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "ApiToken": {
@@ -7890,12 +8978,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "ZoneId": {
@@ -7971,12 +9071,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "GatewayEndpoint": {
@@ -8180,6 +9292,44 @@
           "updatedAt"
         ]
       },
+      "CredentialPage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Credential"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last",
+          "nextCursor"
+        ]
+      },
       "CredentialSecret": {
         "type": "object",
         "properties": {
@@ -8317,12 +9467,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "Enrollment": {
@@ -8340,11 +9502,18 @@
             "description": "A team ID",
             "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "scopeId": {
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
           "spaceId": {
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "description": "Deprecated: use scopeId",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "deprecated": true
           },
           "label": {
             "type": "string"
@@ -8405,6 +9574,7 @@
         "required": [
           "id",
           "teamId",
+          "scopeId",
           "spaceId",
           "label",
           "status",
@@ -8433,12 +9603,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "EnrollmentCode": {
@@ -8602,6 +9784,20 @@
             "description": "A team ID",
             "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "scopeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null for a team-wide automation"
+          },
           "spaceId": {
             "anyOf": [
               {
@@ -8614,7 +9810,8 @@
                 "type": "null"
               }
             ],
-            "description": "Null for a team-wide automation"
+            "description": "Deprecated: use scopeId",
+            "deprecated": true
           },
           "spaceName": {
             "anyOf": [
@@ -8655,6 +9852,7 @@
         "required": [
           "id",
           "teamId",
+          "scopeId",
           "spaceId",
           "spaceName",
           "name",
@@ -8682,12 +9880,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "AutomationRunStep": {
@@ -8835,12 +10045,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "AutomationTemplateSlot": {
@@ -9022,6 +10244,20 @@
             "description": "A team ID",
             "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "scopeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The scope it shows; null for team-wide"
+          },
           "spaceId": {
             "anyOf": [
               {
@@ -9034,7 +10270,8 @@
                 "type": "null"
               }
             ],
-            "description": "The space it is scoped to; null for team-wide"
+            "description": "Deprecated: use scopeId",
+            "deprecated": true
           },
           "spaceName": {
             "anyOf": [
@@ -9071,6 +10308,7 @@
         "required": [
           "id",
           "teamId",
+          "scopeId",
           "spaceId",
           "spaceName",
           "name",
@@ -9097,12 +10335,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "DeviceCheck": {
@@ -9140,11 +10390,18 @@
             "description": "A device ID",
             "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "scopeId": {
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
           "spaceId": {
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "description": "Deprecated: use scopeId",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "deprecated": true
           },
           "spaceName": {
             "type": "string"
@@ -9211,6 +10468,7 @@
         },
         "required": [
           "id",
+          "scopeId",
           "spaceId",
           "spaceName",
           "teamId",
@@ -9237,12 +10495,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "DeviceState": {
@@ -9254,11 +10524,18 @@
             "description": "A device ID",
             "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "scopeId": {
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
           "spaceId": {
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "description": "Deprecated: use scopeId",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "deprecated": true
           },
           "online": {
             "type": "boolean",
@@ -9283,10 +10560,150 @@
         },
         "required": [
           "deviceId",
+          "scopeId",
           "spaceId",
           "online",
           "lastSeenAt",
           "metrics"
+        ]
+      },
+      "DeviceStatePage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceState"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last",
+          "nextCursor"
+        ]
+      },
+      "Scope": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "teamId": {
+            "type": "string",
+            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID",
+            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "parentId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The parent scope; null for a top-level scope"
+          },
+          "name": {
+            "type": "string"
+          },
+          "zone": {
+            "$ref": "#/components/schemas/ZoneId"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC time, RFC 3339",
+            "example": "2026-10-26T09:30:00.000Z"
+          },
+          "deviceTotal": {
+            "description": "The live devices in the scope and every scope under it",
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "id",
+          "teamId",
+          "parentId",
+          "name",
+          "zone",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ScopePage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scope"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last",
+          "nextCursor"
         ]
       },
       "DeviceCommand": {
@@ -9382,12 +10799,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "QueuedCommand": {
@@ -9622,12 +11051,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "RoleAssignment": {
@@ -9698,12 +11139,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "CapabilityPage": {
@@ -9724,12 +11177,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "AuditEvent": {
@@ -9759,7 +11224,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|ses|spc|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "An ID of any type",
                 "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -9779,7 +11244,7 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|ses|spc|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An ID of any type",
             "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -9823,12 +11288,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "BillingUsageDimension": {
@@ -10078,12 +11555,24 @@
             "type": "integer",
             "description": "The last page's number",
             "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "current",
           "items",
-          "last"
+          "last",
+          "nextCursor"
         ]
       },
       "TierChangePreview": {
@@ -10293,6 +11782,44 @@
           "value"
         ]
       },
+      "TelemetryPointPage": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "This page's number, from 1",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TelemetryPoint"
+            }
+          },
+          "last": {
+            "type": "integer",
+            "description": "The last page's number",
+            "format": "int64"
+          },
+          "nextCursor": {
+            "description": "Pass as `cursor` to read the next page; `null` on the last page",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "current",
+          "items",
+          "last",
+          "nextCursor"
+        ]
+      },
       "GetAccountResponse": {
         "type": "object",
         "properties": {
@@ -10421,10 +11948,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Credential"
-            }
+            "$ref": "#/components/schemas/CredentialPage"
           }
         },
         "required": [
@@ -10468,10 +11992,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Capability"
-            }
+            "$ref": "#/components/schemas/CapabilityPage"
           }
         },
         "required": [
@@ -10493,18 +12014,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "object",
-            "properties": {
-              "items": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/DeviceState"
-                }
-              }
-            },
-            "required": [
-              "items"
-            ]
+            "$ref": "#/components/schemas/DeviceStatePage"
           }
         },
         "required": [
@@ -10556,6 +12066,39 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/RoleAssignmentPage"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "GetScopeResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Scope"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ListScopeDevicesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DevicePage"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ListScopesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ScopePage"
           }
         },
         "required": [
@@ -10665,18 +12208,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "object",
-            "properties": {
-              "items": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/TelemetryPoint"
-                }
-              }
-            },
-            "required": [
-              "items"
-            ]
+            "$ref": "#/components/schemas/TelemetryPointPage"
           }
         },
         "required": [
@@ -10705,6 +12237,17 @@
           "data"
         ]
       },
+      "UpdateScopeRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
       "UpdateAutomationResponse": {
         "type": "object",
         "properties": {
@@ -10726,8 +12269,23 @@
             "description": "Whether its trigger fires",
             "type": "boolean"
           },
+          "scopeId": {
+            "description": "The scope it applies to; null makes it team-wide",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "spaceId": {
-            "description": "The space to scope it to; null clears the scope",
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
             "anyOf": [
               {
                 "type": "string",
@@ -10778,7 +12336,7 @@
             "description": "The template's slot values, keyed by slot name; used with `template`"
           }
         },
-        "description": "At least one of name, enabled, spaceId, payload or template"
+        "description": "At least one of name, enabled, scopeId, payload or template"
       },
       "UpdateCapabilityResponse": {
         "type": "object",
@@ -10831,8 +12389,23 @@
           "name": {
             "type": "string"
           },
+          "scopeId": {
+            "description": "The scope it shows; null or absent for team-wide",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "spaceId": {
-            "description": "A space id to scope the dashboard to; null or empty for team-wide",
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
             "anyOf": [
               {
                 "type": "string",
@@ -10867,8 +12440,15 @@
           "name": {
             "type": "string"
           },
+          "scopeId": {
+            "description": "A scope in the device's zone; a device stays in the zone it was claimed in",
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
           "spaceId": {
-            "description": "A space in the device's zone",
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
@@ -10994,8 +12574,23 @@
           "name": {
             "type": "string"
           },
+          "scopeId": {
+            "description": "The scope it applies to; null or absent for team-wide",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "spaceId": {
-            "description": "The space it is scoped to; null or absent for team-wide",
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
             "anyOf": [
               {
                 "type": "string",
@@ -11207,8 +12802,23 @@
           "name": {
             "type": "string"
           },
+          "scopeId": {
+            "description": "The scope it shows; null or absent for team-wide",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID",
+                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "spaceId": {
-            "description": "A space id to scope the dashboard to; null or empty for team-wide",
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
             "anyOf": [
               {
                 "type": "string",
@@ -11254,16 +12864,21 @@
       "CreateDeviceRequest": {
         "type": "object",
         "properties": {
-          "spaceId": {
+          "scopeId": {
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
+            "description": "A scope ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "spaceId": {
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
-        "required": [
-          "spaceId"
-        ]
+        "description": "The scope to create it in"
       },
       "CreateDeviceCommandResponse": {
         "type": "object",
@@ -11310,10 +12925,17 @@
       "CreateEnrollmentRequest": {
         "type": "object",
         "properties": {
-          "spaceId": {
+          "scopeId": {
+            "description": "The scope the device joins",
             "type": "string",
             "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "spaceId": {
+            "description": "Deprecated: use scopeId",
+            "deprecated": true,
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "label": {
@@ -11326,10 +12948,41 @@
             "minimum": 1,
             "maximum": 525600
           }
+        }
+      },
+      "CreateScopeResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Scope"
+          }
         },
         "required": [
-          "spaceId"
+          "data"
         ]
+      },
+      "CreateScopeRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Up to 64 characters"
+          },
+          "zone": {
+            "description": "Required for a top-level scope; a child takes its parent's zone",
+            "$ref": "#/components/schemas/ZoneId"
+          },
+          "parentId": {
+            "description": "The parent scope; absent for a top-level scope",
+            "type": "string",
+            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "A name, and either a zone or a parent"
       },
       "CreateSpaceResponse": {
         "type": "object",

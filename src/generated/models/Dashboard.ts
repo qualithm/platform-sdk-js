@@ -36,6 +36,10 @@ export interface Dashboard {
      */
     teamId: string;
     /**
+     * A scope ID
+     */
+    scopeId: string | null;
+    /**
      * A space ID
      */
     spaceId: string | null;
@@ -67,6 +71,7 @@ export interface Dashboard {
 export function instanceOfDashboard(value: object): value is Dashboard {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
+    if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
     if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
@@ -88,6 +93,7 @@ export function DashboardFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'id': json['id'],
         'teamId': json['teamId'],
+        'scopeId': json['scopeId'],
         'spaceId': json['spaceId'],
         'spaceName': json['spaceName'],
         'name': json['name'],
@@ -110,6 +116,7 @@ export function DashboardToJSONTyped(value?: Dashboard | null, ignoreDiscriminat
         
         'id': value['id'],
         'teamId': value['teamId'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'spaceName': value['spaceName'],
         'name': value['name'],

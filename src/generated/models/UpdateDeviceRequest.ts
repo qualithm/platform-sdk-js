@@ -24,7 +24,12 @@ export interface UpdateDeviceRequest {
      */
     name?: string;
     /**
-     * A space in the device's zone
+     * A scope in the device's zone; a device stays in the zone it was claimed in
+     */
+    scopeId?: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
      */
     spaceId?: string;
     /**
@@ -51,6 +56,7 @@ export function UpdateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'name': json['name'] == null ? undefined : json['name'],
+        'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
         'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
         'parked': json['parked'] == null ? undefined : json['parked'],
     };
@@ -68,6 +74,7 @@ export function UpdateDeviceRequestToJSONTyped(value?: UpdateDeviceRequest | nul
     return {
         
         'name': value['name'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'parked': value['parked'],
     };

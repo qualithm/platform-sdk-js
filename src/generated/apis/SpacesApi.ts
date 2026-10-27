@@ -95,13 +95,17 @@ export interface ListSpacesRequest {
      */
     zone?: ListSpacesZoneEnum;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface UpdateSpaceOperationRequest {
@@ -243,6 +247,7 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Refused while scopes sit under it.
      * Delete a space and its devices
      */
     async deleteSpaceRaw(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -253,6 +258,7 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Refused while scopes sit under it.
      * Delete a space and its devices
      */
     async deleteSpace(requestParameters: DeleteSpaceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -345,6 +351,10 @@ export class SpacesApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -368,6 +378,7 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Top-level scopes only, newest first, by `createdAt` then `id`. Use listScopes to see nested ones.
      * List the workspace\'s spaces
      */
     async listSpacesRaw(requestParameters: ListSpacesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSpacesResponse>> {
@@ -378,6 +389,7 @@ export class SpacesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Top-level scopes only, newest first, by `createdAt` then `id`. Use listScopes to see nested ones.
      * List the workspace\'s spaces
      */
     async listSpaces(requestParameters: ListSpacesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSpacesResponse> {

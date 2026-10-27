@@ -57,6 +57,18 @@ export interface ListTelemetryRequest {
      * `locf` carries the last observation forward across empty buckets
      */
     fill?: string;
+    /**
+     * Page number, from 1. Default 1. Ignored with `cursor`.
+     */
+    page?: number;
+    /**
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
+     */
+    limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 /**
@@ -129,6 +141,18 @@ export class TelemetryApi extends runtime.BaseAPI {
             queryParameters['fill'] = requestParameters['fill'];
         }
 
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -153,6 +177,7 @@ export class TelemetryApi extends runtime.BaseAPI {
     }
 
     /**
+     * By bucket start `ts`, ascending, within `from` and `to`. Every page reads the same range, so pass the same query with each cursor.
      * Read a device metric as bucketed points
      */
     async listTelemetryRaw(requestParameters: ListTelemetryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListTelemetryResponse>> {
@@ -163,6 +188,7 @@ export class TelemetryApi extends runtime.BaseAPI {
     }
 
     /**
+     * By bucket start `ts`, ascending, within `from` and `to`. Every page reads the same range, so pass the same query with each cursor.
      * Read a device metric as bucketed points
      */
     async listTelemetry(requestParameters: ListTelemetryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTelemetryResponse> {

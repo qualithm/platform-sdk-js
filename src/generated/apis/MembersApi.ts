@@ -87,13 +87,17 @@ export interface ListTeamMembersRequest {
      */
     teamId: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface UpdateTeamMemberOperationRequest {
@@ -327,6 +331,10 @@ export class MembersApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -350,6 +358,7 @@ export class MembersApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `accountName`, then `id`, ascending. Names compare byte by byte, so uppercase sorts before lowercase.
      * List the team\'s active members
      */
     async listTeamMembersRaw(requestParameters: ListTeamMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListTeamMembersResponse>> {
@@ -360,6 +369,7 @@ export class MembersApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `accountName`, then `id`, ascending. Names compare byte by byte, so uppercase sorts before lowercase.
      * List the team\'s active members
      */
     async listTeamMembers(requestParameters: ListTeamMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTeamMembersResponse> {

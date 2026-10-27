@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { ListTelemetryResponseData } from './ListTelemetryResponseData.js';
+import type { TelemetryPointPage } from './TelemetryPointPage.js';
 import {
-    ListTelemetryResponseDataFromJSON,
-    ListTelemetryResponseDataFromJSONTyped,
-    ListTelemetryResponseDataToJSON,
-    ListTelemetryResponseDataToJSONTyped,
-} from './ListTelemetryResponseData.js';
+    TelemetryPointPageFromJSON,
+    TelemetryPointPageFromJSONTyped,
+    TelemetryPointPageToJSON,
+    TelemetryPointPageToJSONTyped,
+} from './TelemetryPointPage.js';
 
 /**
  * 
@@ -30,7 +30,7 @@ export interface ListTelemetryResponse {
     /**
      * 
      */
-    data: ListTelemetryResponseData;
+    data: TelemetryPointPage;
 }
 
 /**
@@ -51,7 +51,7 @@ export function ListTelemetryResponseFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'data': ListTelemetryResponseDataFromJSON(json['data']),
+        'data': TelemetryPointPageFromJSON(json['data']),
     };
 }
 
@@ -66,7 +66,7 @@ export function ListTelemetryResponseToJSONTyped(value?: ListTelemetryResponse |
 
     return {
         
-        'data': ListTelemetryResponseDataToJSON(value['data']),
+        'data': TelemetryPointPageToJSON(value['data']),
     };
 }
 
