@@ -102,8 +102,11 @@ bun run docs
 | --------------------------------------------- | ---------------------------------------------------------- |
 | [`list-devices.ts`](examples/list-devices.ts) | List the workspace's devices, and report a `PlatformError` |
 
+An example imports the package by name, so `bun run example` builds it first:
+
 ```bash
-QUALITHM_API_TOKEN=<your-api-token> bun run examples/list-devices.ts
+bun install
+QUALITHM_API_TOKEN=<your-api-token> bun run example examples/list-devices.ts
 ```
 
 ## Development

@@ -1,7 +1,7 @@
 /**
  * List the devices in the token's team.
  *
- *   QUALITHM_API_TOKEN=qmt_... bun run examples/list-devices.ts
+ *   QUALITHM_API_TOKEN=qmt_... bun run example examples/list-devices.ts
  */
 import { DevicesApi, PlatformClient, PlatformError, TeamsApi } from "@qualithm/platform"
 
