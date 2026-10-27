@@ -42,13 +42,17 @@ export interface ListSessionsRequest {
      */
     thisDevice?: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 /**
@@ -127,6 +131,10 @@ export class SessionsApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -149,6 +157,7 @@ export class SessionsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the caller\'s live sessions
      */
     async listSessionsRaw(requestParameters: ListSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSessionsResponse>> {
@@ -159,6 +168,7 @@ export class SessionsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the caller\'s live sessions
      */
     async listSessions(requestParameters: ListSessionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSessionsResponse> {

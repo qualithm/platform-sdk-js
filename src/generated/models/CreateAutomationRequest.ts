@@ -32,6 +32,10 @@ export interface CreateAutomationRequest {
      */
     name: string;
     /**
+     * A scope ID
+     */
+    scopeId?: string | null;
+    /**
      * A space ID
      */
     spaceId?: string | null;
@@ -68,6 +72,7 @@ export function CreateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'name': json['name'],
+        'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
         'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] == null ? undefined : CreateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
@@ -87,6 +92,7 @@ export function CreateAutomationRequestToJSONTyped(value?: CreateAutomationReque
     return {
         
         'name': value['name'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'payload': CreateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],

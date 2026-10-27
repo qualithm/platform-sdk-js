@@ -57,13 +57,17 @@ export interface ListCapabilitiesRequest {
      */
     key?: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface ListDeviceCapabilitiesRequest {
@@ -75,6 +79,18 @@ export interface ListDeviceCapabilitiesRequest {
      * A device ID
      */
     deviceId: string;
+    /**
+     * Page number, from 1. Default 1. Ignored with `cursor`.
+     */
+    page?: number;
+    /**
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
+     */
+    limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface UpdateCapabilityOperationRequest {
@@ -134,6 +150,10 @@ export class CapabilitiesApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -157,6 +177,7 @@ export class CapabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `key`, then `id`, ascending.
      * List the capabilities of the workspace\'s devices
      */
     async listCapabilitiesRaw(requestParameters: ListCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListCapabilitiesResponse>> {
@@ -167,6 +188,7 @@ export class CapabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `key`, then `id`, ascending.
      * List the capabilities of the workspace\'s devices
      */
     async listCapabilities(requestParameters: ListCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListCapabilitiesResponse> {
@@ -194,6 +216,18 @@ export class CapabilitiesApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -218,6 +252,7 @@ export class CapabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `key`, then `id`, ascending.
      * List the capabilities a device declares
      */
     async listDeviceCapabilitiesRaw(requestParameters: ListDeviceCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListDeviceCapabilitiesResponse>> {
@@ -228,6 +263,7 @@ export class CapabilitiesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `key`, then `id`, ascending.
      * List the capabilities a device declares
      */
     async listDeviceCapabilities(requestParameters: ListDeviceCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDeviceCapabilitiesResponse> {

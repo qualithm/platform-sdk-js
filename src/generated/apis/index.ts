@@ -18,6 +18,7 @@ export * from './InvitesApi.js';
 export * from './MembersApi.js';
 export * from './MetaApi.js';
 export * from './RolesApi.js';
+export * from './ScopesApi.js';
 export * from './SessionsApi.js';
 export * from './SpacesApi.js';
 export * from './TeamsApi.js';
