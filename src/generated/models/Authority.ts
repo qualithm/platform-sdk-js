@@ -48,10 +48,6 @@ export interface Authority {
      */
     status: AuthorityStatusEnum;
     /**
-     * JSON text
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -92,7 +88,6 @@ export function instanceOfAuthority(value: object): value is Authority {
     if (!('certificatePem' in value) || value['certificatePem'] === undefined) return false;
     if (!('fingerprint' in value) || value['fingerprint'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -115,7 +110,6 @@ export function AuthorityFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'certificatePem': json['certificatePem'],
         'fingerprint': json['fingerprint'],
         'status': json['status'],
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -139,7 +133,6 @@ export function AuthorityToJSONTyped(value?: Authority | null, ignoreDiscriminat
         'certificatePem': value['certificatePem'],
         'fingerprint': value['fingerprint'],
         'status': value['status'],
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };

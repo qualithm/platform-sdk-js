@@ -36,10 +36,6 @@ export interface Team {
      */
     name: string;
     /**
-     * The team's settings: a JSON object, encoded as a string
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -109,7 +105,6 @@ export type TeamPermissionsEnum = typeof TeamPermissionsEnum[keyof typeof TeamPe
 export function instanceOfTeam(value: object): value is Team {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     if (!('memberId' in value) || value['memberId'] === undefined) return false;
@@ -130,7 +125,6 @@ export function TeamFromJSONTyped(json: any, ignoreDiscriminator: boolean): Team
         
         'id': json['id'],
         'name': json['name'],
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'memberId': json['memberId'],
@@ -152,7 +146,6 @@ export function TeamToJSONTyped(value?: Team | null, ignoreDiscriminator: boolea
         
         'id': value['id'],
         'name': value['name'],
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'memberId': value['memberId'],

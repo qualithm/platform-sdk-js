@@ -48,10 +48,6 @@ export interface Device {
      */
     name: string;
     /**
-     * JSON text
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -97,7 +93,6 @@ export function instanceOfDevice(value: object): value is Device {
     if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -118,7 +113,6 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'spaceName': json['spaceName'],
         'teamId': json['teamId'],
         'name': json['name'],
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
@@ -144,7 +138,6 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'spaceName': value['spaceName'],
         'teamId': value['teamId'],
         'name': value['name'],
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),

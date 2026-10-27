@@ -44,9 +44,9 @@ export interface Invoice {
      */
     total: Money | null;
     /**
-     * The invoice detail: a JSON object, encoded as a string
+     * The Stripe invoice this one mirrors; null when Stripe didn't send one
      */
-    payload: string;
+    stripeInvoiceId: string | null;
     /**
      * UTC time, RFC 3339
      */
@@ -65,7 +65,7 @@ export function instanceOfInvoice(value: object): value is Invoice {
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
+    if (!('stripeInvoiceId' in value) || value['stripeInvoiceId'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -85,7 +85,7 @@ export function InvoiceFromJSONTyped(json: any, ignoreDiscriminator: boolean): I
         'teamId': json['teamId'],
         'status': json['status'],
         'total': MoneyFromJSON(json['total']),
-        'payload': json['payload'],
+        'stripeInvoiceId': json['stripeInvoiceId'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -106,7 +106,7 @@ export function InvoiceToJSONTyped(value?: Invoice | null, ignoreDiscriminator: 
         'teamId': value['teamId'],
         'status': value['status'],
         'total': MoneyToJSON(value['total']),
-        'payload': value['payload'],
+        'stripeInvoiceId': value['stripeInvoiceId'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };

@@ -52,10 +52,6 @@ export interface Enrollment {
      */
     expiresAt: Date;
     /**
-     * JSON text
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -89,7 +85,6 @@ export function instanceOfEnrollment(value: object): value is Enrollment {
     if (!('claimedDeviceId' in value) || value['claimedDeviceId'] === undefined) return false;
     if (!('claimedAt' in value) || value['claimedAt'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -113,7 +108,6 @@ export function EnrollmentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'claimedDeviceId': json['claimedDeviceId'],
         'claimedAt': (json['claimedAt'] == null ? null : parseDateTime(json['claimedAt'])),
         'expiresAt': (json['expiresAt'] == null ? json['expiresAt'] : parseDateTime(json['expiresAt'])),
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -138,7 +132,6 @@ export function EnrollmentToJSONTyped(value?: Enrollment | null, ignoreDiscrimin
         'claimedDeviceId': value['claimedDeviceId'],
         'claimedAt': value['claimedAt'] == null ? value['claimedAt'] : serializeDateTime(value['claimedAt']),
         'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
