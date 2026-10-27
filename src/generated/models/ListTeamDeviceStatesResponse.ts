@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { ListTeamDeviceStatesResponseData } from './ListTeamDeviceStatesResponseData.js';
+import type { DeviceStatePage } from './DeviceStatePage.js';
 import {
-    ListTeamDeviceStatesResponseDataFromJSON,
-    ListTeamDeviceStatesResponseDataFromJSONTyped,
-    ListTeamDeviceStatesResponseDataToJSON,
-    ListTeamDeviceStatesResponseDataToJSONTyped,
-} from './ListTeamDeviceStatesResponseData.js';
+    DeviceStatePageFromJSON,
+    DeviceStatePageFromJSONTyped,
+    DeviceStatePageToJSON,
+    DeviceStatePageToJSONTyped,
+} from './DeviceStatePage.js';
 
 /**
  * 
@@ -30,7 +30,7 @@ export interface ListTeamDeviceStatesResponse {
     /**
      * 
      */
-    data: ListTeamDeviceStatesResponseData;
+    data: DeviceStatePage;
 }
 
 /**
@@ -51,7 +51,7 @@ export function ListTeamDeviceStatesResponseFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'data': ListTeamDeviceStatesResponseDataFromJSON(json['data']),
+        'data': DeviceStatePageFromJSON(json['data']),
     };
 }
 
@@ -66,7 +66,7 @@ export function ListTeamDeviceStatesResponseToJSONTyped(value?: ListTeamDeviceSt
 
     return {
         
-        'data': ListTeamDeviceStatesResponseDataToJSON(value['data']),
+        'data': DeviceStatePageToJSON(value['data']),
     };
 }
 

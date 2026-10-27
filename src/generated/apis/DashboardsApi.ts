@@ -96,13 +96,17 @@ export interface ListDashboardsRequest {
      */
     teamId: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface UpdateDashboardOperationRequest {
@@ -342,6 +346,10 @@ export class DashboardsApi extends runtime.BaseAPI {
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -365,6 +373,7 @@ export class DashboardsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the workspace\'s dashboards
      */
     async listDashboardsRaw(requestParameters: ListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListDashboardsResponse>> {
@@ -375,6 +384,7 @@ export class DashboardsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Newest first, by `createdAt` then `id`.
      * List the workspace\'s dashboards
      */
     async listDashboards(requestParameters: ListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDashboardsResponse> {

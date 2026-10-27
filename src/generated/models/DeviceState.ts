@@ -24,7 +24,12 @@ export interface DeviceState {
      */
     deviceId: string;
     /**
-     * A space ID
+     * A scope ID
+     */
+    scopeId: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
      */
     spaceId: string;
     /**
@@ -46,6 +51,7 @@ export interface DeviceState {
  */
 export function instanceOfDeviceState(value: object): value is DeviceState {
     if (!('deviceId' in value) || value['deviceId'] === undefined) return false;
+    if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
     if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     if (!('online' in value) || value['online'] === undefined) return false;
     if (!('lastSeenAt' in value) || value['lastSeenAt'] === undefined) return false;
@@ -64,6 +70,7 @@ export function DeviceStateFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'deviceId': json['deviceId'],
+        'scopeId': json['scopeId'],
         'spaceId': json['spaceId'],
         'online': json['online'],
         'lastSeenAt': (json['lastSeenAt'] == null ? json['lastSeenAt'] : parseDateTime(json['lastSeenAt'])),
@@ -83,6 +90,7 @@ export function DeviceStateToJSONTyped(value?: DeviceState | null, ignoreDiscrim
     return {
         
         'deviceId': value['deviceId'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'online': value['online'],
         'lastSeenAt': value['lastSeenAt'] == null ? value['lastSeenAt'] : serializeDateTime(value['lastSeenAt']),

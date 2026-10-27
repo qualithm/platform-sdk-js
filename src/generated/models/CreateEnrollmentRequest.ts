@@ -20,9 +20,14 @@ import { mapValues } from '../runtime.js';
  */
 export interface CreateEnrollmentRequest {
     /**
-     * A space ID
+     * The scope the device joins
      */
-    spaceId: string;
+    scopeId?: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
+     */
+    spaceId?: string;
     /**
      * Up to 64 characters
      */
@@ -37,7 +42,6 @@ export interface CreateEnrollmentRequest {
  * Check if a given object implements the CreateEnrollmentRequest interface.
  */
 export function instanceOfCreateEnrollmentRequest(value: object): value is CreateEnrollmentRequest {
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     return true;
 }
 
@@ -51,7 +55,8 @@ export function CreateEnrollmentRequestFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'spaceId': json['spaceId'],
+        'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
+        'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
         'label': json['label'] == null ? undefined : json['label'],
         'expiresInMinutes': json['expiresInMinutes'] == null ? undefined : json['expiresInMinutes'],
     };
@@ -68,6 +73,7 @@ export function CreateEnrollmentRequestToJSONTyped(value?: CreateEnrollmentReque
 
     return {
         
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'label': value['label'],
         'expiresInMinutes': value['expiresInMinutes'],

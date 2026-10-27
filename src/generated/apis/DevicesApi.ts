@@ -96,17 +96,25 @@ export interface ListDevicesRequest {
      */
     teamId: string;
     /**
-     * Only the devices in this space
+     * Only the devices directly in this scope, not the scopes under it
+     */
+    scopeId?: string;
+    /**
+     * Deprecated: use scopeId
      */
     spaceId?: string;
     /**
-     * Page number, from 1. Default 1.
+     * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
     /**
-     * Items per page, 1 to 100. Default 20.
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
      */
     limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface ListTeamDeviceStatesRequest {
@@ -114,6 +122,18 @@ export interface ListTeamDeviceStatesRequest {
      * A team ID
      */
     teamId: string;
+    /**
+     * Page number, from 1. Default 1. Ignored with `cursor`.
+     */
+    page?: number;
+    /**
+     * Items per page, 1 to 100. Default 20, or 50 with `cursor`.
+     */
+    limit?: number;
+    /**
+     * A previous page's `nextCursor`, to read the page after it
+     */
+    cursor?: string;
 }
 
 export interface UpdateDeviceOperationRequest {
@@ -190,7 +210,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a device in a space
+     * Create a device in a scope
      */
     async createDeviceRaw(requestParameters: CreateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateDeviceResponse>> {
         const requestOptions = await this.createDeviceRequestOpts(requestParameters);
@@ -200,7 +220,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a device in a space
+     * Create a device in a scope
      */
     async createDevice(requestParameters: CreateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateDeviceResponse> {
         const response = await this.createDeviceRaw(requestParameters, initOverrides);
@@ -345,6 +365,10 @@ export class DevicesApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters['scopeId'] != null) {
+            queryParameters['scopeId'] = requestParameters['scopeId'];
+        }
+
         if (requestParameters['spaceId'] != null) {
             queryParameters['spaceId'] = requestParameters['spaceId'];
         }
@@ -355,6 +379,10 @@ export class DevicesApi extends runtime.BaseAPI {
 
         if (requestParameters['limit'] != null) {
             queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -380,7 +408,8 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the team\'s devices, optionally in one space
+     * Newest first, by `createdAt` then `id`.
+     * List the team\'s devices, optionally in one scope
      */
     async listDevicesRaw(requestParameters: ListDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListDevicesResponse>> {
         const requestOptions = await this.listDevicesRequestOpts(requestParameters);
@@ -390,7 +419,8 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * List the team\'s devices, optionally in one space
+     * Newest first, by `createdAt` then `id`.
+     * List the team\'s devices, optionally in one scope
      */
     async listDevices(requestParameters: ListDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDevicesResponse> {
         const response = await this.listDevicesRaw(requestParameters, initOverrides);
@@ -409,6 +439,18 @@ export class DevicesApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -433,6 +475,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `deviceId`, ascending.
      * List the live state of a team\'s devices
      */
     async listTeamDeviceStatesRaw(requestParameters: ListTeamDeviceStatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListTeamDeviceStatesResponse>> {
@@ -443,6 +486,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
+     * By `deviceId`, ascending.
      * List the live state of a team\'s devices
      */
     async listTeamDeviceStates(requestParameters: ListTeamDeviceStatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTeamDeviceStatesResponse> {

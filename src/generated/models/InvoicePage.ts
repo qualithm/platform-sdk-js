@@ -39,6 +39,10 @@ export interface InvoicePage {
      * The last page's number
      */
     last: number;
+    /**
+     * Pass as `cursor` to read the next page; `null` on the last page
+     */
+    nextCursor: string | null;
 }
 
 /**
@@ -48,6 +52,7 @@ export function instanceOfInvoicePage(value: object): value is InvoicePage {
     if (!('current' in value) || value['current'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     if (!('last' in value) || value['last'] === undefined) return false;
+    if (!('nextCursor' in value) || value['nextCursor'] === undefined) return false;
     return true;
 }
 
@@ -64,6 +69,7 @@ export function InvoicePageFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'current': json['current'],
         'items': ((json['items'] as Array<any>).map(InvoiceFromJSON)),
         'last': json['last'],
+        'nextCursor': json['nextCursor'],
     };
 }
 
@@ -81,6 +87,7 @@ export function InvoicePageToJSONTyped(value?: InvoicePage | null, ignoreDiscrim
         'current': value['current'],
         'items': ((value['items'] as Array<any>).map(InvoiceToJSON)),
         'last': value['last'],
+        'nextCursor': value['nextCursor'],
     };
 }
 

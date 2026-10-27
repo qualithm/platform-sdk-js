@@ -39,6 +39,10 @@ export interface AutomationRunPage {
      * The last page's number
      */
     last: number;
+    /**
+     * Pass as `cursor` to read the next page; `null` on the last page
+     */
+    nextCursor: string | null;
 }
 
 /**
@@ -48,6 +52,7 @@ export function instanceOfAutomationRunPage(value: object): value is AutomationR
     if (!('current' in value) || value['current'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     if (!('last' in value) || value['last'] === undefined) return false;
+    if (!('nextCursor' in value) || value['nextCursor'] === undefined) return false;
     return true;
 }
 
@@ -64,6 +69,7 @@ export function AutomationRunPageFromJSONTyped(json: any, ignoreDiscriminator: b
         'current': json['current'],
         'items': ((json['items'] as Array<any>).map(AutomationRunFromJSON)),
         'last': json['last'],
+        'nextCursor': json['nextCursor'],
     };
 }
 
@@ -81,6 +87,7 @@ export function AutomationRunPageToJSONTyped(value?: AutomationRunPage | null, i
         'current': value['current'],
         'items': ((value['items'] as Array<any>).map(AutomationRunToJSON)),
         'last': value['last'],
+        'nextCursor': value['nextCursor'],
     };
 }
 

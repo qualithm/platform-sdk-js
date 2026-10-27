@@ -28,7 +28,12 @@ export interface Enrollment {
      */
     teamId: string;
     /**
-     * A space ID
+     * A scope ID
+     */
+    scopeId: string;
+    /**
+     * Deprecated: use scopeId
+     * @deprecated
      */
     spaceId: string;
     /**
@@ -79,6 +84,7 @@ export type EnrollmentStatusEnum = typeof EnrollmentStatusEnum[keyof typeof Enro
 export function instanceOfEnrollment(value: object): value is Enrollment {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
+    if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
     if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     if (!('label' in value) || value['label'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
@@ -102,6 +108,7 @@ export function EnrollmentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         
         'id': json['id'],
         'teamId': json['teamId'],
+        'scopeId': json['scopeId'],
         'spaceId': json['spaceId'],
         'label': json['label'],
         'status': json['status'],
@@ -126,6 +133,7 @@ export function EnrollmentToJSONTyped(value?: Enrollment | null, ignoreDiscrimin
         
         'id': value['id'],
         'teamId': value['teamId'],
+        'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'label': value['label'],
         'status': value['status'],

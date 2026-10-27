@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { Capability } from './Capability.js';
+import type { CapabilityPage } from './CapabilityPage.js';
 import {
-    CapabilityFromJSON,
-    CapabilityFromJSONTyped,
-    CapabilityToJSON,
-    CapabilityToJSONTyped,
-} from './Capability.js';
+    CapabilityPageFromJSON,
+    CapabilityPageFromJSONTyped,
+    CapabilityPageToJSON,
+    CapabilityPageToJSONTyped,
+} from './CapabilityPage.js';
 
 /**
  * 
@@ -30,7 +30,7 @@ export interface ListDeviceCapabilitiesResponse {
     /**
      * 
      */
-    data: Array<Capability>;
+    data: CapabilityPage;
 }
 
 /**
@@ -51,7 +51,7 @@ export function ListDeviceCapabilitiesResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'data': ((json['data'] as Array<any>).map(CapabilityFromJSON)),
+        'data': CapabilityPageFromJSON(json['data']),
     };
 }
 
@@ -66,7 +66,7 @@ export function ListDeviceCapabilitiesResponseToJSONTyped(value?: ListDeviceCapa
 
     return {
         
-        'data': ((value['data'] as Array<any>).map(CapabilityToJSON)),
+        'data': CapabilityPageToJSON(value['data']),
     };
 }
 
