@@ -64,10 +64,6 @@ export interface Credential {
      */
     rotatedFrom: string | null;
     /**
-     * JSON text
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -112,7 +108,6 @@ export function instanceOfCredential(value: object): value is Credential {
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
     if (!('lastUsedAt' in value) || value['lastUsedAt'] === undefined) return false;
     if (!('rotatedFrom' in value) || value['rotatedFrom'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -139,7 +134,6 @@ export function CredentialFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'expiresAt': (json['expiresAt'] == null ? null : parseDateTime(json['expiresAt'])),
         'lastUsedAt': (json['lastUsedAt'] == null ? null : parseDateTime(json['lastUsedAt'])),
         'rotatedFrom': json['rotatedFrom'],
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -167,7 +161,6 @@ export function CredentialToJSONTyped(value?: Credential | null, ignoreDiscrimin
         'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
         'lastUsedAt': value['lastUsedAt'] == null ? value['lastUsedAt'] : serializeDateTime(value['lastUsedAt']),
         'rotatedFrom': value['rotatedFrom'],
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
