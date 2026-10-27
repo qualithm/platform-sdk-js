@@ -7407,10 +7407,6 @@
           "name": {
             "type": "string"
           },
-          "payload": {
-            "type": "string",
-            "description": "The team's settings: a JSON object, encoded as a string"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -7478,7 +7474,6 @@
         "required": [
           "id",
           "name",
-          "payload",
           "createdAt",
           "updatedAt",
           "memberId",
@@ -7928,10 +7923,6 @@
           "name": {
             "type": "string"
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON text"
-          },
           "zone": {
             "$ref": "#/components/schemas/ZoneId"
           },
@@ -7957,7 +7948,6 @@
           "id",
           "teamId",
           "name",
-          "payload",
           "zone",
           "createdAt",
           "updatedAt"
@@ -8161,10 +8151,6 @@
             ],
             "description": "The credential this one replaced on rotation"
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON text"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -8190,7 +8176,6 @@
           "expiresAt",
           "lastUsedAt",
           "rotatedFrom",
-          "payload",
           "createdAt",
           "updatedAt"
         ]
@@ -8289,10 +8274,6 @@
               "revoked"
             ]
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON text"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -8314,7 +8295,6 @@
           "certificatePem",
           "fingerprint",
           "status",
-          "payload",
           "createdAt",
           "updatedAt"
         ]
@@ -8409,10 +8389,6 @@
             "description": "UTC time, RFC 3339",
             "example": "2026-10-26T09:30:00.000Z"
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON text"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -8435,7 +8411,6 @@
           "claimedDeviceId",
           "claimedAt",
           "expiresAt",
-          "payload",
           "createdAt",
           "updatedAt"
         ]
@@ -9183,10 +9158,6 @@
           "name": {
             "type": "string"
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON text"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -9244,7 +9215,6 @@
           "spaceName",
           "teamId",
           "name",
-          "payload",
           "createdAt",
           "updatedAt"
         ]
@@ -9516,10 +9486,6 @@
           "name": {
             "type": "string"
           },
-          "payload": {
-            "type": "string",
-            "description": "The account's settings: a JSON object, encoded as a string"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -9537,7 +9503,6 @@
           "id",
           "email",
           "name",
-          "payload",
           "createdAt",
           "updatedAt"
         ]
@@ -10061,9 +10026,16 @@
             ],
             "description": "The invoice total; null until Stripe sets it"
           },
-          "payload": {
-            "type": "string",
-            "description": "The invoice detail: a JSON object, encoded as a string"
+          "stripeInvoiceId": {
+            "description": "The Stripe invoice this one mirrors; null when Stripe didn't send one",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -10083,7 +10055,7 @@
           "teamId",
           "status",
           "total",
-          "payload",
+          "stripeInvoiceId",
           "createdAt",
           "updatedAt"
         ]

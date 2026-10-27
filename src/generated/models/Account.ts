@@ -32,10 +32,6 @@ export interface Account {
      */
     name: string;
     /**
-     * The account's settings: a JSON object, encoded as a string
-     */
-    payload: string;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -52,7 +48,6 @@ export function instanceOfAccount(value: object): value is Account {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -71,7 +66,6 @@ export function AccountFromJSONTyped(json: any, ignoreDiscriminator: boolean): A
         'id': json['id'],
         'email': json['email'],
         'name': json['name'],
-        'payload': json['payload'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -91,7 +85,6 @@ export function AccountToJSONTyped(value?: Account | null, ignoreDiscriminator: 
         'id': value['id'],
         'email': value['email'],
         'name': value['name'],
-        'payload': value['payload'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };

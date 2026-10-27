@@ -40,10 +40,6 @@ export interface Space {
      */
     name: string;
     /**
-     * JSON text
-     */
-    payload: string;
-    /**
      * 
      */
     zone: ZoneId;
@@ -70,7 +66,6 @@ export function instanceOfSpace(value: object): value is Space {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('zone' in value) || value['zone'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
@@ -90,7 +85,6 @@ export function SpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Spa
         'id': json['id'],
         'teamId': json['teamId'],
         'name': json['name'],
-        'payload': json['payload'],
         'zone': ZoneIdFromJSON(json['zone']),
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
@@ -112,7 +106,6 @@ export function SpaceToJSONTyped(value?: Space | null, ignoreDiscriminator: bool
         'id': value['id'],
         'teamId': value['teamId'],
         'name': value['name'],
-        'payload': value['payload'],
         'zone': ZoneIdToJSON(value['zone']),
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
