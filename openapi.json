@@ -11224,7 +11224,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|oac|ogr|otk|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "An ID of any type",
                 "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -11244,7 +11244,7 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|oac|ogr|otk|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An ID of any type",
             "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
