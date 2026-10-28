@@ -10452,6 +10452,10 @@
               }
             ]
           },
+          "virtual": {
+            "description": "Whether the device declared itself virtual at claim: it runs on a host rather than a board, and counts as a device all the same",
+            "type": "boolean"
+          },
           "level": {
             "type": "string",
             "enum": [
