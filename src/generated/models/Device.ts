@@ -69,6 +69,10 @@ export interface Device {
      */
     capabilitiesDeclared?: boolean | null;
     /**
+     * Whether the device declared itself virtual at claim: it runs on a host rather than a board, and counts as a device all the same
+     */
+    virtual?: boolean;
+    /**
      * 
      */
     level?: DeviceLevelEnum;
@@ -124,6 +128,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
         'capabilitiesDeclared': json['capabilitiesDeclared'] === undefined ? undefined : json['capabilitiesDeclared'] === null ? null : json['capabilitiesDeclared'],
+        'virtual': json['virtual'] == null ? undefined : json['virtual'],
         'level': json['level'] == null ? undefined : json['level'],
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(DeviceCheckFromJSON)),
     };
@@ -150,6 +155,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),
         'capabilitiesDeclared': value['capabilitiesDeclared'],
+        'virtual': value['virtual'],
         'level': value['level'],
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(DeviceCheckToJSON)),
     };
