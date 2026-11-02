@@ -45,6 +45,10 @@ export interface ListCapabilitiesRequest {
      */
     teamId: string;
     /**
+     * Only the devices in this scope and every scope under it
+     */
+    scopeId?: string;
+    /**
      * Only capabilities of this type
      */
     type?: ListCapabilitiesTypeEnum;
@@ -129,6 +133,10 @@ export class CapabilitiesApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters['scopeId'] != null) {
+            queryParameters['scopeId'] = requestParameters['scopeId'];
+        }
 
         if (requestParameters['type'] != null) {
             queryParameters['type'] = requestParameters['type'];
