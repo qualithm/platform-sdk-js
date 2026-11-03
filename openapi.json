@@ -3929,6 +3929,17 @@
             }
           },
           {
+            "name": "scopeId",
+            "in": "query",
+            "required": false,
+            "description": "Only the devices in this scope and every scope under it",
+            "schema": {
+              "type": "string",
+              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
             "name": "type",
             "in": "query",
             "required": false,
