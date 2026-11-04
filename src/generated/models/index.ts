@@ -70,6 +70,7 @@ export * from './DashboardPage.js';
 export * from './DashboardWidget.js';
 export * from './DashboardWidgetLayout.js';
 export * from './DashboardWidgetSource.js';
+export * from './Decision.js';
 export * from './Device.js';
 export * from './DeviceCheck.js';
 export * from './DeviceCommand.js';

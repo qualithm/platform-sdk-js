@@ -20,6 +20,13 @@ import {
     DeviceCheckToJSON,
     DeviceCheckToJSONTyped,
 } from './DeviceCheck.js';
+import type { Decision } from './Decision.js';
+import {
+    DecisionFromJSON,
+    DecisionFromJSONTyped,
+    DecisionToJSON,
+    DecisionToJSONTyped,
+} from './Decision.js';
 
 /**
  * 
@@ -80,6 +87,10 @@ export interface Device {
      * 
      */
     checks?: Array<DeviceCheck>;
+    /**
+     * What Qualithm decided when the device was claimed: at most six, most consequential first. Returned by getDevice; empty for a device created without a claim.
+     */
+    decisions?: Array<Decision>;
 }
 
 
@@ -131,6 +142,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'virtual': json['virtual'] == null ? undefined : json['virtual'],
         'level': json['level'] == null ? undefined : json['level'],
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(DeviceCheckFromJSON)),
+        'decisions': json['decisions'] == null ? undefined : ((json['decisions'] as Array<any>).map(DecisionFromJSON)),
     };
 }
 
@@ -158,6 +170,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'virtual': value['virtual'],
         'level': value['level'],
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(DeviceCheckToJSON)),
+        'decisions': value['decisions'] == null ? undefined : ((value['decisions'] as Array<any>).map(DecisionToJSON)),
     };
 }
 
