@@ -10366,6 +10366,38 @@
           "nextCursor"
         ]
       },
+      "Decision": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Stable identifier for the decision, e.g. `zone`"
+          },
+          "label": {
+            "type": "string",
+            "description": "The decision's name, for people, e.g. `Zone`"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value chosen, as held by its source"
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the value is held, e.g. `scope` or `credential`"
+          },
+          "docsUrl": {
+            "type": "string",
+            "description": "The docs page that explains the default"
+          }
+        },
+        "required": [
+          "key",
+          "label",
+          "value",
+          "source",
+          "docsUrl"
+        ]
+      },
       "DeviceCheck": {
         "type": "object",
         "properties": {
@@ -10478,6 +10510,14 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DeviceCheck"
+            }
+          },
+          "decisions": {
+            "description": "What Qualithm decided when the device was claimed: at most six, most consequential first. Returned by getDevice; empty for a device created without a claim.",
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Decision"
             }
           }
         },
