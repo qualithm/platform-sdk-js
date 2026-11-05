@@ -11569,6 +11569,28 @@
               }
             ]
           },
+          "hostedUrl": {
+            "description": "Stripe's page to view and pay the invoice; null until Stripe finalizes it",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pdfUrl": {
+            "description": "The invoice as a PDF; null until Stripe finalizes it",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -11588,6 +11610,8 @@
           "status",
           "total",
           "stripeInvoiceId",
+          "hostedUrl",
+          "pdfUrl",
           "createdAt",
           "updatedAt"
         ]
