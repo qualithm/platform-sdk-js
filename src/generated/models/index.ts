@@ -28,6 +28,8 @@ export * from './BillingSummary.js';
 export * from './BillingSummaryAddons.js';
 export * from './BillingSummaryLimitGrace.js';
 export * from './BillingSummaryLimits.js';
+export * from './BillingSummaryUpcomingInvoice.js';
+export * from './BillingSummaryUpcomingInvoiceLinesInner.js';
 export * from './BillingSummaryUsage.js';
 export * from './BillingUsageDimension.js';
 export * from './Capability.js';
