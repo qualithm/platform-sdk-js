@@ -48,6 +48,13 @@ import {
     BillingSummaryLimitsToJSON,
     BillingSummaryLimitsToJSONTyped,
 } from './BillingSummaryLimits.js';
+import type { BillingSummaryUpcomingInvoice } from './BillingSummaryUpcomingInvoice.js';
+import {
+    BillingSummaryUpcomingInvoiceFromJSON,
+    BillingSummaryUpcomingInvoiceFromJSONTyped,
+    BillingSummaryUpcomingInvoiceToJSON,
+    BillingSummaryUpcomingInvoiceToJSONTyped,
+} from './BillingSummaryUpcomingInvoice.js';
 
 /**
  * 
@@ -76,9 +83,17 @@ export interface BillingSummary {
      */
     usage: BillingSummaryUsage;
     /**
-     * The plan's monthly price with add-ons
+     * What the next invoice will charge, after discounts and credit; the plan price with add-ons when `estimated` is true
      */
     monthlyTotal: Money;
+    /**
+     * 
+     */
+    upcomingInvoice: BillingSummaryUpcomingInvoice | null;
+    /**
+     * True when Stripe couldn't be read, so `monthlyTotal` is the plan price
+     */
+    estimated: boolean;
     /**
      * 
      */
@@ -108,6 +123,8 @@ export function instanceOfBillingSummary(value: object): value is BillingSummary
     if (!('limits' in value) || value['limits'] === undefined) return false;
     if (!('usage' in value) || value['usage'] === undefined) return false;
     if (!('monthlyTotal' in value) || value['monthlyTotal'] === undefined) return false;
+    if (!('upcomingInvoice' in value) || value['upcomingInvoice'] === undefined) return false;
+    if (!('estimated' in value) || value['estimated'] === undefined) return false;
     if (!('addons' in value) || value['addons'] === undefined) return false;
     return true;
 }
@@ -128,6 +145,8 @@ export function BillingSummaryFromJSONTyped(json: any, ignoreDiscriminator: bool
         'limits': BillingSummaryLimitsFromJSON(json['limits']),
         'usage': BillingSummaryUsageFromJSON(json['usage']),
         'monthlyTotal': MoneyFromJSON(json['monthlyTotal']),
+        'upcomingInvoice': BillingSummaryUpcomingInvoiceFromJSON(json['upcomingInvoice']),
+        'estimated': json['estimated'],
         'addons': BillingSummaryAddonsFromJSON(json['addons']),
     };
 }
@@ -149,6 +168,8 @@ export function BillingSummaryToJSONTyped(value?: BillingSummary | null, ignoreD
         'limits': BillingSummaryLimitsToJSON(value['limits']),
         'usage': BillingSummaryUsageToJSON(value['usage']),
         'monthlyTotal': MoneyToJSON(value['monthlyTotal']),
+        'upcomingInvoice': BillingSummaryUpcomingInvoiceToJSON(value['upcomingInvoice']),
+        'estimated': value['estimated'],
         'addons': BillingSummaryAddonsToJSON(value['addons']),
     };
 }
