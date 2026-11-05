@@ -3755,7 +3755,7 @@
       "get": {
         "operationId": "getBillingSummary",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's plan, usage, price and add-ons",
+        "summary": "Get the workspace's plan, usage, next bill and add-ons",
         "tags": [
           "Billing"
         ],
@@ -3783,7 +3783,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the workspace's plan, usage, price and add-ons",
+            "description": "Get the workspace's plan, usage, next bill and add-ons",
             "content": {
               "application/json": {
                 "schema": {
@@ -11493,8 +11493,73 @@
             ]
           },
           "monthlyTotal": {
-            "description": "The plan's monthly price with add-ons",
+            "description": "What the next invoice will charge, after discounts and credit; the plan price with add-ons when `estimated` is true",
             "$ref": "#/components/schemas/Money"
+          },
+          "upcomingInvoice": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "lines": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "$ref": "#/components/schemas/Money"
+                        }
+                      },
+                      "required": [
+                        "description",
+                        "amount"
+                      ]
+                    }
+                  },
+                  "subtotal": {
+                    "description": "The sum of the lines, before discounts",
+                    "$ref": "#/components/schemas/Money"
+                  },
+                  "discount": {
+                    "description": "What coupons and promotion codes take off",
+                    "$ref": "#/components/schemas/Money"
+                  },
+                  "credit": {
+                    "description": "What the team's credit balance covers",
+                    "$ref": "#/components/schemas/Money"
+                  },
+                  "periodEnd": {
+                    "description": "ISO 8601 time the period the invoice bills ends",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "lines",
+                  "subtotal",
+                  "discount",
+                  "credit",
+                  "periodEnd"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The next invoice from Stripe; null on the free plan or when estimated"
+          },
+          "estimated": {
+            "type": "boolean",
+            "description": "True when Stripe couldn't be read, so `monthlyTotal` is the plan price"
           },
           "addons": {
             "type": "object",
@@ -11526,6 +11591,8 @@
           "limits",
           "usage",
           "monthlyTotal",
+          "upcomingInvoice",
+          "estimated",
           "addons"
         ]
       },
@@ -11569,6 +11636,28 @@
               }
             ]
           },
+          "hostedUrl": {
+            "description": "Stripe's page to view and pay the invoice; null until Stripe finalizes it",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pdfUrl": {
+            "description": "The invoice as a PDF; null until Stripe finalizes it",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -11588,6 +11677,8 @@
           "status",
           "total",
           "stripeInvoiceId",
+          "hostedUrl",
+          "pdfUrl",
           "createdAt",
           "updatedAt"
         ]

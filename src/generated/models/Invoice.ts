@@ -48,6 +48,14 @@ export interface Invoice {
      */
     stripeInvoiceId: string | null;
     /**
+     * Stripe's page to view and pay the invoice; null until Stripe finalizes it
+     */
+    hostedUrl: string | null;
+    /**
+     * The invoice as a PDF; null until Stripe finalizes it
+     */
+    pdfUrl: string | null;
+    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -66,6 +74,8 @@ export function instanceOfInvoice(value: object): value is Invoice {
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
     if (!('stripeInvoiceId' in value) || value['stripeInvoiceId'] === undefined) return false;
+    if (!('hostedUrl' in value) || value['hostedUrl'] === undefined) return false;
+    if (!('pdfUrl' in value) || value['pdfUrl'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -86,6 +96,8 @@ export function InvoiceFromJSONTyped(json: any, ignoreDiscriminator: boolean): I
         'status': json['status'],
         'total': MoneyFromJSON(json['total']),
         'stripeInvoiceId': json['stripeInvoiceId'],
+        'hostedUrl': json['hostedUrl'],
+        'pdfUrl': json['pdfUrl'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -107,6 +119,8 @@ export function InvoiceToJSONTyped(value?: Invoice | null, ignoreDiscriminator: 
         'status': value['status'],
         'total': MoneyToJSON(value['total']),
         'stripeInvoiceId': value['stripeInvoiceId'],
+        'hostedUrl': value['hostedUrl'],
+        'pdfUrl': value['pdfUrl'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
