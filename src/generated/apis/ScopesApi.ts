@@ -100,6 +100,10 @@ export interface ListScopeDevicesRequest {
      */
     scopeId: string;
     /**
+     * Only devices carrying this tag, matched case-insensitively
+     */
+    tag?: string;
+    /**
      * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
@@ -377,6 +381,10 @@ export class ScopesApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters['tag'] != null) {
+            queryParameters['tag'] = requestParameters['tag'];
+        }
 
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];

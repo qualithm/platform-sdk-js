@@ -53,7 +53,7 @@ export interface ListCapabilitiesRequest {
      */
     type?: ListCapabilitiesTypeEnum;
     /**
-     * Only capabilities carrying this tag
+     * Only capabilities tagged this, or on a device tagged this
      */
     tag?: string;
     /**
