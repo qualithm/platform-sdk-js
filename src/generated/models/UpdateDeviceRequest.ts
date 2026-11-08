@@ -36,6 +36,10 @@ export interface UpdateDeviceRequest {
      * A parked device can't connect and doesn't count against the plan; its credentials and history stay
      */
     parked?: boolean;
+    /**
+     * Replaces the device's tags; `[]` clears them. Stored lowercased
+     */
+    tags?: Array<string>;
 }
 
 /**
@@ -59,6 +63,7 @@ export function UpdateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
         'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
         'parked': json['parked'] == null ? undefined : json['parked'],
+        'tags': json['tags'] == null ? undefined : json['tags'],
     };
 }
 
@@ -77,6 +82,7 @@ export function UpdateDeviceRequestToJSONTyped(value?: UpdateDeviceRequest | nul
         'scopeId': value['scopeId'],
         'spaceId': value['spaceId'],
         'parked': value['parked'],
+        'tags': value['tags'],
     };
 }
 

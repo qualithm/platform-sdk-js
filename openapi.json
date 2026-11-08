@@ -1048,7 +1048,7 @@
       "patch": {
         "operationId": "updateDevice",
         "x-qualithm-audience": "management",
-        "summary": "Rename, move or park a device",
+        "summary": "Rename, move, park or retag a device",
         "tags": [
           "Devices"
         ],
@@ -1107,7 +1107,7 @@
         },
         "responses": {
           "204": {
-            "description": "Rename, move or park a device",
+            "description": "Rename, move, park or retag a device",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
@@ -3959,7 +3959,7 @@
             "name": "tag",
             "in": "query",
             "required": false,
-            "description": "Only capabilities carrying this tag",
+            "description": "Only capabilities tagged this, or on a device tagged this",
             "schema": {
               "type": "string"
             }
@@ -5098,6 +5098,15 @@
             }
           },
           {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "description": "Only devices carrying this tag, matched case-insensitively",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -5969,6 +5978,15 @@
               "type": "string",
               "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "description": "Only devices carrying this tag, matched case-insensitively",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -9650,6 +9668,38 @@
           "code"
         ]
       },
+      "Decision": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Stable identifier for the decision, e.g. `zone`"
+          },
+          "label": {
+            "type": "string",
+            "description": "The decision's name, for people, e.g. `Zone`"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value chosen, as held by its source"
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the value is held, e.g. `scope` or `credential`"
+          },
+          "docsUrl": {
+            "type": "string",
+            "description": "The docs page that explains the default"
+          }
+        },
+        "required": [
+          "key",
+          "label",
+          "value",
+          "source",
+          "docsUrl"
+        ]
+      },
       "AutomationTrigger": {
         "type": "object",
         "properties": {
@@ -10025,6 +10075,14 @@
                 "type": "null"
               }
             ]
+          },
+          "decisions": {
+            "description": "What Qualithm decided when the run's alert fired: at most six, most consequential first. Absent when the run fired no alert.",
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            }
           }
         },
         "required": [
@@ -10366,38 +10424,6 @@
           "nextCursor"
         ]
       },
-      "Decision": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Stable identifier for the decision, e.g. `zone`"
-          },
-          "label": {
-            "type": "string",
-            "description": "The decision's name, for people, e.g. `Zone`"
-          },
-          "value": {
-            "type": "string",
-            "description": "The value chosen, as held by its source"
-          },
-          "source": {
-            "type": "string",
-            "description": "Where the value is held, e.g. `scope` or `credential`"
-          },
-          "docsUrl": {
-            "type": "string",
-            "description": "The docs page that explains the default"
-          }
-        },
-        "required": [
-          "key",
-          "label",
-          "value",
-          "source",
-          "docsUrl"
-        ]
-      },
       "DeviceCheck": {
         "type": "object",
         "properties": {
@@ -10498,6 +10524,13 @@
           "virtual": {
             "description": "Whether the device declared itself virtual at claim: it runs on a host rather than a board, and counts as a device all the same",
             "type": "boolean"
+          },
+          "tags": {
+            "description": "Operator-set tags, lowercased and sorted. A capability reference with this tag matches every capability on the device",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "level": {
             "type": "string",
@@ -12602,6 +12635,13 @@
           "parked": {
             "description": "A parked device can't connect and doesn't count against the plan; its credentials and history stay",
             "type": "boolean"
+          },
+          "tags": {
+            "description": "Replaces the device's tags; `[]` clears them. Stored lowercased",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
