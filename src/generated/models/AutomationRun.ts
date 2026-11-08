@@ -20,6 +20,13 @@ import {
     AutomationRunStepToJSON,
     AutomationRunStepToJSONTyped,
 } from './AutomationRunStep.js';
+import type { Decision } from './Decision.js';
+import {
+    DecisionFromJSON,
+    DecisionFromJSONTyped,
+    DecisionToJSON,
+    DecisionToJSONTyped,
+} from './Decision.js';
 
 /**
  * 
@@ -59,6 +66,10 @@ export interface AutomationRun {
      * UTC time, RFC 3339
      */
     executedAt: Date | null;
+    /**
+     * What Qualithm decided when the run's alert fired: at most six, most consequential first. Absent when the run fired no alert.
+     */
+    decisions?: Array<Decision>;
 }
 
 
@@ -120,6 +131,7 @@ export function AutomationRunFromJSONTyped(json: any, ignoreDiscriminator: boole
         'lastError': json['lastError'],
         'triggeredAt': (json['triggeredAt'] == null ? json['triggeredAt'] : parseDateTime(json['triggeredAt'])),
         'executedAt': (json['executedAt'] == null ? null : parseDateTime(json['executedAt'])),
+        'decisions': json['decisions'] == null ? undefined : ((json['decisions'] as Array<any>).map(DecisionFromJSON)),
     };
 }
 
@@ -142,6 +154,7 @@ export function AutomationRunToJSONTyped(value?: AutomationRun | null, ignoreDis
         'lastError': value['lastError'],
         'triggeredAt': value['triggeredAt'] == null ? value['triggeredAt'] : serializeDateTime(value['triggeredAt']),
         'executedAt': value['executedAt'] == null ? value['executedAt'] : serializeDateTime(value['executedAt']),
+        'decisions': value['decisions'] == null ? undefined : ((value['decisions'] as Array<any>).map(DecisionToJSON)),
     };
 }
 
