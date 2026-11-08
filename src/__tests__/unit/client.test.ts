@@ -120,6 +120,11 @@ describe("PlatformError", () => {
     expect(error.status).toBe(404)
   })
 
+  it("carries a specific outcome code it knows", async () => {
+    const error = await failure(403, { message: "team needs another owner", code: "last_owner" })
+    expect(error.code).toBe("last_owner")
+  })
+
   it("decodes a code this version doesn't know to unknown", async () => {
     const error = await failure(422, {
       message: "device limit reached",
