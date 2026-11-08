@@ -80,6 +80,10 @@ export interface Device {
      */
     virtual?: boolean;
     /**
+     * Operator-set tags, lowercased and sorted. A capability reference with this tag matches every capability on the device
+     */
+    tags?: Array<string>;
+    /**
      * 
      */
     level?: DeviceLevelEnum;
@@ -140,6 +144,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
         'capabilitiesDeclared': json['capabilitiesDeclared'] === undefined ? undefined : json['capabilitiesDeclared'] === null ? null : json['capabilitiesDeclared'],
         'virtual': json['virtual'] == null ? undefined : json['virtual'],
+        'tags': json['tags'] == null ? undefined : json['tags'],
         'level': json['level'] == null ? undefined : json['level'],
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(DeviceCheckFromJSON)),
         'decisions': json['decisions'] == null ? undefined : ((json['decisions'] as Array<any>).map(DecisionFromJSON)),
@@ -168,6 +173,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),
         'capabilitiesDeclared': value['capabilitiesDeclared'],
         'virtual': value['virtual'],
+        'tags': value['tags'],
         'level': value['level'],
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(DeviceCheckToJSON)),
         'decisions': value['decisions'] == null ? undefined : ((value['decisions'] as Array<any>).map(DecisionToJSON)),

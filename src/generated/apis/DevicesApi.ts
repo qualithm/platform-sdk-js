@@ -104,6 +104,10 @@ export interface ListDevicesRequest {
      */
     spaceId?: string;
     /**
+     * Only devices carrying this tag, matched case-insensitively
+     */
+    tag?: string;
+    /**
      * Page number, from 1. Default 1. Ignored with `cursor`.
      */
     page?: number;
@@ -373,6 +377,10 @@ export class DevicesApi extends runtime.BaseAPI {
             queryParameters['spaceId'] = requestParameters['spaceId'];
         }
 
+        if (requestParameters['tag'] != null) {
+            queryParameters['tag'] = requestParameters['tag'];
+        }
+
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];
         }
@@ -552,7 +560,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rename, move or park a device
+     * Rename, move, park or retag a device
      */
     async updateDeviceRaw(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.updateDeviceRequestOpts(requestParameters);
@@ -562,7 +570,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rename, move or park a device
+     * Rename, move, park or retag a device
      */
     async updateDevice(requestParameters: UpdateDeviceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateDeviceRaw(requestParameters, initOverrides);
