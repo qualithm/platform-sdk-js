@@ -3,7 +3,7 @@
   "info": {
     "title": "Qualithm Platform API",
     "version": "1",
-    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`."
+    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Stripe event | `sev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
   },
   "paths": {
     "/v1/teams/{teamId}/api-tokens/{tokenId}": {
@@ -33,18 +33,18 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "tokenId",
             "in": "path",
             "required": true,
-            "description": "An API token ID",
+            "description": "An API token ID: `tok_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tok_[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:tok_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "tok_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -123,19 +123,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "authorityId",
             "in": "path",
             "required": true,
-            "description": "A device authority ID",
+            "description": "A device authority ID: `dca_…`; also accepts the legacy `auth_…`",
             "schema": {
               "type": "string",
-              "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dca_|auth_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dca_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -214,19 +214,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -315,19 +315,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -441,19 +441,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -540,30 +540,30 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "credentialId",
             "in": "path",
             "required": true,
-            "description": "A credential ID",
+            "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
             "schema": {
               "type": "string",
-              "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -642,19 +642,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
-            "description": "A dashboard ID",
+            "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -743,19 +743,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
-            "description": "A dashboard ID",
+            "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -869,19 +869,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "dashboardId",
             "in": "path",
             "required": true,
-            "description": "A dashboard ID",
+            "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -969,19 +969,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1070,19 +1070,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -1189,19 +1189,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -1288,19 +1288,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "enrollmentId",
             "in": "path",
             "required": true,
-            "description": "An enrollment ID",
+            "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
             "schema": {
               "type": "string",
-              "pattern": "^enr_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "enr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:enr_(?:defraa|sgsina)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "enr_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1379,19 +1379,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "scopeId",
             "in": "path",
             "required": true,
-            "description": "A scope ID",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1480,19 +1480,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "scopeId",
             "in": "path",
             "required": true,
-            "description": "A scope ID",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -1597,19 +1597,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "scopeId",
             "in": "path",
             "required": true,
-            "description": "A scope ID",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -1700,19 +1700,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
-            "description": "A space ID",
+            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -1801,19 +1801,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
-            "description": "A space ID",
+            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -1918,19 +1918,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "spaceId",
             "in": "path",
             "required": true,
-            "description": "A space ID",
+            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2017,22 +2017,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "inviteId",
             "in": "path",
             "required": true,
-            "description": "A member ID",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
             "schema": {
               "type": "string",
-              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2108,22 +2108,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
-            "description": "A member ID",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
             "schema": {
               "type": "string",
-              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2203,22 +2203,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
-            "description": "A member ID",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
             "schema": {
               "type": "string",
-              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2306,22 +2306,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "memberId",
             "in": "path",
             "required": true,
-            "description": "A member ID",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
             "schema": {
               "type": "string",
-              "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2397,11 +2397,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -2486,11 +2486,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2590,11 +2590,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2746,8 +2746,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2864,8 +2864,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -2982,8 +2982,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3097,8 +3097,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3212,19 +3212,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3338,19 +3338,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3450,19 +3450,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3549,8 +3549,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3664,8 +3664,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3776,8 +3776,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -3924,8 +3924,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -3935,8 +3935,8 @@
             "description": "Only the devices in this scope and every scope under it",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4087,19 +4087,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4213,19 +4213,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4339,8 +4339,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4454,8 +4454,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4569,19 +4569,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4699,19 +4699,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4825,19 +4825,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -4948,11 +4948,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5070,8 +5070,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5081,8 +5081,8 @@
             "description": "Only the devices directly in this scope, not the scopes under it",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5093,8 +5093,8 @@
             "schema": {
               "deprecated": true,
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5217,8 +5217,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5331,8 +5331,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5446,8 +5446,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5560,8 +5560,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -5697,8 +5697,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -5965,19 +5965,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "scopeId",
             "in": "path",
             "required": true,
-            "description": "A scope ID",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6104,8 +6104,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6128,8 +6128,8 @@
             "description": "Only the scopes directly under this one",
             "schema": {
               "type": "string",
-              "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6243,8 +6243,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6348,10 +6348,10 @@
             "name": "sessionId",
             "in": "path",
             "required": true,
-            "description": "A session ID",
+            "description": "A session ID: `ses_…`",
             "schema": {
               "type": "string",
-              "pattern": "^ses_[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:ses_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "ses_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -6541,8 +6541,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6669,8 +6669,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6780,11 +6780,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -6895,11 +6895,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -7010,11 +7010,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -7120,11 +7120,11 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -7402,22 +7402,22 @@
             "name": "teamId",
             "in": "path",
             "required": true,
-            "description": "A team ID",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -7592,8 +7592,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
@@ -7728,19 +7728,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "capabilityId",
             "in": "path",
             "required": true,
-            "description": "A capability ID",
+            "description": "A capability ID: `cap_<zone>_…`; also accepts the legacy `cap_…`",
             "schema": {
               "type": "string",
-              "pattern": "^cap_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "cap_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:cap_(?:defraa|sgsina)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "cap_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -7852,8 +7852,8 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -8055,19 +8055,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "automationId",
             "in": "path",
             "required": true,
-            "description": "An automation ID",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -8166,19 +8166,19 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -8290,30 +8290,30 @@
             "description": "The team the request acts on",
             "schema": {
               "type": "string",
-              "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "description": "A device ID",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
             "name": "credentialId",
             "in": "path",
             "required": true,
-            "description": "A credential ID",
+            "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
             "schema": {
               "type": "string",
-              "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
           {
@@ -8413,7 +8413,7 @@
     "schemas": {
       "ApiErrorCode": {
         "type": "string",
-        "enum": [
+        "x-extensible-enum": [
           "bad_request",
           "unauthorized",
           "forbidden",
@@ -8425,7 +8425,23 @@
           "failed_dependency",
           "rate_limited",
           "internal_error",
-          "backend_unavailable"
+          "backend_unavailable",
+          "last_owner",
+          "role_too_high",
+          "email_in_use",
+          "otp_invalid",
+          "owns_team",
+          "account_not_found",
+          "already_member",
+          "zone_closed",
+          "zone_mismatch",
+          "plan_limit",
+          "registered_limit",
+          "name_taken",
+          "paid_plan_required",
+          "scope_not_empty",
+          "idempotency_mismatch",
+          "idempotency_in_flight"
         ]
       },
       "ApiError": {
@@ -8481,9 +8497,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -8502,9 +8518,9 @@
           },
           "memberId": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "The caller's membership in this team",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "memberRole": {
             "$ref": "#/components/schemas/MemberRole"
@@ -8605,21 +8621,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A member ID",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -8701,21 +8717,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A member ID",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -8757,21 +8773,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "The invite's id: the invited membership's id",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
@@ -8858,21 +8874,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^tok_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An API token ID",
+            "pattern": "^(?:tok_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An API token ID: `tok_…`",
             "example": "tok_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -9039,15 +9055,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -9190,23 +9206,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A credential ID",
-            "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
+            "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device ID",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "authorityId": {
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A device authority ID",
-                "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:dca_|auth_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A device authority ID: `dca_…`; also accepts the legacy `auth_…`",
+                "example": "dca_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -9282,9 +9298,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^cred_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A credential ID",
-                "example": "cred_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
+                "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -9405,15 +9421,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^auth_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device authority ID",
-            "example": "auth_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dca_|auth_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device authority ID: `dca_…`; also accepts the legacy `auth_…`",
+            "example": "dca_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -9521,27 +9537,27 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^enr_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An enrollment ID",
-            "example": "enr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:enr_(?:defraa|sgsina)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
+            "example": "enr_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A scope ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "Deprecated: use scopeId",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
             "deprecated": true
           },
           "label": {
@@ -9559,9 +9575,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A device ID",
-                "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+                "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -9835,23 +9851,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An automation ID",
-            "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
+            "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -9863,9 +9879,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10011,15 +10027,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An automation run ID",
-            "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation run ID: `run_<zone>_…`; also accepts the legacy `run_…`",
+            "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "automationId": {
             "type": "string",
-            "pattern": "^aut_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An automation ID",
-            "example": "aut_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
+            "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "triggerType": {
             "type": "string",
@@ -10303,23 +10319,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^dash_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A dashboard ID",
-            "example": "dash_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
+            "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10331,9 +10347,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10455,21 +10471,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device ID",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A scope ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "Deprecated: use scopeId",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
             "deprecated": true
           },
           "spaceName": {
@@ -10477,9 +10493,9 @@
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "name": {
             "type": "string"
@@ -10608,21 +10624,21 @@
         "properties": {
           "deviceId": {
             "type": "string",
-            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device ID",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A scope ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "Deprecated: use scopeId",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
             "deprecated": true
           },
           "online": {
@@ -10698,23 +10714,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A scope ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parentId": {
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -10799,15 +10815,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^cmd_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A command ID",
-            "example": "cmd_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:cmd_(?:defraa|sgsina)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A command ID: `cmd_<zone>_…`; also accepts the legacy `cmd_…`",
+            "example": "cmd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device ID",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "source": {
             "type": "string",
@@ -10912,9 +10928,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^cmd_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A command ID",
-            "example": "cmd_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:cmd_(?:defraa|sgsina)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A command ID: `cmd_<zone>_…`; also accepts the legacy `cmd_…`",
+            "example": "cmd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "duplicate": {
             "type": "boolean",
@@ -10931,15 +10947,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^cap_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A capability ID",
-            "example": "cap_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:cap_(?:defraa|sgsina)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A capability ID: `cap_<zone>_…`; also accepts the legacy `cap_…`",
+            "example": "cap_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^dev_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A device ID",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "key": {
             "type": "string"
@@ -10993,8 +11009,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "email": {
@@ -11052,14 +11068,14 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^ses_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A session ID",
+            "pattern": "^(?:ses_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A session ID: `ses_…`",
             "example": "ses_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "userAgent": {
@@ -11164,21 +11180,21 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A member ID",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "accountId": {
             "type": "string",
-            "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID",
+            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An account ID: `acc_…`",
             "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamName": {
             "type": "string"
@@ -11290,15 +11306,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^evt_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An audit event ID",
-            "example": "evt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:aud_|evt_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An audit event ID: `aud_…`; also accepts the legacy `evt_…`",
+            "example": "aud_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "actorKind": {
             "type": "string",
@@ -11312,9 +11328,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|oac|ogr|otk|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "An ID of any type",
-                "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina)_|cap_|cmd_(?:defraa|sgsina)_|cmd_|crd_(?:defraa|sgsina)_|crd_|cred_|dsh_(?:defraa|sgsina)_|dsh_|dash_|dvc_(?:defraa|sgsina)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina)_|run_|scp_(?:defraa|sgsina)_|scp_|spc_|ses_|dig_|dgst_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
+                "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -11332,9 +11348,9 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc|tok|evt|auth|aut|cmpn|cap|cmd|cred|dash|dev|eml|enr|inv|doc|mem|oac|ogr|otk|otp|plan|psh|sub|run|spc|ses|dgst|sev|tm|tev|upt|use|wks)_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An ID of any type",
-            "example": "dev_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina)_|cap_|cmd_(?:defraa|sgsina)_|cmd_|crd_(?:defraa|sgsina)_|crd_|cred_|dsh_(?:defraa|sgsina)_|dsh_|dash_|dvc_(?:defraa|sgsina)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina)_|run_|scp_(?:defraa|sgsina)_|scp_|spc_|ses_|dig_|dgst_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "metadata": {
             "description": "Non-sensitive context for the action"
@@ -11634,15 +11650,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^inv_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An invoice ID",
+            "pattern": "^(?:inv_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An invoice ID: `inv_…`",
             "example": "inv_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
-            "pattern": "^tm_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID",
-            "example": "tm_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "status": {
             "type": "string"
@@ -12453,9 +12469,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12468,9 +12484,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12573,9 +12589,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12588,9 +12604,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12622,15 +12638,15 @@
           "scopeId": {
             "description": "A scope in the device's zone; a device stays in the zone it was claimed in",
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "description": "Deprecated: use scopeId",
             "deprecated": true,
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parked": {
             "description": "A parked device can't connect and doesn't count against the plan; its credentials and history stay",
@@ -12765,9 +12781,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12780,9 +12796,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -12840,9 +12856,9 @@
             "properties": {
               "id": {
                 "type": "string",
-                "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "The queued run's id",
-                "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
             },
             "required": [
@@ -12862,9 +12878,9 @@
             "properties": {
               "runId": {
                 "type": "string",
-                "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "The queued run's id",
-                "example": "run_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
             },
             "required": [
@@ -12993,9 +13009,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A scope ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -13008,9 +13024,9 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID",
-                "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
                 "type": "null"
@@ -13052,16 +13068,16 @@
         "properties": {
           "scopeId": {
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A scope ID",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "description": "Deprecated: use scopeId",
             "deprecated": true,
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "description": "The scope to create it in"
@@ -13114,15 +13130,15 @@
           "scopeId": {
             "description": "The scope the device joins",
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "spaceId": {
             "description": "Deprecated: use scopeId",
             "deprecated": true,
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "label": {
             "description": "Up to 64 characters",
@@ -13161,8 +13177,8 @@
           "parentId": {
             "description": "The parent scope; absent for a top-level scope",
             "type": "string",
-            "pattern": "^spc_[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "spc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "required": [
@@ -13235,9 +13251,9 @@
         "properties": {
           "inviteId": {
             "type": "string",
-            "pattern": "^mem_[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "The invite to accept",
-            "example": "mem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "required": [
