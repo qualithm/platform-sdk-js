@@ -190,7 +190,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the team with its spaces, devices and memberships
+     * Delete the team with its scopes, devices and memberships
      */
     async deleteTeamRaw(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteTeamRequestOpts(requestParameters);
@@ -200,7 +200,7 @@ export class TeamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the team with its spaces, devices and memberships
+     * Delete the team with its scopes, devices and memberships
      */
     async deleteTeam(requestParameters: DeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteTeamRaw(requestParameters, initOverrides);

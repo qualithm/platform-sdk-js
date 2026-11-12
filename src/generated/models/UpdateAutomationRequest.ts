@@ -40,10 +40,6 @@ export interface UpdateAutomationRequest {
      */
     scopeId?: string | null;
     /**
-     * A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
-     */
-    spaceId?: string | null;
-    /**
      * 
      */
     payload?: UpdateAutomationRequestPayload;
@@ -77,7 +73,6 @@ export function UpdateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
         'name': json['name'] == null ? undefined : json['name'],
         'enabled': json['enabled'] == null ? undefined : json['enabled'],
         'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
-        'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] == null ? undefined : UpdateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
         'params': json['params'] === undefined ? undefined : json['params'] === null ? null : json['params'],
@@ -98,7 +93,6 @@ export function UpdateAutomationRequestToJSONTyped(value?: UpdateAutomationReque
         'name': value['name'],
         'enabled': value['enabled'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'payload': UpdateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],
         'params': value['params'],

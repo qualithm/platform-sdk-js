@@ -225,7 +225,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -326,7 +326,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -452,7 +452,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -551,7 +551,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -562,7 +562,7 @@
             "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:crd_(?:defraa|sgsina|usnyca)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -653,7 +653,7 @@
             "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -754,7 +754,7 @@
             "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -880,7 +880,7 @@
             "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -980,7 +980,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -1081,7 +1081,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -1200,7 +1200,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -1299,7 +1299,7 @@
             "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:enr_(?:defraa|sgsina)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:enr_(?:defraa|sgsina|usnyca)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "enr_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -1390,7 +1390,7 @@
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -1491,7 +1491,7 @@
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -1608,7 +1608,7 @@
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -1625,327 +1625,6 @@
         "responses": {
           "204": {
             "description": "Delete an empty scope",
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/spaces/{spaceId}": {
-      "get": {
-        "operationId": "getSpace",
-        "x-qualithm-audience": "management",
-        "summary": "Get a space",
-        "tags": [
-          "Spaces"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "space.read",
-        "x-qualithm-roles": [
-          "owner",
-          "manager",
-          "viewer"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "spaceId",
-            "in": "path",
-            "required": true,
-            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get a space",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetSpaceResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "ETag": {
-                "description": "The resource's version; send it back as If-Match to edit only that version",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      },
-      "patch": {
-        "operationId": "updateSpace",
-        "x-qualithm-audience": "management",
-        "summary": "Rename a space",
-        "tags": [
-          "Spaces"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "space.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "spaceId",
-            "in": "path",
-            "required": true,
-            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "If-Match",
-            "in": "header",
-            "required": false,
-            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateSpaceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Rename a space",
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "ETag": {
-                "description": "The resource's version; send it back as If-Match to edit only that version",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "415": {
-            "$ref": "#/components/responses/UnsupportedMediaType"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "deleteSpace",
-        "x-qualithm-audience": "management",
-        "summary": "Delete a space and its devices",
-        "description": "Refused while scopes sit under it.",
-        "tags": [
-          "Spaces"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "space.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "spaceId",
-            "in": "path",
-            "required": true,
-            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "If-Match",
-            "in": "header",
-            "required": false,
-            "description": "The ETag you last read. The request is refused with 412 when the resource has changed since; omit it to apply the change regardless.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Delete a space and its devices",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
@@ -2572,7 +2251,7 @@
       "delete": {
         "operationId": "deleteTeam",
         "x-qualithm-audience": "management",
-        "summary": "Delete the team with its spaces, devices and memberships",
+        "summary": "Delete the team with its scopes, devices and memberships",
         "tags": [
           "Teams"
         ],
@@ -2609,7 +2288,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete the team with its spaces, devices and memberships",
+            "description": "Delete the team with its scopes, devices and memberships",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
@@ -3223,7 +2902,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -3349,7 +3028,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -3461,7 +3140,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
@@ -3935,7 +3614,7 @@
             "description": "Only the devices in this scope and every scope under it",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -4098,7 +3777,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -4224,7 +3903,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -4580,7 +4259,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -4710,7 +4389,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -4836,7 +4515,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -5081,19 +4760,7 @@
             "description": "Only the devices directly in this scope, not the scopes under it",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "spaceId",
-            "in": "query",
-            "required": false,
-            "description": "Deprecated: use scopeId",
-            "schema": {
-              "deprecated": true,
-              "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -5976,7 +5643,7 @@
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -6117,7 +5784,8 @@
               "type": "string",
               "enum": [
                 "de-fra-a",
-                "sg-sin-a"
+                "sg-sin-a",
+                "us-nyc-a"
               ]
             }
           },
@@ -6128,7 +5796,7 @@
             "description": "Only the scopes directly under this one",
             "schema": {
               "type": "string",
-              "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -6500,249 +6168,6 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      }
-    },
-    "/v1/teams/{teamId}/spaces": {
-      "get": {
-        "operationId": "listSpaces",
-        "x-qualithm-audience": "management",
-        "summary": "List the workspace's spaces",
-        "description": "Top-level scopes only, newest first, by `createdAt` then `id`. Use listScopes to see nested ones.",
-        "tags": [
-          "Spaces"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "space.read",
-        "x-qualithm-roles": [
-          "owner",
-          "manager",
-          "viewer"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "zone",
-            "in": "query",
-            "required": false,
-            "description": "Only the spaces in this zone",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "de-fra-a",
-                "sg-sin-a"
-              ]
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "description": "Page number, from 1. Default 1. Ignored with `cursor`.",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "format": "int64"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "description": "Items per page, 1 to 100. Default 20, or 50 with `cursor`.",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "description": "A previous page's `nextCursor`, to read the page after it",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List the workspace's spaces",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListSpacesResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimited"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalError"
-          },
-          "503": {
-            "$ref": "#/components/responses/BackendUnavailable"
-          }
-        }
-      },
-      "post": {
-        "operationId": "createSpace",
-        "x-qualithm-audience": "management",
-        "summary": "Create a space in a zone",
-        "tags": [
-          "Spaces"
-        ],
-        "security": [
-          {
-            "apiToken": []
-          }
-        ],
-        "x-qualithm-permission": "space.write",
-        "x-qualithm-roles": [
-          "owner",
-          "manager"
-        ],
-        "parameters": [
-          {
-            "name": "teamId",
-            "in": "path",
-            "required": true,
-            "description": "The team the request acts on",
-            "schema": {
-              "type": "string",
-              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": false,
-            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
-            "schema": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 255
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateSpaceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Create a space in a zone",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateSpaceResponse"
-                }
-              }
-            },
-            "headers": {
-              "Request-Id": {
-                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit": {
-                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "RateLimit-Policy": {
-                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "415": {
-            "$ref": "#/components/responses/UnsupportedMediaType"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -7416,7 +6841,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -7739,7 +7164,7 @@
             "description": "A capability ID: `cap_<zone>_…`; also accepts the legacy `cap_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:cap_(?:defraa|sgsina)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:cap_(?:defraa|sgsina|usnyca)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "cap_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -8066,7 +7491,7 @@
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -8177,7 +7602,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -8301,7 +7726,7 @@
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -8312,7 +7737,7 @@
             "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "pattern": "^(?:crd_(?:defraa|sgsina|usnyca)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
               "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           },
@@ -9047,93 +8472,8 @@
         "type": "string",
         "enum": [
           "de-fra-a",
-          "sg-sin-a"
-        ]
-      },
-      "Space": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "teamId": {
-            "type": "string",
-            "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
-            "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "name": {
-            "type": "string"
-          },
-          "zone": {
-            "$ref": "#/components/schemas/ZoneId"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "UTC time, RFC 3339",
-            "example": "2026-10-26T09:30:00.000Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "UTC time, RFC 3339",
-            "example": "2026-10-26T09:30:00.000Z"
-          },
-          "deviceTotal": {
-            "description": "The space's live devices. Absent when listing a zone's spaces.",
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "required": [
-          "id",
-          "teamId",
-          "name",
-          "zone",
-          "createdAt",
-          "updatedAt"
-        ]
-      },
-      "SpacePage": {
-        "type": "object",
-        "properties": {
-          "current": {
-            "type": "integer",
-            "description": "This page's number, from 1",
-            "format": "int64"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Space"
-            }
-          },
-          "last": {
-            "type": "integer",
-            "description": "The last page's number",
-            "format": "int64"
-          },
-          "nextCursor": {
-            "description": "Pass as `cursor` to read the next page; `null` on the last page",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "required": [
-          "current",
-          "items",
-          "last",
-          "nextCursor"
+          "sg-sin-a",
+          "us-nyc-a"
         ]
       },
       "GatewayEndpoint": {
@@ -9163,7 +8503,7 @@
           },
           "open": {
             "type": "boolean",
-            "description": "Whether the zone accepts new spaces in this environment"
+            "description": "Whether the zone accepts new scopes in this environment"
           },
           "api": {
             "type": "string",
@@ -9206,13 +8546,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:crd_(?:defraa|sgsina|usnyca)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
             "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -9298,7 +8638,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:crd_(?:defraa|sgsina)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:crd_(?:defraa|sgsina|usnyca)_|crd_|cred_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A credential ID: `crd_<zone>_…`; also accepts the legacy `cred_…`",
                 "example": "crd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -9384,6 +8724,10 @@
           "secret": {
             "type": "string",
             "description": "The bearer token (the MQTT password), shown only once"
+          },
+          "broker": {
+            "description": "The gateway the device connects to now; returned when a device renews",
+            "$ref": "#/components/schemas/GatewayEndpoint"
           }
         },
         "required": [
@@ -9537,7 +8881,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:enr_(?:defraa|sgsina)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:enr_(?:defraa|sgsina|usnyca)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
             "example": "enr_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -9549,16 +8893,9 @@
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "spaceId": {
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "Deprecated: use scopeId",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
-            "deprecated": true
           },
           "label": {
             "type": "string"
@@ -9575,7 +8912,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
                 "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -9620,7 +8957,6 @@
           "id",
           "teamId",
           "scopeId",
-          "spaceId",
           "label",
           "status",
           "claimedDeviceId",
@@ -9851,7 +9187,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -9865,7 +9201,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -9875,22 +9211,7 @@
             ],
             "description": "Null for a team-wide automation"
           },
-          "spaceId": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Deprecated: use scopeId",
-            "deprecated": true
-          },
-          "spaceName": {
+          "scopeName": {
             "anyOf": [
               {
                 "type": "string"
@@ -9930,8 +9251,7 @@
           "id",
           "teamId",
           "scopeId",
-          "spaceId",
-          "spaceName",
+          "scopeName",
           "name",
           "enabled",
           "payload",
@@ -10027,13 +9347,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:run_(?:defraa|sgsina|usnyca)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An automation run ID: `run_<zone>_…`; also accepts the legacy `run_…`",
             "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "automationId": {
             "type": "string",
-            "pattern": "^(?:aut_(?:defraa|sgsina)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
             "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -10319,7 +9639,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:dsh_(?:defraa|sgsina)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A dashboard ID: `dsh_<zone>_…`; also accepts the legacy `dash_…`",
             "example": "dsh_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -10333,7 +9653,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -10343,22 +9663,7 @@
             ],
             "description": "The scope it shows; null for team-wide"
           },
-          "spaceId": {
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Deprecated: use scopeId",
-            "deprecated": true
-          },
-          "spaceName": {
+          "scopeName": {
             "anyOf": [
               {
                 "type": "string"
@@ -10394,8 +9699,7 @@
           "id",
           "teamId",
           "scopeId",
-          "spaceId",
-          "spaceName",
+          "scopeName",
           "name",
           "payload",
           "createdAt",
@@ -10471,24 +9775,17 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
-          "spaceId": {
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "Deprecated: use scopeId",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
-            "deprecated": true
-          },
-          "spaceName": {
+          "scopeName": {
             "type": "string"
           },
           "teamId": {
@@ -10573,8 +9870,7 @@
         "required": [
           "id",
           "scopeId",
-          "spaceId",
-          "spaceName",
+          "scopeName",
           "teamId",
           "name",
           "createdAt",
@@ -10624,22 +9920,15 @@
         "properties": {
           "deviceId": {
             "type": "string",
-            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "scopeId": {
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "spaceId": {
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "Deprecated: use scopeId",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W",
-            "deprecated": true
           },
           "online": {
             "type": "boolean",
@@ -10665,7 +9954,6 @@
         "required": [
           "deviceId",
           "scopeId",
-          "spaceId",
           "online",
           "lastSeenAt",
           "metrics"
@@ -10714,7 +10002,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -10728,7 +10016,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -10815,13 +10103,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:cmd_(?:defraa|sgsina)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:cmd_(?:defraa|sgsina|usnyca)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A command ID: `cmd_<zone>_…`; also accepts the legacy `cmd_…`",
             "example": "cmd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -10928,7 +10216,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:cmd_(?:defraa|sgsina)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:cmd_(?:defraa|sgsina|usnyca)_|cmd_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A command ID: `cmd_<zone>_…`; also accepts the legacy `cmd_…`",
             "example": "cmd_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -10947,13 +10235,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:cap_(?:defraa|sgsina)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:cap_(?:defraa|sgsina|usnyca)_|cap_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A capability ID: `cap_<zone>_…`; also accepts the legacy `cap_…`",
             "example": "cap_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "deviceId": {
             "type": "string",
-            "pattern": "^(?:dvc_(?:defraa|sgsina)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -11328,7 +10616,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina)_|cap_|cmd_(?:defraa|sgsina)_|cmd_|crd_(?:defraa|sgsina)_|crd_|cred_|dsh_(?:defraa|sgsina)_|dsh_|dash_|dvc_(?:defraa|sgsina)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina)_|run_|scp_(?:defraa|sgsina)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
                 "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -11348,7 +10636,7 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina)_|cap_|cmd_(?:defraa|sgsina)_|cmd_|crd_(?:defraa|sgsina)_|crd_|cred_|dsh_(?:defraa|sgsina)_|dsh_|dash_|dvc_(?:defraa|sgsina)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina)_|run_|scp_(?:defraa|sgsina)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -11610,6 +10898,33 @@
             "type": "boolean",
             "description": "True when Stripe couldn't be read, so `monthlyTotal` is the plan price"
           },
+          "cancellation": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "endsAt": {
+                    "description": "ISO 8601 time the plan ends and the team moves to free",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "endsAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set when the paid plan is cancelled at the end of its period"
+          },
           "addons": {
             "type": "object",
             "properties": {
@@ -11642,6 +10957,7 @@
           "monthlyTotal",
           "upcomingInvoice",
           "estimated",
+          "cancellation",
           "addons"
         ]
       },
@@ -11790,7 +11106,7 @@
             ]
           },
           "amountDue": {
-            "description": "What the change bills now; a negative amount is a credit",
+            "description": "What the change adds to the next bill, before tax; a negative amount is a credit",
             "$ref": "#/components/schemas/Money"
           },
           "nextPaymentAttempt": {
@@ -11803,7 +11119,7 @@
                 "type": "null"
               }
             ],
-            "description": "When the change is billed, in Unix seconds"
+            "description": "When the next bill is charged, in Unix seconds"
           }
         },
         "required": [
@@ -11825,7 +11141,7 @@
             "description": "The tier's device limit",
             "format": "int64"
           },
-          "spaceTotal": {
+          "scopeTotal": {
             "type": "integer",
             "format": "int64"
           },
@@ -11917,7 +11233,7 @@
         "required": [
           "deviceTotal",
           "deviceMax",
-          "spaceTotal",
+          "scopeTotal",
           "tier",
           "month",
           "limitGrace",
@@ -12322,28 +11638,6 @@
           "data"
         ]
       },
-      "GetSpaceResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Space"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "ListSpacesResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/SpacePage"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
       "ListTeamInvitesResponse": {
         "type": "object",
         "properties": {
@@ -12469,23 +11763,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
@@ -12589,23 +11868,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
@@ -12638,14 +11902,7 @@
           "scopeId": {
             "description": "A scope in the device's zone; a device stays in the zone it was claimed in",
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parked": {
@@ -12660,17 +11917,6 @@
             }
           }
         }
-      },
-      "UpdateSpaceRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ]
       },
       "UpdateTeamMemberRequest": {
         "type": "object",
@@ -12781,23 +12027,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
@@ -12856,7 +12087,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:run_(?:defraa|sgsina|usnyca)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "The queued run's id",
                 "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
@@ -12878,7 +12109,7 @@
             "properties": {
               "runId": {
                 "type": "string",
-                "pattern": "^(?:run_(?:defraa|sgsina)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:run_(?:defraa|sgsina|usnyca)_|run_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "The queued run's id",
                 "example": "run_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               }
@@ -12925,7 +12156,7 @@
             "type": "string"
           },
           "expiresAt": {
-            "description": "A time in the future",
+            "description": "A time in the future, within 30 days. Default 30 days from now.",
             "type": "string",
             "format": "date-time",
             "example": "2026-10-26T09:30:00Z"
@@ -12955,7 +12186,7 @@
             "type": "string"
           },
           "expiresInDays": {
-            "description": "Certificate lifetime in days. Default 90.",
+            "description": "Certificate lifetime in days, at most 30 for a development device. Default 30.",
             "type": "integer",
             "minimum": 1,
             "maximum": 825
@@ -12980,7 +12211,7 @@
         "type": "object",
         "properties": {
           "expiresAt": {
-            "description": "A time in the future",
+            "description": "A time in the future, within 30 days. Default 30 days from now.",
             "type": "string",
             "format": "date-time",
             "example": "2026-10-26T09:30:00Z"
@@ -13009,23 +12240,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "anyOf": [
-              {
-                "type": "string",
-                "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-                "description": "A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
                 "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
               {
@@ -13068,15 +12284,8 @@
         "properties": {
           "scopeId": {
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
@@ -13130,14 +12339,7 @@
           "scopeId": {
             "description": "The scope the device joins",
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "spaceId": {
-            "description": "Deprecated: use scopeId",
-            "deprecated": true,
-            "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "label": {
@@ -13177,7 +12379,7 @@
           "parentId": {
             "description": "The parent scope; absent for a top-level scope",
             "type": "string",
-            "pattern": "^(?:scp_(?:defraa|sgsina)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
@@ -13185,28 +12387,6 @@
           "name"
         ],
         "description": "A name, and either a zone or a parent"
-      },
-      "CreateSpaceResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Space"
-          }
-        },
-        "required": [
-          "data"
-        ]
-      },
-      "CreateSpaceRequest": {
-        "type": "object",
-        "properties": {
-          "zone": {
-            "$ref": "#/components/schemas/ZoneId"
-          }
-        },
-        "required": [
-          "zone"
-        ]
       },
       "CreateTeamInviteResponse": {
         "type": "object",

@@ -36,10 +36,6 @@ export interface CreateAutomationRequest {
      */
     scopeId?: string | null;
     /**
-     * A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
-     */
-    spaceId?: string | null;
-    /**
      * 
      */
     payload?: CreateAutomationRequestPayload;
@@ -73,7 +69,6 @@ export function CreateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
         
         'name': json['name'],
         'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
-        'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] == null ? undefined : CreateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
         'params': json['params'] === undefined ? undefined : json['params'] === null ? null : json['params'],
@@ -93,7 +88,6 @@ export function CreateAutomationRequestToJSONTyped(value?: CreateAutomationReque
         
         'name': value['name'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'payload': CreateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],
         'params': value['params'],

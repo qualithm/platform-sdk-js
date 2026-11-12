@@ -20,6 +20,7 @@
 export const ZoneId = {
     de_fra_a: 'de-fra-a',
     sg_sin_a: 'sg-sin-a',
+    us_nyc_a: 'us-nyc-a',
 } as const;
 export type ZoneId = typeof ZoneId[keyof typeof ZoneId];
 
