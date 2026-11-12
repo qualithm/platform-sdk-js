@@ -28,11 +28,6 @@ export interface DeviceState {
      */
     scopeId: string;
     /**
-     * Deprecated: use scopeId
-     * @deprecated
-     */
-    spaceId: string;
-    /**
      * Whether the device was seen within the offline window
      */
     online: boolean;
@@ -52,7 +47,6 @@ export interface DeviceState {
 export function instanceOfDeviceState(value: object): value is DeviceState {
     if (!('deviceId' in value) || value['deviceId'] === undefined) return false;
     if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
     if (!('online' in value) || value['online'] === undefined) return false;
     if (!('lastSeenAt' in value) || value['lastSeenAt'] === undefined) return false;
     if (!('metrics' in value) || value['metrics'] === undefined) return false;
@@ -71,7 +65,6 @@ export function DeviceStateFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'deviceId': json['deviceId'],
         'scopeId': json['scopeId'],
-        'spaceId': json['spaceId'],
         'online': json['online'],
         'lastSeenAt': (json['lastSeenAt'] == null ? json['lastSeenAt'] : parseDateTime(json['lastSeenAt'])),
         'metrics': json['metrics'],
@@ -91,7 +84,6 @@ export function DeviceStateToJSONTyped(value?: DeviceState | null, ignoreDiscrim
         
         'deviceId': value['deviceId'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'online': value['online'],
         'lastSeenAt': value['lastSeenAt'] == null ? value['lastSeenAt'] : serializeDateTime(value['lastSeenAt']),
         'metrics': value['metrics'],

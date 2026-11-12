@@ -27,8 +27,8 @@ const teamId = "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f"
 const device = {
   id: "0b9f8a1e-8c1d-4b6f-9a51-2f6c1e3d4a5b",
   teamId,
-  spaceId: "2d3e4f5a-6b7c-4d8e-9f0a-1b2c3d4e5f6a",
-  spaceName: "bench",
+  scopeId: "2d3e4f5a-6b7c-4d8e-9f0a-1b2c3d4e5f6a",
+  scopeName: "bench",
   name: "bench-pico",
   payload: "{}",
   status: "claimed",

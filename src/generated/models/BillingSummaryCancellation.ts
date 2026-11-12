@@ -14,51 +14,51 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * Set when the paid plan is cancelled at the end of its period
  * @export
- * @interface UpdateSpaceRequest
+ * @interface BillingSummaryCancellation
  */
-export interface UpdateSpaceRequest {
+export interface BillingSummaryCancellation {
     /**
-     * 
+     * ISO 8601 time the plan ends and the team moves to free
      */
-    name: string;
+    endsAt: string | null;
 }
 
 /**
- * Check if a given object implements the UpdateSpaceRequest interface.
+ * Check if a given object implements the BillingSummaryCancellation interface.
  */
-export function instanceOfUpdateSpaceRequest(value: object): value is UpdateSpaceRequest {
-    if (!('name' in value) || value['name'] === undefined) return false;
+export function instanceOfBillingSummaryCancellation(value: object): value is BillingSummaryCancellation {
+    if (!('endsAt' in value) || value['endsAt'] === undefined) return false;
     return true;
 }
 
-export function UpdateSpaceRequestFromJSON(json: any): UpdateSpaceRequest {
-    return UpdateSpaceRequestFromJSONTyped(json, false);
+export function BillingSummaryCancellationFromJSON(json: any): BillingSummaryCancellation {
+    return BillingSummaryCancellationFromJSONTyped(json, false);
 }
 
-export function UpdateSpaceRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateSpaceRequest {
+export function BillingSummaryCancellationFromJSONTyped(json: any, ignoreDiscriminator: boolean): BillingSummaryCancellation {
     if (json == null) {
         return json;
     }
     return {
         
-        'name': json['name'],
+        'endsAt': json['endsAt'],
     };
 }
 
-export function UpdateSpaceRequestToJSON(json: any): UpdateSpaceRequest {
-    return UpdateSpaceRequestToJSONTyped(json, false);
+export function BillingSummaryCancellationToJSON(json: any): BillingSummaryCancellation {
+    return BillingSummaryCancellationToJSONTyped(json, false);
 }
 
-export function UpdateSpaceRequestToJSONTyped(value?: UpdateSpaceRequest | null, ignoreDiscriminator: boolean = false): any {
+export function BillingSummaryCancellationToJSONTyped(value?: BillingSummaryCancellation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'name': value['name'],
+        'endsAt': value['endsAt'],
     };
 }
 

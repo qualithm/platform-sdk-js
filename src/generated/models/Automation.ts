@@ -40,13 +40,9 @@ export interface Automation {
      */
     scopeId: string | null;
     /**
-     * A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
-     */
-    spaceId: string | null;
-    /**
      * 
      */
-    spaceName: string | null;
+    scopeName: string | null;
     /**
      * 
      */
@@ -80,8 +76,7 @@ export function instanceOfAutomation(value: object): value is Automation {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
-    if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
+    if (!('scopeName' in value) || value['scopeName'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('enabled' in value) || value['enabled'] === undefined) return false;
     if (!('payload' in value) || value['payload'] === undefined) return false;
@@ -103,8 +98,7 @@ export function AutomationFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'id': json['id'],
         'teamId': json['teamId'],
         'scopeId': json['scopeId'],
-        'spaceId': json['spaceId'],
-        'spaceName': json['spaceName'],
+        'scopeName': json['scopeName'],
         'name': json['name'],
         'enabled': json['enabled'],
         'payload': AutomationPayloadFromJSON(json['payload']),
@@ -128,8 +122,7 @@ export function AutomationToJSONTyped(value?: Automation | null, ignoreDiscrimin
         'id': value['id'],
         'teamId': value['teamId'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
-        'spaceName': value['spaceName'],
+        'scopeName': value['scopeName'],
         'name': value['name'],
         'enabled': value['enabled'],
         'payload': AutomationPayloadToJSON(value['payload']),

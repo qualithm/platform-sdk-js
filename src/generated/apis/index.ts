@@ -20,7 +20,6 @@ export * from './MetaApi.js';
 export * from './RolesApi.js';
 export * from './ScopesApi.js';
 export * from './SessionsApi.js';
-export * from './SpacesApi.js';
 export * from './TeamsApi.js';
 export * from './TelemetryApi.js';
 export * from './UsageApi.js';

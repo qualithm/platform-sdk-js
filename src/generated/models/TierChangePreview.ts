@@ -36,11 +36,11 @@ export interface TierChangePreview {
      */
     to: TierChangePreviewToEnum;
     /**
-     * What the change bills now; a negative amount is a credit
+     * What the change adds to the next bill, before tax; a negative amount is a credit
      */
     amountDue: Money;
     /**
-     * When the change is billed, in Unix seconds
+     * When the next bill is charged, in Unix seconds
      */
     nextPaymentAttempt: number | null;
 }

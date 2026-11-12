@@ -52,7 +52,7 @@ export interface Usage {
     /**
      * 
      */
-    spaceTotal: number;
+    scopeTotal: number;
     /**
      * 
      */
@@ -94,7 +94,7 @@ export type UsageTierEnum = typeof UsageTierEnum[keyof typeof UsageTierEnum];
 export function instanceOfUsage(value: object): value is Usage {
     if (!('deviceTotal' in value) || value['deviceTotal'] === undefined) return false;
     if (!('deviceMax' in value) || value['deviceMax'] === undefined) return false;
-    if (!('spaceTotal' in value) || value['spaceTotal'] === undefined) return false;
+    if (!('scopeTotal' in value) || value['scopeTotal'] === undefined) return false;
     if (!('tier' in value) || value['tier'] === undefined) return false;
     if (!('month' in value) || value['month'] === undefined) return false;
     if (!('limitGrace' in value) || value['limitGrace'] === undefined) return false;
@@ -115,7 +115,7 @@ export function UsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Usa
         
         'deviceTotal': json['deviceTotal'],
         'deviceMax': json['deviceMax'],
-        'spaceTotal': json['spaceTotal'],
+        'scopeTotal': json['scopeTotal'],
         'tier': json['tier'],
         'month': json['month'],
         'limitGrace': BillingSummaryLimitGraceFromJSON(json['limitGrace']),
@@ -137,7 +137,7 @@ export function UsageToJSONTyped(value?: Usage | null, ignoreDiscriminator: bool
         
         'deviceTotal': value['deviceTotal'],
         'deviceMax': value['deviceMax'],
-        'spaceTotal': value['spaceTotal'],
+        'scopeTotal': value['scopeTotal'],
         'tier': value['tier'],
         'month': value['month'],
         'limitGrace': BillingSummaryLimitGraceToJSON(value['limitGrace']),

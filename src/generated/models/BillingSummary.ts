@@ -41,6 +41,13 @@ import {
     BillingSummaryAddonsToJSON,
     BillingSummaryAddonsToJSONTyped,
 } from './BillingSummaryAddons.js';
+import type { BillingSummaryCancellation } from './BillingSummaryCancellation.js';
+import {
+    BillingSummaryCancellationFromJSON,
+    BillingSummaryCancellationFromJSONTyped,
+    BillingSummaryCancellationToJSON,
+    BillingSummaryCancellationToJSONTyped,
+} from './BillingSummaryCancellation.js';
 import type { BillingSummaryLimits } from './BillingSummaryLimits.js';
 import {
     BillingSummaryLimitsFromJSON,
@@ -97,6 +104,10 @@ export interface BillingSummary {
     /**
      * 
      */
+    cancellation: BillingSummaryCancellation | null;
+    /**
+     * 
+     */
     addons: BillingSummaryAddons;
 }
 
@@ -125,6 +136,7 @@ export function instanceOfBillingSummary(value: object): value is BillingSummary
     if (!('monthlyTotal' in value) || value['monthlyTotal'] === undefined) return false;
     if (!('upcomingInvoice' in value) || value['upcomingInvoice'] === undefined) return false;
     if (!('estimated' in value) || value['estimated'] === undefined) return false;
+    if (!('cancellation' in value) || value['cancellation'] === undefined) return false;
     if (!('addons' in value) || value['addons'] === undefined) return false;
     return true;
 }
@@ -147,6 +159,7 @@ export function BillingSummaryFromJSONTyped(json: any, ignoreDiscriminator: bool
         'monthlyTotal': MoneyFromJSON(json['monthlyTotal']),
         'upcomingInvoice': BillingSummaryUpcomingInvoiceFromJSON(json['upcomingInvoice']),
         'estimated': json['estimated'],
+        'cancellation': BillingSummaryCancellationFromJSON(json['cancellation']),
         'addons': BillingSummaryAddonsFromJSON(json['addons']),
     };
 }
@@ -170,6 +183,7 @@ export function BillingSummaryToJSONTyped(value?: BillingSummary | null, ignoreD
         'monthlyTotal': MoneyToJSON(value['monthlyTotal']),
         'upcomingInvoice': BillingSummaryUpcomingInvoiceToJSON(value['upcomingInvoice']),
         'estimated': value['estimated'],
+        'cancellation': BillingSummaryCancellationToJSON(value['cancellation']),
         'addons': BillingSummaryAddonsToJSON(value['addons']),
     };
 }

@@ -23,11 +23,6 @@ export interface CreateDeviceRequest {
      * A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
      */
     scopeId?: string;
-    /**
-     * Deprecated: use scopeId
-     * @deprecated
-     */
-    spaceId?: string;
 }
 
 /**
@@ -48,7 +43,6 @@ export function CreateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
-        'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
     };
 }
 
@@ -64,7 +58,6 @@ export function CreateDeviceRequestToJSONTyped(value?: CreateDeviceRequest | nul
     return {
         
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
     };
 }
 

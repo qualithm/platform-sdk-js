@@ -40,13 +40,9 @@ export interface Dashboard {
      */
     scopeId: string | null;
     /**
-     * A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
-     */
-    spaceId: string | null;
-    /**
      * 
      */
-    spaceName: string | null;
+    scopeName: string | null;
     /**
      * 
      */
@@ -72,8 +68,7 @@ export function instanceOfDashboard(value: object): value is Dashboard {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
-    if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
+    if (!('scopeName' in value) || value['scopeName'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('payload' in value) || value['payload'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
@@ -94,8 +89,7 @@ export function DashboardFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'id': json['id'],
         'teamId': json['teamId'],
         'scopeId': json['scopeId'],
-        'spaceId': json['spaceId'],
-        'spaceName': json['spaceName'],
+        'scopeName': json['scopeName'],
         'name': json['name'],
         'payload': ((json['payload'] as Array<any>).map(DashboardWidgetFromJSON)),
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
@@ -117,8 +111,7 @@ export function DashboardToJSONTyped(value?: Dashboard | null, ignoreDiscriminat
         'id': value['id'],
         'teamId': value['teamId'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
-        'spaceName': value['spaceName'],
+        'scopeName': value['scopeName'],
         'name': value['name'],
         'payload': ((value['payload'] as Array<any>).map(DashboardWidgetToJSON)),
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),

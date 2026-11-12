@@ -100,10 +100,6 @@ export interface ListDevicesRequest {
      */
     scopeId?: string;
     /**
-     * Deprecated: use scopeId
-     */
-    spaceId?: string;
-    /**
      * Only devices carrying this tag, matched case-insensitively
      */
     tag?: string;
@@ -371,10 +367,6 @@ export class DevicesApi extends runtime.BaseAPI {
 
         if (requestParameters['scopeId'] != null) {
             queryParameters['scopeId'] = requestParameters['scopeId'];
-        }
-
-        if (requestParameters['spaceId'] != null) {
-            queryParameters['spaceId'] = requestParameters['spaceId'];
         }
 
         if (requestParameters['tag'] != null) {
