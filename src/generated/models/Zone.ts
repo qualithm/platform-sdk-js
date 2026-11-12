@@ -43,7 +43,7 @@ export interface Zone {
      */
     name: string;
     /**
-     * Whether the zone accepts new spaces in this environment
+     * Whether the zone accepts new scopes in this environment
      */
     open: boolean;
     /**

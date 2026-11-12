@@ -598,5 +598,6 @@ export class ScopesApi extends runtime.BaseAPI {
 export const ListScopesZoneEnum = {
     de_fra_a: 'de-fra-a',
     sg_sin_a: 'sg-sin-a',
+    us_nyc_a: 'us-nyc-a',
 } as const;
 export type ListScopesZoneEnum = typeof ListScopesZoneEnum[keyof typeof ListScopesZoneEnum];

@@ -18,7 +18,7 @@ try {
 
   const { data } = await platform.api(DevicesApi).listDevices({ teamId: team.id, limit: 20 })
   for (const device of data.items) {
-    process.stdout.write(`${device.id}  ${device.spaceName}  ${device.name}\n`)
+    process.stdout.write(`${device.id}  ${device.scopeName}  ${device.name}\n`)
   }
 } catch (error) {
   if (error instanceof PlatformError) {

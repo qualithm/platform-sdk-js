@@ -20,6 +20,13 @@ import {
     CredentialToJSON,
     CredentialToJSONTyped,
 } from './Credential.js';
+import type { GatewayEndpoint } from './GatewayEndpoint.js';
+import {
+    GatewayEndpointFromJSON,
+    GatewayEndpointFromJSONTyped,
+    GatewayEndpointToJSON,
+    GatewayEndpointToJSONTyped,
+} from './GatewayEndpoint.js';
 
 /**
  * 
@@ -35,6 +42,10 @@ export interface CredentialSecret {
      * The bearer token (the MQTT password), shown only once
      */
     secret: string;
+    /**
+     * The gateway the device connects to now; returned when a device renews
+     */
+    broker?: GatewayEndpoint;
 }
 
 /**
@@ -58,6 +69,7 @@ export function CredentialSecretFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'credential': CredentialFromJSON(json['credential']),
         'secret': json['secret'],
+        'broker': json['broker'] == null ? undefined : GatewayEndpointFromJSON(json['broker']),
     };
 }
 
@@ -74,6 +86,7 @@ export function CredentialSecretToJSONTyped(value?: CredentialSecret | null, ign
         
         'credential': CredentialToJSON(value['credential']),
         'secret': value['secret'],
+        'broker': GatewayEndpointToJSON(value['broker']),
     };
 }
 

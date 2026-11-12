@@ -28,11 +28,6 @@ export interface UpdateDeviceRequest {
      */
     scopeId?: string;
     /**
-     * Deprecated: use scopeId
-     * @deprecated
-     */
-    spaceId?: string;
-    /**
      * A parked device can't connect and doesn't count against the plan; its credentials and history stay
      */
     parked?: boolean;
@@ -61,7 +56,6 @@ export function UpdateDeviceRequestFromJSONTyped(json: any, ignoreDiscriminator:
         
         'name': json['name'] == null ? undefined : json['name'],
         'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
-        'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
         'parked': json['parked'] == null ? undefined : json['parked'],
         'tags': json['tags'] == null ? undefined : json['tags'],
     };
@@ -80,7 +74,6 @@ export function UpdateDeviceRequestToJSONTyped(value?: UpdateDeviceRequest | nul
         
         'name': value['name'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'parked': value['parked'],
         'tags': value['tags'],
     };

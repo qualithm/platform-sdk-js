@@ -20,7 +20,7 @@ import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime }
  */
 export interface RotateDeviceCredentialRequest {
     /**
-     * A time in the future
+     * A time in the future, within 30 days. Default 30 days from now.
      */
     expiresAt?: Date;
 }

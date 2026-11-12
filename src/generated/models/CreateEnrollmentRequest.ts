@@ -24,11 +24,6 @@ export interface CreateEnrollmentRequest {
      */
     scopeId?: string;
     /**
-     * Deprecated: use scopeId
-     * @deprecated
-     */
-    spaceId?: string;
-    /**
      * Up to 64 characters
      */
     label?: string;
@@ -56,7 +51,6 @@ export function CreateEnrollmentRequestFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'scopeId': json['scopeId'] == null ? undefined : json['scopeId'],
-        'spaceId': json['spaceId'] == null ? undefined : json['spaceId'],
         'label': json['label'] == null ? undefined : json['label'],
         'expiresInMinutes': json['expiresInMinutes'] == null ? undefined : json['expiresInMinutes'],
     };
@@ -74,7 +68,6 @@ export function CreateEnrollmentRequestToJSONTyped(value?: CreateEnrollmentReque
     return {
         
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'label': value['label'],
         'expiresInMinutes': value['expiresInMinutes'],
     };
