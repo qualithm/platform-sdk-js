@@ -28,7 +28,7 @@ export interface CreateDeviceCertificateRequest {
      */
     label?: string;
     /**
-     * Certificate lifetime in days. Default 90.
+     * Certificate lifetime in days, at most 30 for a development device. Default 30.
      */
     expiresInDays?: number;
 }

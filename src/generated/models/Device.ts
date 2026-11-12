@@ -43,14 +43,9 @@ export interface Device {
      */
     scopeId: string;
     /**
-     * Deprecated: use scopeId
-     * @deprecated
-     */
-    spaceId: string;
-    /**
      * 
      */
-    spaceName: string;
+    scopeName: string;
     /**
      * A team ID: `tem_…`; also accepts the legacy `tm_…`
      */
@@ -114,8 +109,7 @@ export type DeviceLevelEnum = typeof DeviceLevelEnum[keyof typeof DeviceLevelEnu
 export function instanceOfDevice(value: object): value is Device {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('scopeId' in value) || value['scopeId'] === undefined) return false;
-    if (!('spaceId' in value) || value['spaceId'] === undefined) return false;
-    if (!('spaceName' in value) || value['spaceName'] === undefined) return false;
+    if (!('scopeName' in value) || value['scopeName'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
@@ -135,8 +129,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         
         'id': json['id'],
         'scopeId': json['scopeId'],
-        'spaceId': json['spaceId'],
-        'spaceName': json['spaceName'],
+        'scopeName': json['scopeName'],
         'teamId': json['teamId'],
         'name': json['name'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
@@ -164,8 +157,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         
         'id': value['id'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
-        'spaceName': value['spaceName'],
+        'scopeName': value['scopeName'],
         'teamId': value['teamId'],
         'name': value['name'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),

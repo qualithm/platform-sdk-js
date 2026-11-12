@@ -36,10 +36,6 @@ export interface UpdateDashboardRequest {
      */
     scopeId?: string | null;
     /**
-     * A space ID: `scp_<zone>_…`; also accepts the legacy `spc_…`
-     */
-    spaceId?: string | null;
-    /**
      * Replaces every widget; null for none
      */
     payload?: Array<DashboardWidget> | null;
@@ -64,7 +60,6 @@ export function UpdateDashboardRequestFromJSONTyped(json: any, ignoreDiscriminat
         
         'name': json['name'] == null ? undefined : json['name'],
         'scopeId': json['scopeId'] === undefined ? undefined : json['scopeId'] === null ? null : json['scopeId'],
-        'spaceId': json['spaceId'] === undefined ? undefined : json['spaceId'] === null ? null : json['spaceId'],
         'payload': json['payload'] === undefined ? undefined : json['payload'] === null ? null : ((json['payload'] as Array<any>).map(DashboardWidgetFromJSON)),
     };
 }
@@ -82,7 +77,6 @@ export function UpdateDashboardRequestToJSONTyped(value?: UpdateDashboardRequest
         
         'name': value['name'],
         'scopeId': value['scopeId'],
-        'spaceId': value['spaceId'],
         'payload': value['payload'] == null ? undefined : ((value['payload'] as Array<any>).map(DashboardWidgetToJSON)),
     };
 }
