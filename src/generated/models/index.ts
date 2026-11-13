@@ -1,5 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AcceptInviteRequest.js';
+export * from './AcceptInviteResponse.js';
 export * from './Account.js';
 export * from './ApiError.js';
 export * from './ApiErrorDetailsInner.js';
@@ -95,6 +97,7 @@ export * from './GetTeamResponse.js';
 export * from './GetUsageResponse.js';
 export * from './HealthStatus.js';
 export * from './HealthSubsystem.js';
+export * from './InviteLink.js';
 export * from './Invoice.js';
 export * from './InvoicePage.js';
 export * from './IssuedCertificate.js';
@@ -122,11 +125,13 @@ export * from './ListTeamMembersResponse.js';
 export * from './ListTeamsResponse.js';
 export * from './ListTelemetryResponse.js';
 export * from './ListZonesResponse.js';
+export * from './LookupInviteResponse.js';
 export * from './MemberRole.js';
 export * from './Money.js';
 export * from './PreviewTierChangeRequest.js';
 export * from './PreviewTierChangeResponse.js';
 export * from './QueuedCommand.js';
+export * from './ResendTeamInviteResponse.js';
 export * from './RoleAssignment.js';
 export * from './RoleAssignmentPage.js';
 export * from './RotateDeviceCredentialRequest.js';
@@ -138,6 +143,8 @@ export * from './SessionPage.js';
 export * from './Team.js';
 export * from './TeamInvite.js';
 export * from './TeamInvitePage.js';
+export * from './TeamInviteResult.js';
+export * from './TeamInviteResults.js';
 export * from './TeamMember.js';
 export * from './TeamMemberPage.js';
 export * from './TeamMembership.js';
