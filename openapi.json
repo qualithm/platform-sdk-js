@@ -4607,7 +4607,7 @@
         "operationId": "listTeamDeviceStates",
         "x-qualithm-audience": "management",
         "summary": "List the live state of a team's devices",
-        "description": "By `deviceId`, ascending.",
+        "description": "By `deviceId`, ascending. A deleted device has no row.",
         "tags": [
           "Devices"
         ],

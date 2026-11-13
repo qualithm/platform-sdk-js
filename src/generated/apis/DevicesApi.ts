@@ -475,7 +475,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * By `deviceId`, ascending.
+     * By `deviceId`, ascending. A deleted device has no row.
      * List the live state of a team\'s devices
      */
     async listTeamDeviceStatesRaw(requestParameters: ListTeamDeviceStatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListTeamDeviceStatesResponse>> {
@@ -486,7 +486,7 @@ export class DevicesApi extends runtime.BaseAPI {
     }
 
     /**
-     * By `deviceId`, ascending.
+     * By `deviceId`, ascending. A deleted device has no row.
      * List the live state of a team\'s devices
      */
     async listTeamDeviceStates(requestParameters: ListTeamDeviceStatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTeamDeviceStatesResponse> {
