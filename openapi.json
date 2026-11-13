@@ -3,7 +3,7 @@
   "info": {
     "title": "Qualithm Platform API",
     "version": "1",
-    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| Stripe event | `sev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
+    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invite | `ivt` | No |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| Stripe event | `sev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
   },
   "paths": {
     "/v1/teams/{teamId}/api-tokens/{tokenId}": {
@@ -1677,7 +1677,8 @@
       "delete": {
         "operationId": "deleteTeamInvite",
         "x-qualithm-audience": "management",
-        "summary": "Revoke a pending invite",
+        "summary": "Withdraw a pending invite",
+        "description": "Its link stops working at once.",
         "tags": [
           "Invites"
         ],
@@ -1707,17 +1708,17 @@
             "name": "inviteId",
             "in": "path",
             "required": true,
-            "description": "A member ID: `mbr_…`; also accepts the legacy `mem_…`",
+            "description": "An invite ID: `ivt_…`",
             "schema": {
               "type": "string",
-              "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
-              "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              "pattern": "^(?:ivt_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "ivt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "Revoke a pending invite",
+            "description": "Withdraw a pending invite",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
@@ -6301,7 +6302,8 @@
       "post": {
         "operationId": "createTeamInvite",
         "x-qualithm-audience": "management",
-        "summary": "Invite an account to the team by email",
+        "summary": "Invite email addresses to the team",
+        "description": "Each address gets an invite whose link expires after 7 days; only the account with that email can accept it. The team may send a limited number of invite emails per hour.",
         "tags": [
           "Invites"
         ],
@@ -6351,7 +6353,7 @@
         },
         "responses": {
           "200": {
-            "description": "Invite an account to the team by email",
+            "description": "Invite email addresses to the team",
             "content": {
               "application/json": {
                 "schema": {
@@ -6531,7 +6533,8 @@
       "post": {
         "operationId": "createTeamMember",
         "x-qualithm-audience": "management",
-        "summary": "Accept the caller's invite to the team",
+        "summary": "Accept an invite to the team",
+        "description": "Only the account whose email the invite names can accept it.",
         "tags": [
           "Members"
         ],
@@ -6576,7 +6579,7 @@
         },
         "responses": {
           "201": {
-            "description": "Accept the caller's invite to the team",
+            "description": "Accept an invite to the team",
             "content": {
               "application/json": {
                 "schema": {
@@ -6610,6 +6613,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
@@ -7832,6 +7838,311 @@
           }
         }
       }
+    },
+    "/v1/invites/accept": {
+      "post": {
+        "operationId": "acceptInvite",
+        "x-qualithm-audience": "management",
+        "summary": "Accept the invite an invite link names",
+        "description": "Only the account whose email the invite names can accept it; anyone else gets `403` with `invite_email_mismatch`.",
+        "tags": [
+          "Invites"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptInviteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Accept the invite an invite link names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptInviteResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/invites/lookup": {
+      "post": {
+        "operationId": "lookupInvite",
+        "x-qualithm-audience": "management",
+        "summary": "Read the invite an invite link names",
+        "description": "Says whether the caller can accept it: only the account whose email it names can. Answers `404` with `invite_expired` once the link has expired.",
+        "tags": [
+          "Invites"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptInviteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Read the invite an invite link names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LookupInviteResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/teams/{teamId}/invites/{inviteId}/resend": {
+      "post": {
+        "operationId": "resendTeamInvite",
+        "x-qualithm-audience": "management",
+        "summary": "Mail a pending invite again",
+        "description": "Issues a new link, which expires 7 days from now; the old link stops working. An expired invite can be resent until it is cleared.",
+        "tags": [
+          "Invites"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "member.invite",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "inviteId",
+            "in": "path",
+            "required": true,
+            "description": "An invite ID: `ivt_…`",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:ivt_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "ivt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mail a pending invite again",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResendTeamInviteResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -7866,7 +8177,9 @@
           "paid_plan_required",
           "scope_not_empty",
           "idempotency_mismatch",
-          "idempotency_in_flight"
+          "idempotency_in_flight",
+          "invite_expired",
+          "invite_email_mismatch"
         ]
       },
       "ApiError": {
@@ -8198,15 +8511,9 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "The invite's id: the invited membership's id",
-            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
-          },
-          "accountId": {
-            "type": "string",
-            "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An account ID: `acc_…`",
-            "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "pattern": "^(?:ivt_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "description": "An invite ID: `ivt_…`",
+            "example": "ivt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
             "type": "string",
@@ -8214,12 +8521,45 @@
             "description": "A team ID: `tem_…`; also accepts the legacy `tm_…`",
             "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
+          "teamName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "description": "The invited address; only its account can accept"
+          },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
           },
-          "status": {
+          "invitedBy": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:acc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "An account ID: `acc_…`",
+                "example": "acc_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Who sent it, when known"
+          },
+          "inviterName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expiresAt": {
             "type": "string",
-            "const": "invited"
+            "format": "date-time",
+            "description": "When its link stops working",
+            "example": "2026-10-26T09:30:00.000Z"
           },
           "createdAt": {
             "type": "string",
@@ -8232,28 +8572,19 @@
             "format": "date-time",
             "description": "UTC time, RFC 3339",
             "example": "2026-10-26T09:30:00.000Z"
-          },
-          "accountEmail": {
-            "type": "string"
-          },
-          "accountName": {
-            "type": "string"
-          },
-          "teamName": {
-            "description": "Absent in the create response",
-            "type": "string"
           }
         },
         "required": [
           "id",
-          "accountId",
           "teamId",
+          "teamName",
+          "email",
           "role",
-          "status",
+          "invitedBy",
+          "inviterName",
+          "expiresAt",
           "createdAt",
-          "updatedAt",
-          "accountEmail",
-          "accountName"
+          "updatedAt"
         ]
       },
       "TeamInvitePage": {
@@ -8292,6 +8623,69 @@
           "items",
           "last",
           "nextCursor"
+        ]
+      },
+      "TeamInviteResult": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "sent",
+              "already_member",
+              "already_invited"
+            ],
+            "description": "`sent`: a new invite was mailed. `already_member`: the address's account is in the team. `already_invited`: a pending invite exists; resend it instead"
+          },
+          "invite": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TeamInvite"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The invite, unless already a member"
+          }
+        },
+        "required": [
+          "email",
+          "result",
+          "invite"
+        ]
+      },
+      "TeamInviteResults": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamInviteResult"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "InviteLink": {
+        "type": "object",
+        "properties": {
+          "invite": {
+            "$ref": "#/components/schemas/TeamInvite"
+          },
+          "forCaller": {
+            "type": "boolean",
+            "description": "Whether the signed-in account's email is the invited address, so it can accept"
+          }
+        },
+        "required": [
+          "invite",
+          "forCaller"
         ]
       },
       "ApiToken": {
@@ -10616,7 +11010,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
                 "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -10636,7 +11030,7 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -12388,11 +12782,45 @@
         ],
         "description": "A name, and either a zone or a parent"
       },
+      "AcceptInviteResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TeamMembership"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "AcceptInviteRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "The token from the invite link"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "LookupInviteResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/InviteLink"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "CreateTeamInviteResponse": {
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/TeamInvite"
+            "$ref": "#/components/schemas/TeamInviteResults"
           }
         },
         "required": [
@@ -12402,17 +12830,33 @@
       "CreateTeamInviteRequest": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "The email of an existing account"
+          "emails": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The addresses to invite, with or without an account"
           },
           "role": {
             "$ref": "#/components/schemas/MemberRole"
           }
         },
         "required": [
-          "email",
+          "emails",
           "role"
+        ]
+      },
+      "ResendTeamInviteResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TeamInvite"
+          }
+        },
+        "required": [
+          "data"
         ]
       },
       "CreateTeamMemberResponse": {
@@ -12431,9 +12875,9 @@
         "properties": {
           "inviteId": {
             "type": "string",
-            "pattern": "^(?:mbr_|mem_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:ivt_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "The invite to accept",
-            "example": "mbr_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            "example": "ivt_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           }
         },
         "required": [

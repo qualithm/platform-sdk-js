@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Qualithm Platform API
- * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | Stripe event | `sev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
+ * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | Stripe event | `sev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
  *
  * The version of the OpenAPI document: 1
  * 
@@ -28,13 +28,9 @@ import {
  */
 export interface TeamInvite {
     /**
-     * The invite's id: the invited membership's id
+     * An invite ID: `ivt_…`
      */
     id: string;
-    /**
-     * An account ID: `acc_…`
-     */
-    accountId: string;
     /**
      * A team ID: `tem_…`; also accepts the legacy `tm_…`
      */
@@ -42,11 +38,27 @@ export interface TeamInvite {
     /**
      * 
      */
-    role: MemberRole;
+    teamName: string;
+    /**
+     * The invited address; only its account can accept
+     */
+    email: string;
     /**
      * 
      */
-    status: TeamInviteStatusEnum;
+    role: MemberRole;
+    /**
+     * An account ID: `acc_…`
+     */
+    invitedBy: string | null;
+    /**
+     * 
+     */
+    inviterName: string | null;
+    /**
+     * When its link stops working
+     */
+    expiresAt: Date;
     /**
      * UTC time, RFC 3339
      */
@@ -55,28 +67,8 @@ export interface TeamInvite {
      * UTC time, RFC 3339
      */
     updatedAt: Date;
-    /**
-     * 
-     */
-    accountEmail: string;
-    /**
-     * 
-     */
-    accountName: string;
-    /**
-     * Absent in the create response
-     */
-    teamName?: string;
 }
 
-
-/**
- * @export
- */
-export const TeamInviteStatusEnum = {
-    invited: 'invited',
-} as const;
-export type TeamInviteStatusEnum = typeof TeamInviteStatusEnum[keyof typeof TeamInviteStatusEnum];
 
 
 /**
@@ -84,16 +76,15 @@ export type TeamInviteStatusEnum = typeof TeamInviteStatusEnum[keyof typeof Team
  */
 export function instanceOfTeamInvite(value: object): value is TeamInvite {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('accountId' in value) || value['accountId'] === undefined) return false;
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
+    if (!('teamName' in value) || value['teamName'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
-    if (!('status' in value) || value['status'] === undefined) return false;
-    if (value['status'] !== 'invited') return false;
-    
+    if (!('invitedBy' in value) || value['invitedBy'] === undefined) return false;
+    if (!('inviterName' in value) || value['inviterName'] === undefined) return false;
+    if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
-    if (!('accountEmail' in value) || value['accountEmail'] === undefined) return false;
-    if (!('accountName' in value) || value['accountName'] === undefined) return false;
     return true;
 }
 
@@ -108,15 +99,15 @@ export function TeamInviteFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'id': json['id'],
-        'accountId': json['accountId'],
         'teamId': json['teamId'],
+        'teamName': json['teamName'],
+        'email': json['email'],
         'role': MemberRoleFromJSON(json['role']),
-        'status': json['status'],
+        'invitedBy': json['invitedBy'],
+        'inviterName': json['inviterName'],
+        'expiresAt': (json['expiresAt'] == null ? json['expiresAt'] : parseDateTime(json['expiresAt'])),
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
-        'accountEmail': json['accountEmail'],
-        'accountName': json['accountName'],
-        'teamName': json['teamName'] == null ? undefined : json['teamName'],
     };
 }
 
@@ -132,15 +123,15 @@ export function TeamInviteToJSONTyped(value?: TeamInvite | null, ignoreDiscrimin
     return {
         
         'id': value['id'],
-        'accountId': value['accountId'],
         'teamId': value['teamId'],
+        'teamName': value['teamName'],
+        'email': value['email'],
         'role': MemberRoleToJSON(value['role']),
-        'status': value['status'],
+        'invitedBy': value['invitedBy'],
+        'inviterName': value['inviterName'],
+        'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
-        'accountEmail': value['accountEmail'],
-        'accountName': value['accountName'],
-        'teamName': value['teamName'],
     };
 }
 
