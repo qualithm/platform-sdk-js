@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Qualithm Platform API
- * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | Stripe event | `sev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
+ * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | Stripe event | `sev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
  *
  * The version of the OpenAPI document: 1
  * 
@@ -13,6 +13,16 @@
  */
 
 import * as runtime from '../runtime.js';
+import {
+    type AcceptInviteRequest,
+    AcceptInviteRequestFromJSON,
+    AcceptInviteRequestToJSON,
+} from '../models/AcceptInviteRequest.js';
+import {
+    type AcceptInviteResponse,
+    AcceptInviteResponseFromJSON,
+    AcceptInviteResponseToJSON,
+} from '../models/AcceptInviteResponse.js';
 import {
     type ApiError,
     ApiErrorFromJSON,
@@ -33,6 +43,27 @@ import {
     ListTeamInvitesResponseFromJSON,
     ListTeamInvitesResponseToJSON,
 } from '../models/ListTeamInvitesResponse.js';
+import {
+    type LookupInviteResponse,
+    LookupInviteResponseFromJSON,
+    LookupInviteResponseToJSON,
+} from '../models/LookupInviteResponse.js';
+import {
+    type ResendTeamInviteResponse,
+    ResendTeamInviteResponseFromJSON,
+    ResendTeamInviteResponseToJSON,
+} from '../models/ResendTeamInviteResponse.js';
+
+export interface AcceptInviteOperationRequest {
+    /**
+     * 
+     */
+    acceptInviteRequest: AcceptInviteRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+}
 
 export interface CreateTeamInviteOperationRequest {
     /**
@@ -55,7 +86,7 @@ export interface DeleteTeamInviteRequest {
      */
     teamId: string;
     /**
-     * A member ID: `mbr_…`; also accepts the legacy `mem_…`
+     * An invite ID: `ivt_…`
      */
     inviteId: string;
 }
@@ -79,10 +110,97 @@ export interface ListTeamInvitesRequest {
     cursor?: string;
 }
 
+export interface LookupInviteRequest {
+    /**
+     * 
+     */
+    acceptInviteRequest: AcceptInviteRequest;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+}
+
+export interface ResendTeamInviteRequest {
+    /**
+     * A team ID: `tem_…`; also accepts the legacy `tm_…`
+     */
+    teamId: string;
+    /**
+     * An invite ID: `ivt_…`
+     */
+    inviteId: string;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+}
+
 /**
  * 
  */
 export class InvitesApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for acceptInvite without sending the request
+     */
+    async acceptInviteRequestOpts(requestParameters: AcceptInviteOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['acceptInviteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'acceptInviteRequest',
+                'Required parameter "acceptInviteRequest" was null or undefined when calling acceptInvite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/invites/accept`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AcceptInviteRequestToJSON(requestParameters['acceptInviteRequest']),
+        };
+    }
+
+    /**
+     * Only the account whose email the invite names can accept it; anyone else gets `403` with `invite_email_mismatch`.
+     * Accept the invite an invite link names
+     */
+    async acceptInviteRaw(requestParameters: AcceptInviteOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AcceptInviteResponse>> {
+        const requestOptions = await this.acceptInviteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AcceptInviteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Only the account whose email the invite names can accept it; anyone else gets `403` with `invite_email_mismatch`.
+     * Accept the invite an invite link names
+     */
+    async acceptInvite(requestParameters: AcceptInviteOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AcceptInviteResponse> {
+        const response = await this.acceptInviteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for createTeamInvite without sending the request
@@ -134,7 +252,8 @@ export class InvitesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Invite an account to the team by email
+     * Each address gets an invite whose link expires after 7 days; only the account with that email can accept it. The team may send a limited number of invite emails per hour.
+     * Invite email addresses to the team
      */
     async createTeamInviteRaw(requestParameters: CreateTeamInviteOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateTeamInviteResponse>> {
         const requestOptions = await this.createTeamInviteRequestOpts(requestParameters);
@@ -144,7 +263,8 @@ export class InvitesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Invite an account to the team by email
+     * Each address gets an invite whose link expires after 7 days; only the account with that email can accept it. The team may send a limited number of invite emails per hour.
+     * Invite email addresses to the team
      */
     async createTeamInvite(requestParameters: CreateTeamInviteOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateTeamInviteResponse> {
         const response = await this.createTeamInviteRaw(requestParameters, initOverrides);
@@ -195,7 +315,8 @@ export class InvitesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke a pending invite
+     * Its link stops working at once.
+     * Withdraw a pending invite
      */
     async deleteTeamInviteRaw(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteTeamInviteRequestOpts(requestParameters);
@@ -205,7 +326,8 @@ export class InvitesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke a pending invite
+     * Its link stops working at once.
+     * Withdraw a pending invite
      */
     async deleteTeamInvite(requestParameters: DeleteTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteTeamInviteRaw(requestParameters, initOverrides);
@@ -275,6 +397,134 @@ export class InvitesApi extends runtime.BaseAPI {
      */
     async listTeamInvites(requestParameters: ListTeamInvitesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListTeamInvitesResponse> {
         const response = await this.listTeamInvitesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for lookupInvite without sending the request
+     */
+    async lookupInviteRequestOpts(requestParameters: LookupInviteRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['acceptInviteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'acceptInviteRequest',
+                'Required parameter "acceptInviteRequest" was null or undefined when calling lookupInvite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/invites/lookup`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AcceptInviteRequestToJSON(requestParameters['acceptInviteRequest']),
+        };
+    }
+
+    /**
+     * Says whether the caller can accept it: only the account whose email it names can. Answers `404` with `invite_expired` once the link has expired.
+     * Read the invite an invite link names
+     */
+    async lookupInviteRaw(requestParameters: LookupInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupInviteResponse>> {
+        const requestOptions = await this.lookupInviteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LookupInviteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Says whether the caller can accept it: only the account whose email it names can. Answers `404` with `invite_expired` once the link has expired.
+     * Read the invite an invite link names
+     */
+    async lookupInvite(requestParameters: LookupInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupInviteResponse> {
+        const response = await this.lookupInviteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for resendTeamInvite without sending the request
+     */
+    async resendTeamInviteRequestOpts(requestParameters: ResendTeamInviteRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling resendTeamInvite().'
+            );
+        }
+
+        if (requestParameters['inviteId'] == null) {
+            throw new runtime.RequiredError(
+                'inviteId',
+                'Required parameter "inviteId" was null or undefined when calling resendTeamInvite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/teams/{teamId}/invites/{inviteId}/resend`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+        urlPath = urlPath.replace('{inviteId}', encodeURIComponent(String(requestParameters['inviteId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Issues a new link, which expires 7 days from now; the old link stops working. An expired invite can be resent until it is cleared.
+     * Mail a pending invite again
+     */
+    async resendTeamInviteRaw(requestParameters: ResendTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResendTeamInviteResponse>> {
+        const requestOptions = await this.resendTeamInviteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResendTeamInviteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Issues a new link, which expires 7 days from now; the old link stops working. An expired invite can be resent until it is cleared.
+     * Mail a pending invite again
+     */
+    async resendTeamInvite(requestParameters: ResendTeamInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResendTeamInviteResponse> {
+        const response = await this.resendTeamInviteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
