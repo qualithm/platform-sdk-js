@@ -82,6 +82,7 @@ export * from './DeviceState.js';
 export * from './DeviceStatePage.js';
 export * from './Enrollment.js';
 export * from './EnrollmentCode.js';
+export * from './EnrollmentLastFailureScope.js';
 export * from './EnrollmentPage.js';
 export * from './GatewayEndpoint.js';
 export * from './GetAccountResponse.js';
