@@ -27,6 +27,13 @@ import {
     BillingSummaryLimitGraceToJSON,
     BillingSummaryLimitGraceToJSONTyped,
 } from './BillingSummaryLimitGrace.js';
+import type { UsagePaymentFailed } from './UsagePaymentFailed.js';
+import {
+    UsagePaymentFailedFromJSON,
+    UsagePaymentFailedFromJSONTyped,
+    UsagePaymentFailedToJSON,
+    UsagePaymentFailedToJSONTyped,
+} from './UsagePaymentFailed.js';
 import type { BillingSummaryLimits } from './BillingSummaryLimits.js';
 import {
     BillingSummaryLimitsFromJSON,
@@ -73,6 +80,10 @@ export interface Usage {
      * 
      */
     usage: BillingSummaryUsage;
+    /**
+     * 
+     */
+    paymentFailed: UsagePaymentFailed | null;
 }
 
 
@@ -100,6 +111,7 @@ export function instanceOfUsage(value: object): value is Usage {
     if (!('limitGrace' in value) || value['limitGrace'] === undefined) return false;
     if (!('limits' in value) || value['limits'] === undefined) return false;
     if (!('usage' in value) || value['usage'] === undefined) return false;
+    if (!('paymentFailed' in value) || value['paymentFailed'] === undefined) return false;
     return true;
 }
 
@@ -121,6 +133,7 @@ export function UsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Usa
         'limitGrace': BillingSummaryLimitGraceFromJSON(json['limitGrace']),
         'limits': BillingSummaryLimitsFromJSON(json['limits']),
         'usage': BillingSummaryUsageFromJSON(json['usage']),
+        'paymentFailed': UsagePaymentFailedFromJSON(json['paymentFailed']),
     };
 }
 
@@ -143,6 +156,7 @@ export function UsageToJSONTyped(value?: Usage | null, ignoreDiscriminator: bool
         'limitGrace': BillingSummaryLimitGraceToJSON(value['limitGrace']),
         'limits': BillingSummaryLimitsToJSON(value['limits']),
         'usage': BillingSummaryUsageToJSON(value['usage']),
+        'paymentFailed': UsagePaymentFailedToJSON(value['paymentFailed']),
     };
 }
 

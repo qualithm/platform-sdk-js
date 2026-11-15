@@ -59,6 +59,26 @@ import {
     ListDeviceAutomationTemplatesResponseToJSON,
 } from '../models/ListDeviceAutomationTemplatesResponse.js';
 import {
+    type TestAutomationRequest,
+    TestAutomationRequestFromJSON,
+    TestAutomationRequestToJSON,
+} from '../models/TestAutomationRequest.js';
+import {
+    type TestAutomationResponse,
+    TestAutomationResponseFromJSON,
+    TestAutomationResponseToJSON,
+} from '../models/TestAutomationResponse.js';
+import {
+    type TestDraftAutomationRequest,
+    TestDraftAutomationRequestFromJSON,
+    TestDraftAutomationRequestToJSON,
+} from '../models/TestDraftAutomationRequest.js';
+import {
+    type TestDraftAutomationResponse,
+    TestDraftAutomationResponseFromJSON,
+    TestDraftAutomationResponseToJSON,
+} from '../models/TestDraftAutomationResponse.js';
+import {
     type TriggerAutomationResponse,
     TriggerAutomationResponseFromJSON,
     TriggerAutomationResponseToJSON,
@@ -196,6 +216,32 @@ export interface ListDeviceAutomationTemplatesRequest {
      * A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`
      */
     deviceId: string;
+}
+
+export interface TestAutomationOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
+     * An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`
+     */
+    automationId: string;
+    /**
+     * 
+     */
+    testAutomationRequest: TestAutomationRequest;
+}
+
+export interface TestDraftAutomationOperationRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
+     * 
+     */
+    testDraftAutomationRequest: TestDraftAutomationRequest;
 }
 
 export interface TriggerAutomationRequest {
@@ -755,6 +801,144 @@ export class AutomationsApi extends runtime.BaseAPI {
      */
     async listDeviceAutomationTemplates(requestParameters: ListDeviceAutomationTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListDeviceAutomationTemplatesResponse> {
         const response = await this.listDeviceAutomationTemplatesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for testAutomation without sending the request
+     */
+    async testAutomationRequestOpts(requestParameters: TestAutomationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling testAutomation().'
+            );
+        }
+
+        if (requestParameters['automationId'] == null) {
+            throw new runtime.RequiredError(
+                'automationId',
+                'Required parameter "automationId" was null or undefined when calling testAutomation().'
+            );
+        }
+
+        if (requestParameters['testAutomationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'testAutomationRequest',
+                'Required parameter "testAutomationRequest" was null or undefined when calling testAutomation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/teams/{teamId}/automations/{automationId}/test`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+        urlPath = urlPath.replace('{automationId}', encodeURIComponent(String(requestParameters['automationId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TestAutomationRequestToJSON(requestParameters['testAutomationRequest']),
+        };
+    }
+
+    /**
+     * Evaluates the saved trigger and chain against the device\'s latest reading, or a sample. Nothing is run, recorded or counted against quota.
+     * Test an automation against a reading without running it
+     */
+    async testAutomationRaw(requestParameters: TestAutomationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TestAutomationResponse>> {
+        const requestOptions = await this.testAutomationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TestAutomationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Evaluates the saved trigger and chain against the device\'s latest reading, or a sample. Nothing is run, recorded or counted against quota.
+     * Test an automation against a reading without running it
+     */
+    async testAutomation(requestParameters: TestAutomationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TestAutomationResponse> {
+        const response = await this.testAutomationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for testDraftAutomation without sending the request
+     */
+    async testDraftAutomationRequestOpts(requestParameters: TestDraftAutomationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling testDraftAutomation().'
+            );
+        }
+
+        if (requestParameters['testDraftAutomationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'testDraftAutomationRequest',
+                'Required parameter "testDraftAutomationRequest" was null or undefined when calling testDraftAutomation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/teams/{teamId}/automations/test`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TestDraftAutomationRequestToJSON(requestParameters['testDraftAutomationRequest']),
+        };
+    }
+
+    /**
+     * Evaluates the trigger and chain against the device\'s latest reading, or a sample. Nothing is run, recorded or counted against quota.
+     * Test an unsaved automation against a reading without running it
+     */
+    async testDraftAutomationRaw(requestParameters: TestDraftAutomationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TestDraftAutomationResponse>> {
+        const requestOptions = await this.testDraftAutomationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TestDraftAutomationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Evaluates the trigger and chain against the device\'s latest reading, or a sample. Nothing is run, recorded or counted against quota.
+     * Test an unsaved automation against a reading without running it
+     */
+    async testDraftAutomation(requestParameters: TestDraftAutomationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TestDraftAutomationResponse> {
+        const response = await this.testDraftAutomationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
