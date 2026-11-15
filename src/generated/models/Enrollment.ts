@@ -13,6 +13,14 @@
  */
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
+import type { EnrollmentLastFailureScope } from './EnrollmentLastFailureScope.js';
+import {
+    EnrollmentLastFailureScopeFromJSON,
+    EnrollmentLastFailureScopeFromJSONTyped,
+    EnrollmentLastFailureScopeToJSON,
+    EnrollmentLastFailureScopeToJSONTyped,
+} from './EnrollmentLastFailureScope.js';
+
 /**
  * 
  * @export
@@ -52,6 +60,18 @@ export interface Enrollment {
      */
     expiresAt: Date;
     /**
+     * Why the latest rejected claim of this code failed, when the team can act on it: `device_already_claimed` means a device presented the code after it was claimed. The claim response stays the generic `401`.
+     */
+    lastFailure: EnrollmentLastFailureEnum | null;
+    /**
+     * 
+     */
+    lastFailureScope: EnrollmentLastFailureScope | null;
+    /**
+     * UTC time, RFC 3339
+     */
+    lastFailureAt: Date | null;
+    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -72,6 +92,14 @@ export const EnrollmentStatusEnum = {
 } as const;
 export type EnrollmentStatusEnum = typeof EnrollmentStatusEnum[keyof typeof EnrollmentStatusEnum];
 
+/**
+ * @export
+ */
+export const EnrollmentLastFailureEnum = {
+    device_already_claimed: 'device_already_claimed',
+} as const;
+export type EnrollmentLastFailureEnum = typeof EnrollmentLastFailureEnum[keyof typeof EnrollmentLastFailureEnum];
+
 
 /**
  * Check if a given object implements the Enrollment interface.
@@ -85,6 +113,11 @@ export function instanceOfEnrollment(value: object): value is Enrollment {
     if (!('claimedDeviceId' in value) || value['claimedDeviceId'] === undefined) return false;
     if (!('claimedAt' in value) || value['claimedAt'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
+    if (!('lastFailure' in value) || value['lastFailure'] === undefined) return false;
+    if (value['lastFailure'] !== 'device_already_claimed') return false;
+    
+    if (!('lastFailureScope' in value) || value['lastFailureScope'] === undefined) return false;
+    if (!('lastFailureAt' in value) || value['lastFailureAt'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -108,6 +141,9 @@ export function EnrollmentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'claimedDeviceId': json['claimedDeviceId'],
         'claimedAt': (json['claimedAt'] == null ? null : parseDateTime(json['claimedAt'])),
         'expiresAt': (json['expiresAt'] == null ? json['expiresAt'] : parseDateTime(json['expiresAt'])),
+        'lastFailure': json['lastFailure'],
+        'lastFailureScope': EnrollmentLastFailureScopeFromJSON(json['lastFailureScope']),
+        'lastFailureAt': (json['lastFailureAt'] == null ? null : parseDateTime(json['lastFailureAt'])),
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -132,6 +168,9 @@ export function EnrollmentToJSONTyped(value?: Enrollment | null, ignoreDiscrimin
         'claimedDeviceId': value['claimedDeviceId'],
         'claimedAt': value['claimedAt'] == null ? value['claimedAt'] : serializeDateTime(value['claimedAt']),
         'expiresAt': value['expiresAt'] == null ? value['expiresAt'] : serializeDateTime(value['expiresAt']),
+        'lastFailure': value['lastFailure'],
+        'lastFailureScope': EnrollmentLastFailureScopeToJSON(value['lastFailureScope']),
+        'lastFailureAt': value['lastFailureAt'] == null ? value['lastFailureAt'] : serializeDateTime(value['lastFailureAt']),
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };
