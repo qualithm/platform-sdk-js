@@ -7370,6 +7370,217 @@
         }
       }
     },
+    "/v1/teams/{teamId}/automations/test": {
+      "post": {
+        "operationId": "testDraftAutomation",
+        "x-qualithm-audience": "management",
+        "summary": "Test an unsaved automation against a reading without running it",
+        "description": "Evaluates the trigger and chain against the device's latest reading, or a sample. Nothing is run, recorded or counted against quota.",
+        "tags": [
+          "Automations"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "automation.write",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDraftAutomationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Test an unsaved automation against a reading without running it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestDraftAutomationResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/teams/{teamId}/automations/{automationId}/test": {
+      "post": {
+        "operationId": "testAutomation",
+        "x-qualithm-audience": "management",
+        "summary": "Test an automation against a reading without running it",
+        "description": "Evaluates the saved trigger and chain against the device's latest reading, or a sample. Nothing is run, recorded or counted against quota.",
+        "tags": [
+          "Automations"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "automation.write",
+        "x-qualithm-roles": [
+          "owner",
+          "manager"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "automationId",
+            "in": "path",
+            "required": true,
+            "description": "An automation ID: `aut_<zone>_…`; also accepts the legacy `aut_…`",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:aut_(?:defraa|sgsina|usnyca)_|aut_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "aut_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestAutomationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Test an automation against a reading without running it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestAutomationResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
     "/v1/automations/trigger": {
       "post": {
         "operationId": "triggerAutomation",
@@ -8179,7 +8390,9 @@
           "idempotency_mismatch",
           "idempotency_in_flight",
           "invite_expired",
-          "invite_email_mismatch"
+          "invite_email_mismatch",
+          "email_disposable",
+          "team_write_limited"
         ]
       },
       "ApiError": {
@@ -10005,6 +10218,349 @@
           "secret"
         ]
       },
+      "AutomationTestSample": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "description": "The metrics the sample reports",
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "topic": {
+            "description": "The topic the sample stands for; the trigger's own when absent",
+            "type": "string"
+          },
+          "state": {
+            "description": "The connectivity state the sample stands for; the device's when absent",
+            "type": "string",
+            "enum": [
+              "online",
+              "offline"
+            ]
+          }
+        }
+      },
+      "AutomationTestComparison": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The chain step compared; null for the trigger"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "eq",
+              "ne",
+              "gt",
+              "gte",
+              "lt",
+              "lte"
+            ]
+          },
+          "expected": {
+            "type": "number",
+            "description": "The automation's number"
+          },
+          "actual": {
+            "description": "The reading's value; null when the reading lacks the metric",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "index",
+          "metric",
+          "op",
+          "expected",
+          "actual",
+          "passed"
+        ]
+      },
+      "AutomationTestAction": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "device-command",
+              "notification",
+              "outbound-webhook"
+            ]
+          },
+          "channel": {
+            "description": "A notification's channel"
+          },
+          "config": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {},
+            "description": "The trigger or step's own settings, shaped by its type"
+          }
+        },
+        "required": [
+          "index",
+          "type",
+          "config"
+        ]
+      },
+      "AutomationTest": {
+        "type": "object",
+        "properties": {
+          "matched": {
+            "type": "boolean",
+            "description": "Whether the automation would fire now: its trigger matches and no condition halts"
+          },
+          "reason": {
+            "description": "Why it would not fire; absent when it would",
+            "type": "string",
+            "enum": [
+              "no_reading",
+              "device_offline",
+              "out_of_scope",
+              "trigger_not_matched",
+              "condition_halted",
+              "action_failed",
+              "disabled"
+            ]
+          },
+          "device": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+                    "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+                    "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                  },
+                  "scopeId": {
+                    "type": "string",
+                    "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                    "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                    "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                  },
+                  "online": {
+                    "type": "boolean"
+                  },
+                  "lastSeenAt": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "UTC time, RFC 3339",
+                        "example": "2026-10-26T09:30:00.000Z"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "scopeId",
+                  "online",
+                  "lastSeenAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The device tested; null for a sample with no device"
+          },
+          "reading": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "device",
+                      "sample"
+                    ]
+                  },
+                  "metrics": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {
+                      "type": "number"
+                    }
+                  },
+                  "seenAt": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "UTC time, RFC 3339",
+                        "example": "2026-10-26T09:30:00.000Z"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "topic": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source",
+                  "metrics",
+                  "seenAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The reading evaluated; null when the device has reported none"
+          },
+          "trigger": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "event",
+                  "connectivity",
+                  "schedule",
+                  "webhook",
+                  "manual"
+                ]
+              },
+              "matched": {
+                "type": "boolean"
+              },
+              "state": {
+                "description": "A connectivity trigger's watched state against the device's",
+                "type": "object",
+                "properties": {
+                  "expected": {},
+                  "actual": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "online",
+                          "offline"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "expected",
+                  "actual"
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "matched"
+            ]
+          },
+          "compared": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationTestComparison"
+            }
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationRunStep"
+            },
+            "description": "The chain as run history records it; an action the test does not take is skipped"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationTestAction"
+            }
+          },
+          "decisions": {
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "description": "What Qualithm decided on the builder's behalf, most consequential first: at most 6. A value Qualithm doesn't hold is left off."
+          },
+          "notification": {
+            "description": "The test notification, when one was asked for",
+            "type": "object",
+            "properties": {
+              "sent": {
+                "type": "boolean"
+              },
+              "channel": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "sent",
+              "channel"
+            ]
+          }
+        },
+        "required": [
+          "matched",
+          "device",
+          "reading",
+          "trigger",
+          "compared",
+          "steps",
+          "actions",
+          "decisions"
+        ]
+      },
       "DashboardWidget": {
         "type": "object",
         "properties": {
@@ -11711,6 +12267,35 @@
               "events",
               "automations"
             ]
+          },
+          "paymentFailed": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "since": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the payment failed",
+                    "example": "2026-10-26T09:30:00.000Z"
+                  },
+                  "graceEndsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the team moves to Free if the payment is still not made",
+                    "example": "2026-10-26T09:30:00.000Z"
+                  }
+                },
+                "required": [
+                  "since",
+                  "graceEndsAt"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set while a payment has failed and the grace period runs; null otherwise"
           }
         },
         "required": [
@@ -11721,7 +12306,8 @@
           "month",
           "limitGrace",
           "limits",
-          "usage"
+          "usage",
+          "paymentFailed"
         ]
       },
       "HealthSubsystem": {
@@ -12583,6 +13169,120 @@
         "required": [
           "data"
         ]
+      },
+      "TestDraftAutomationResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AutomationTest"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "TestDraftAutomationRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "scopeId": {
+            "description": "The scope it applies to; null or absent for team-wide",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "payload": {
+            "description": "The chain; exclusive with `template`",
+            "type": "object",
+            "properties": {
+              "trigger": {
+                "$ref": "#/components/schemas/AutomationTrigger"
+              },
+              "chain": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AutomationConditionStep"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AutomationActionStep"
+                    }
+                  ]
+                },
+                "description": "Ordered condition and action steps; at least one action"
+              },
+              "template": {
+                "description": "A template reference; set by the platform on template-built automations"
+              }
+            },
+            "required": [
+              "trigger",
+              "chain"
+            ]
+          },
+          "template": {
+            "description": "A template id to expand the chain from; exclusive with `payload`",
+            "type": "string"
+          },
+          "params": {
+            "description": "The template's slot values, keyed by slot name; used with `template`"
+          },
+          "deviceId": {
+            "description": "The device whose latest reading the test evaluates; the trigger's own device when absent",
+            "type": "string",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "sample": {
+            "$ref": "#/components/schemas/AutomationTestSample"
+          },
+          "notify": {
+            "description": "Also send a test notification, marked as a test, to you alone, when a notification would fire",
+            "type": "boolean"
+          }
+        },
+        "description": "An unsaved automation, as a create sends it with the name optional, and a device or a sample to test against"
+      },
+      "TestAutomationResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AutomationTest"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "TestAutomationRequest": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "description": "The device whose latest reading the test evaluates; the trigger's own device when absent",
+            "type": "string",
+            "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+          },
+          "sample": {
+            "$ref": "#/components/schemas/AutomationTestSample"
+          },
+          "notify": {
+            "description": "Also send a test notification, marked as a test, to you alone, when a notification would fire",
+            "type": "boolean"
+          }
+        },
+        "description": "A device or a sample to test against; a device is required without a sample"
       },
       "TriggerAutomationResponse": {
         "type": "object",
