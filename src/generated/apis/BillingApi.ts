@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Qualithm Platform API
- * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | Stripe event | `sev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
+ * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | billing adjustment | `adj` | No |  | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | SLA credit | `slc` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
  *
  * The version of the OpenAPI document: 1
  * 
@@ -18,6 +18,11 @@ import {
     ApiErrorFromJSON,
     ApiErrorToJSON,
 } from '../models/ApiError.js';
+import {
+    type CreateInvoiceDocumentResponse,
+    CreateInvoiceDocumentResponseFromJSON,
+    CreateInvoiceDocumentResponseToJSON,
+} from '../models/CreateInvoiceDocumentResponse.js';
 import {
     type GetBillingSummaryResponse,
     GetBillingSummaryResponseFromJSON,
@@ -38,6 +43,21 @@ import {
     PreviewTierChangeResponseFromJSON,
     PreviewTierChangeResponseToJSON,
 } from '../models/PreviewTierChangeResponse.js';
+
+export interface CreateInvoiceDocumentRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
+    /**
+     * An invoice ID: `inv_…`
+     */
+    invoiceId: string;
+    /**
+     * A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.
+     */
+    idempotencyKey?: string;
+}
 
 export interface GetBillingSummaryRequest {
     /**
@@ -84,6 +104,71 @@ export interface PreviewTierChangeOperationRequest {
  * 
  */
 export class BillingApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for createInvoiceDocument without sending the request
+     */
+    async createInvoiceDocumentRequestOpts(requestParameters: CreateInvoiceDocumentRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling createInvoiceDocument().'
+            );
+        }
+
+        if (requestParameters['invoiceId'] == null) {
+            throw new runtime.RequiredError(
+                'invoiceId',
+                'Required parameter "invoiceId" was null or undefined when calling createInvoiceDocument().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/teams/{teamId}/invoices/{invoiceId}/document`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+        urlPath = urlPath.replace('{invoiceId}', encodeURIComponent(String(requestParameters['invoiceId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the link to an invoice\'s document, generating it on first request
+     */
+    async createInvoiceDocumentRaw(requestParameters: CreateInvoiceDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateInvoiceDocumentResponse>> {
+        const requestOptions = await this.createInvoiceDocumentRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateInvoiceDocumentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the link to an invoice\'s document, generating it on first request
+     */
+    async createInvoiceDocument(requestParameters: CreateInvoiceDocumentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateInvoiceDocumentResponse> {
+        const response = await this.createInvoiceDocumentRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for getBillingSummary without sending the request
