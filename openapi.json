@@ -3,7 +3,7 @@
   "info": {
     "title": "Qualithm Platform API",
     "version": "1",
-    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invite | `ivt` | No |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| Stripe event | `sev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
+    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| billing adjustment | `adj` | No |  |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invite | `ivt` | No |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| SLA credit | `slc` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
   },
   "paths": {
     "/v1/teams/{teamId}/api-tokens/{tokenId}": {
@@ -5443,6 +5443,116 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
+    "/v1/teams/{teamId}/invoices/{invoiceId}/document": {
+      "post": {
+        "operationId": "createInvoiceDocument",
+        "x-qualithm-audience": "management",
+        "summary": "Get the link to an invoice's document, generating it on first request",
+        "tags": [
+          "Billing"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "billing.read",
+        "x-qualithm-roles": [
+          "owner"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "description": "An invoice ID: `inv_…`",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:inv_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "inv_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "A unique key for this request. A retry with the same key and body returns the first response instead of acting again; keys last 24 hours.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the link to an invoice's document, generating it on first request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateInvoiceDocumentResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -11811,7 +11921,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+                "pattern": "^(?:acc_|tok_|aud_|evt_|adj_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|slc_|dig_|dgst_|pev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
                 "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
                 "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
               },
@@ -11831,7 +11941,7 @@
           },
           "targetId": {
             "type": "string",
-            "pattern": "^(?:acc_|tok_|aud_|evt_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|dig_|dgst_|pev_|sev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
+            "pattern": "^(?:acc_|tok_|aud_|evt_|adj_|dca_|auth_|aut_(?:defraa|sgsina|usnyca)_|aut_|cmp_|cmpn_|cap_(?:defraa|sgsina|usnyca)_|cap_|cmd_(?:defraa|sgsina|usnyca)_|cmd_|crd_(?:defraa|sgsina|usnyca)_|crd_|cred_|dsh_(?:defraa|sgsina|usnyca)_|dsh_|dash_|dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_|eml_|enr_(?:defraa|sgsina|usnyca)_|enr_|ivt_|inv_|lgl_|doc_|mbr_|mem_|oac_|ogr_|oat_|otk_|otc_|otp_|pln_|plan_|psh_|psb_|sub_|run_(?:defraa|sgsina|usnyca)_|run_|scp_(?:defraa|sgsina|usnyca)_|scp_|spc_|ses_|slc_|dig_|dgst_|pev_|tem_|tm_|tev_|upt_|usg_|use_|wks_)[0-9A-HJKMNP-TV-Z]{26}$",
             "description": "An ID of any kind: `<kind>_[<zone>_]<ULID>`",
             "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
@@ -12025,7 +12135,7 @@
             ]
           },
           "monthlyTotal": {
-            "description": "What the next invoice will charge, after discounts and credit; the plan price with add-ons when `estimated` is true",
+            "description": "What the next renewal will charge before tax, after the discount that still applies; zero for a plan set to end. A plan change mid-period adds its proration to that bill, which this leaves out. The plan price with add-ons when `estimated` is true",
             "$ref": "#/components/schemas/Money"
           },
           "upcomingInvoice": {
@@ -12056,11 +12166,11 @@
                     "$ref": "#/components/schemas/Money"
                   },
                   "discount": {
-                    "description": "What coupons and promotion codes take off",
+                    "description": "What the subscription's discount takes off",
                     "$ref": "#/components/schemas/Money"
                   },
                   "credit": {
-                    "description": "What the team's credit balance covers",
+                    "description": "Credit applied to the renewal; zero, since SLA credits arrive as a discount",
                     "$ref": "#/components/schemas/Money"
                   },
                   "periodEnd": {
@@ -12087,11 +12197,11 @@
                 "type": "null"
               }
             ],
-            "description": "The next invoice from Stripe; null on the free plan or when estimated"
+            "description": "The next renewal from Polar, before tax and without add-ons, which Polar doesn't bill; null on the free plan, for a plan set to end, or when estimated"
           },
           "estimated": {
             "type": "boolean",
-            "description": "True when Stripe couldn't be read, so `monthlyTotal` is the plan price"
+            "description": "True when Polar couldn't be read, so `monthlyTotal` is the plan price"
           },
           "cancellation": {
             "anyOf": [
@@ -12119,6 +12229,40 @@
               }
             ],
             "description": "Set when the paid plan is cancelled at the end of its period"
+          },
+          "slaCredit": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "month": {
+                    "type": "string",
+                    "description": "The month the SLA was missed, as YYYY-MM"
+                  },
+                  "amount": {
+                    "description": "The credit off the next renewal",
+                    "$ref": "#/components/schemas/Money"
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "awaiting_approval",
+                      "applied"
+                    ],
+                    "description": "`applied` once the credit is on the subscription; `awaiting_approval` while staff review it"
+                  }
+                },
+                "required": [
+                  "month",
+                  "amount",
+                  "state"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The team's latest SLA credit, from the last two closed months"
           },
           "addons": {
             "type": "object",
@@ -12153,6 +12297,7 @@
           "upcomingInvoice",
           "estimated",
           "cancellation",
+          "slaCredit",
           "addons"
         ]
       },
@@ -12183,10 +12328,11 @@
                 "type": "null"
               }
             ],
-            "description": "The invoice total; null until Stripe sets it"
+            "description": "The invoice total; null until the billing provider sets it"
           },
           "stripeInvoiceId": {
-            "description": "The Stripe invoice this one mirrors; null when Stripe didn't send one",
+            "deprecated": true,
+            "description": "Always null; removed in the next major release",
             "anyOf": [
               {
                 "type": "string"
@@ -12197,7 +12343,8 @@
             ]
           },
           "hostedUrl": {
-            "description": "Stripe's page to view and pay the invoice; null until Stripe finalizes it",
+            "deprecated": true,
+            "description": "Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`",
             "anyOf": [
               {
                 "type": "string"
@@ -12208,7 +12355,8 @@
             ]
           },
           "pdfUrl": {
-            "description": "The invoice as a PDF; null until Stripe finalizes it",
+            "deprecated": true,
+            "description": "Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`",
             "anyOf": [
               {
                 "type": "string"
@@ -12241,6 +12389,34 @@
           "pdfUrl",
           "createdAt",
           "updatedAt"
+        ]
+      },
+      "InvoiceDocument": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "generating"
+            ],
+            "description": "`generating` while the invoice is built; ask again in a few seconds"
+          },
+          "url": {
+            "description": "The invoice to view or download; null while generating",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "url"
         ]
       },
       "InvoicePage": {
@@ -12784,6 +12960,17 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/InvoicePage"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "CreateInvoiceDocumentResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/InvoiceDocument"
           }
         },
         "required": [
