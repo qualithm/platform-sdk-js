@@ -32,6 +32,18 @@ export interface Account {
      */
     name: string;
     /**
+     * The current Terms of Service version. Ask the person to accept when it differs from `termsAcceptedVersion`.
+     */
+    termsVersion: string;
+    /**
+     * The terms version the person last accepted, or null
+     */
+    termsAcceptedVersion: string | null;
+    /**
+     * UTC time, RFC 3339
+     */
+    termsAcceptedAt: Date | null;
+    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -48,6 +60,9 @@ export function instanceOfAccount(value: object): value is Account {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('termsVersion' in value) || value['termsVersion'] === undefined) return false;
+    if (!('termsAcceptedVersion' in value) || value['termsAcceptedVersion'] === undefined) return false;
+    if (!('termsAcceptedAt' in value) || value['termsAcceptedAt'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -66,6 +81,9 @@ export function AccountFromJSONTyped(json: any, ignoreDiscriminator: boolean): A
         'id': json['id'],
         'email': json['email'],
         'name': json['name'],
+        'termsVersion': json['termsVersion'],
+        'termsAcceptedVersion': json['termsAcceptedVersion'],
+        'termsAcceptedAt': (json['termsAcceptedAt'] == null ? null : parseDateTime(json['termsAcceptedAt'])),
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -85,6 +103,9 @@ export function AccountToJSONTyped(value?: Account | null, ignoreDiscriminator: 
         'id': value['id'],
         'email': value['email'],
         'name': value['name'],
+        'termsVersion': value['termsVersion'],
+        'termsAcceptedVersion': value['termsAcceptedVersion'],
+        'termsAcceptedAt': value['termsAcceptedAt'] == null ? value['termsAcceptedAt'] : serializeDateTime(value['termsAcceptedAt']),
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };

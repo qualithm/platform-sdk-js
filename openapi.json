@@ -9334,6 +9334,60 @@
             "description": "UTC time, RFC 3339",
             "example": "2026-10-26T09:30:00.000Z"
           },
+          "lastFailure": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "device_already_claimed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Why the latest rejected claim of this code failed, when the team can act on it: `device_already_claimed` means a device presented the code after it was claimed. The claim response stays the generic `401`."
+          },
+          "lastFailureScope": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(?:scp_(?:defraa|sgsina|usnyca)_|scp_|spc_)[0-9A-HJKMNP-TV-Z]{26}$",
+                    "description": "A scope ID: `scp_<zone>_…`; also accepts the legacy `spc_…`",
+                    "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The scope the already-claimed device belongs to"
+          },
+          "lastFailureAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "When the latest failure happened"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -9356,6 +9410,9 @@
           "claimedDeviceId",
           "claimedAt",
           "expiresAt",
+          "lastFailure",
+          "lastFailureScope",
+          "lastFailureAt",
           "createdAt",
           "updatedAt"
         ]
@@ -10701,6 +10758,35 @@
           "name": {
             "type": "string"
           },
+          "termsVersion": {
+            "type": "string",
+            "description": "The current Terms of Service version. Ask the person to accept when it differs from `termsAcceptedVersion`."
+          },
+          "termsAcceptedVersion": {
+            "description": "The terms version the person last accepted, or null",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "termsAcceptedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "UTC time, RFC 3339",
+                "example": "2026-10-26T09:30:00.000Z"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "When they accepted it"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -10718,6 +10804,9 @@
           "id",
           "email",
           "name",
+          "termsVersion",
+          "termsAcceptedVersion",
+          "termsAcceptedAt",
           "createdAt",
           "updatedAt"
         ]
