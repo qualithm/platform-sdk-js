@@ -49,6 +49,11 @@ import {
     ListAutomationRunsResponseToJSON,
 } from '../models/ListAutomationRunsResponse.js';
 import {
+    type ListAutomationTemplatesResponse,
+    ListAutomationTemplatesResponseFromJSON,
+    ListAutomationTemplatesResponseToJSON,
+} from '../models/ListAutomationTemplatesResponse.js';
+import {
     type ListAutomationsResponse,
     ListAutomationsResponseFromJSON,
     ListAutomationsResponseToJSON,
@@ -186,6 +191,13 @@ export interface ListAutomationRunsRequest {
      * A previous page's `nextCursor`, to read the page after it
      */
     cursor?: string;
+}
+
+export interface ListAutomationTemplatesRequest {
+    /**
+     * The team the request acts on
+     */
+    teamId: string;
 }
 
 export interface ListAutomationsRequest {
@@ -673,6 +685,59 @@ export class AutomationsApi extends runtime.BaseAPI {
      */
     async listAutomationRuns(requestParameters: ListAutomationRunsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAutomationRunsResponse> {
         const response = await this.listAutomationRunsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAutomationTemplates without sending the request
+     */
+    async listAutomationTemplatesRequestOpts(requestParameters: ListAutomationTemplatesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['teamId'] == null) {
+            throw new runtime.RequiredError(
+                'teamId',
+                'Required parameter "teamId" was null or undefined when calling listAutomationTemplates().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("apiToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/teams/{teamId}/automation-templates`;
+        urlPath = urlPath.replace('{teamId}', encodeURIComponent(String(requestParameters['teamId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List every automation template and whether the team\'s devices can use it
+     */
+    async listAutomationTemplatesRaw(requestParameters: ListAutomationTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAutomationTemplatesResponse>> {
+        const requestOptions = await this.listAutomationTemplatesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListAutomationTemplatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List every automation template and whether the team\'s devices can use it
+     */
+    async listAutomationTemplates(requestParameters: ListAutomationTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAutomationTemplatesResponse> {
+        const response = await this.listAutomationTemplatesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

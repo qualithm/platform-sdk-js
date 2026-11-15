@@ -6182,6 +6182,90 @@
         }
       }
     },
+    "/v1/teams/{teamId}/automation-templates": {
+      "get": {
+        "operationId": "listAutomationTemplates",
+        "x-qualithm-audience": "management",
+        "summary": "List every automation template and whether the team's devices can use it",
+        "tags": [
+          "Automations"
+        ],
+        "security": [
+          {
+            "apiToken": []
+          }
+        ],
+        "x-qualithm-permission": "automation.read",
+        "x-qualithm-roles": [
+          "owner",
+          "manager",
+          "viewer"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "description": "The team the request acts on",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:tem_|tm_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "example": "tem_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List every automation template and whether the team's devices can use it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAutomationTemplatesResponse"
+                }
+              }
+            },
+            "headers": {
+              "Request-Id": {
+                "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit": {
+                "description": "IETF draft-7: `limit=<n>, remaining=<n>, reset=<seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "RateLimit-Policy": {
+                "description": "IETF draft-7: `<limit>;w=<window seconds>`",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/BackendUnavailable"
+          }
+        }
+      }
+    },
     "/v1/teams/{teamId}/invites": {
       "get": {
         "operationId": "listTeamInvites",
@@ -10201,6 +10285,78 @@
           "slots"
         ]
       },
+      "TeamAutomationTemplate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string",
+            "enum": [
+              "event",
+              "connectivity",
+              "schedule",
+              "webhook",
+              "manual"
+            ]
+          },
+          "slots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomationTemplateSlot"
+            }
+          },
+          "needs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "sensor",
+                "control",
+                "schedule",
+                "webhook"
+              ]
+            },
+            "description": "What the template requires: a reading to watch, a device to command, a schedule or a webhook"
+          },
+          "usable": {
+            "type": "boolean",
+            "description": "Whether at least one of the team's devices can use it"
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(?:dvc_(?:defraa|sgsina|usnyca)_|dvc_|dev_)[0-9A-HJKMNP-TV-Z]{26}$",
+              "description": "A device ID: `dvc_<zone>_…`; also accepts the legacy `dev_…`",
+              "example": "dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
+            },
+            "description": "The ids of the team's devices that can use it"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "name",
+          "description",
+          "trigger",
+          "slots",
+          "needs",
+          "usable",
+          "devices"
+        ]
+      },
       "AutomationTriggerSecret": {
         "type": "object",
         "properties": {
@@ -12707,6 +12863,20 @@
           "data"
         ]
       },
+      "ListAutomationTemplatesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamAutomationTemplate"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "ListTeamInvitesResponse": {
         "type": "object",
         "properties": {
@@ -13141,6 +13311,10 @@
           },
           "params": {
             "description": "The template's slot values, keyed by slot name; used with `template`"
+          },
+          "enabled": {
+            "description": "Whether its trigger fires; absent creates it turned on",
+            "type": "boolean"
           }
         },
         "required": [

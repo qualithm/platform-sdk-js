@@ -47,6 +47,10 @@ export interface CreateAutomationRequest {
      * The template's slot values, keyed by slot name; used with `template`
      */
     params?: any | null;
+    /**
+     * Whether its trigger fires; absent creates it turned on
+     */
+    enabled?: boolean;
 }
 
 /**
@@ -72,6 +76,7 @@ export function CreateAutomationRequestFromJSONTyped(json: any, ignoreDiscrimina
         'payload': json['payload'] == null ? undefined : CreateAutomationRequestPayloadFromJSON(json['payload']),
         'template': json['template'] == null ? undefined : json['template'],
         'params': json['params'] === undefined ? undefined : json['params'] === null ? null : json['params'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
     };
 }
 
@@ -91,6 +96,7 @@ export function CreateAutomationRequestToJSONTyped(value?: CreateAutomationReque
         'payload': CreateAutomationRequestPayloadToJSON(value['payload']),
         'template': value['template'],
         'params': value['params'],
+        'enabled': value['enabled'],
     };
 }
 
