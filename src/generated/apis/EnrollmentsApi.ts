@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Qualithm Platform API
- * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | billing adjustment | `adj` | No |  | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | SLA credit | `slc` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
+ * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | billing adjustment | `adj` | No |  | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | claim code | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | SLA credit | `slc` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | team preference | `wks` | No |  |
  *
  * The version of the OpenAPI document: 1
  * 
@@ -55,7 +55,7 @@ export interface DeleteEnrollmentRequest {
      */
     teamId: string;
     /**
-     * An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`
+     * A claim code ID: `enr_<zone>_…`; also accepts the legacy `enr_…`
      */
     enrollmentId: string;
 }
@@ -134,7 +134,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a claim code for a device to enroll into a scope
+     * Create a claim code that lets a device add itself to a scope
      */
     async createEnrollmentRaw(requestParameters: CreateEnrollmentOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateEnrollmentResponse>> {
         const requestOptions = await this.createEnrollmentRequestOpts(requestParameters);
@@ -144,7 +144,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a claim code for a device to enroll into a scope
+     * Create a claim code that lets a device add itself to a scope
      */
     async createEnrollment(requestParameters: CreateEnrollmentOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateEnrollmentResponse> {
         const response = await this.createEnrollmentRaw(requestParameters, initOverrides);
@@ -195,7 +195,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke a pending enrollment
+     * Revoke a pending claim code
      */
     async deleteEnrollmentRaw(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteEnrollmentRequestOpts(requestParameters);
@@ -205,7 +205,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Revoke a pending enrollment
+     * Revoke a pending claim code
      */
     async deleteEnrollment(requestParameters: DeleteEnrollmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteEnrollmentRaw(requestParameters, initOverrides);
@@ -260,7 +260,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
 
     /**
      * Newest first, by `createdAt` then `id`.
-     * List the workspace\'s enrollments
+     * List the team\'s claim codes
      */
     async listEnrollmentsRaw(requestParameters: ListEnrollmentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListEnrollmentsResponse>> {
         const requestOptions = await this.listEnrollmentsRequestOpts(requestParameters);
@@ -271,7 +271,7 @@ export class EnrollmentsApi extends runtime.BaseAPI {
 
     /**
      * Newest first, by `createdAt` then `id`.
-     * List the workspace\'s enrollments
+     * List the team\'s claim codes
      */
     async listEnrollments(requestParameters: ListEnrollmentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListEnrollmentsResponse> {
         const response = await this.listEnrollmentsRaw(requestParameters, initOverrides);

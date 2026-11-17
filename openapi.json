@@ -3,7 +3,7 @@
   "info": {
     "title": "Qualithm Platform API",
     "version": "1",
-    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| billing adjustment | `adj` | No |  |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| enrollment | `enr` | Yes |  |\n| invite | `ivt` | No |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| SLA credit | `slc` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| workspace | `wks` | No |  |"
+    "description": "Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.\n\nA request body with a field the endpoint doesn't define is refused with 400 `bad_request`, naming the field.\n\n## IDs\n\nEvery ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone's name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.\n\n| Kind | Code | Zoned | Old prefix |\n| ---- | ---- | ----- | ---------- |\n| account | `acc` | No |  |\n| API token | `tok` | No |  |\n| audit event | `aud` | No | `evt_` |\n| billing adjustment | `adj` | No |  |\n| device authority | `dca` | No | `auth_` |\n| automation | `aut` | Yes |  |\n| campaign | `cmp` | No | `cmpn_` |\n| capability | `cap` | Yes |  |\n| command | `cmd` | Yes |  |\n| credential | `crd` | Yes | `cred_` |\n| dashboard | `dsh` | Yes | `dash_` |\n| device | `dvc` | Yes | `dev_` |\n| email dispatch | `eml` | No |  |\n| claim code | `enr` | Yes |  |\n| invite | `ivt` | No |  |\n| invoice | `inv` | No |  |\n| legal document | `lgl` | No | `doc_` |\n| member | `mbr` | No | `mem_` |\n| OAuth authorization code | `oac` | No |  |\n| OAuth grant | `ogr` | No |  |\n| OAuth token | `oat` | No | `otk_` |\n| one-time code | `otc` | No | `otp_` |\n| team plan | `pln` | No | `plan_` |\n| push dispatch | `psh` | No |  |\n| push subscription | `psb` | No | `sub_` |\n| automation run | `run` | Yes |  |\n| scope | `scp` | Yes | `spc_` |\n| session | `ses` | No |  |\n| SLA credit | `slc` | No |  |\n| stats digest | `dig` | No | `dgst_` |\n| Polar event | `pev` | No |  |\n| team | `tem` | No | `tm_` |\n| team event | `tev` | No |  |\n| uptime record | `upt` | No |  |\n| usage rollup | `usg` | No | `use_` |\n| team preference | `wks` | No |  |"
   },
   "paths": {
     "/v1/teams/{teamId}/api-tokens/{tokenId}": {
@@ -1266,7 +1266,7 @@
       "delete": {
         "operationId": "deleteEnrollment",
         "x-qualithm-audience": "management",
-        "summary": "Revoke a pending enrollment",
+        "summary": "Revoke a pending claim code",
         "tags": [
           "Enrollments"
         ],
@@ -1296,7 +1296,7 @@
             "name": "enrollmentId",
             "in": "path",
             "required": true,
-            "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
+            "description": "A claim code ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
             "schema": {
               "type": "string",
               "pattern": "^(?:enr_(?:defraa|sgsina|usnyca)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
@@ -1306,7 +1306,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Revoke a pending enrollment",
+            "description": "Revoke a pending claim code",
             "headers": {
               "Request-Id": {
                 "description": "This request's id, also in error bodies as `requestId`; quote it when asking for help",
@@ -2521,7 +2521,7 @@
       "get": {
         "operationId": "listAuditEvents",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's audit trail, newest first",
+        "summary": "List the team's activity, newest first",
         "description": "Newest first, by `occurredAt` then `id`.",
         "tags": [
           "Audit"
@@ -2582,7 +2582,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's audit trail, newest first",
+            "description": "List the team's activity, newest first",
             "content": {
               "application/json": {
                 "schema": {
@@ -2639,7 +2639,7 @@
       "get": {
         "operationId": "listAuthorities",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's certificate authorities",
+        "summary": "List the team's certificate authorities",
         "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Authorities"
@@ -2700,7 +2700,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's certificate authorities",
+            "description": "List the team's certificate authorities",
             "content": {
               "application/json": {
                 "schema": {
@@ -3205,7 +3205,7 @@
       "get": {
         "operationId": "listAutomations",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's automations",
+        "summary": "List the team's automations",
         "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Automations"
@@ -3267,7 +3267,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's automations",
+            "description": "List the team's automations",
             "content": {
               "application/json": {
                 "schema": {
@@ -3435,7 +3435,7 @@
       "get": {
         "operationId": "getBillingSummary",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's plan, usage, next bill and add-ons",
+        "summary": "Get the team's plan, usage, next bill and add-ons",
         "tags": [
           "Billing"
         ],
@@ -3463,7 +3463,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the workspace's plan, usage, next bill and add-ons",
+            "description": "Get the team's plan, usage, next bill and add-ons",
             "content": {
               "application/json": {
                 "schema": {
@@ -3580,7 +3580,7 @@
       "get": {
         "operationId": "listCapabilities",
         "x-qualithm-audience": "management",
-        "summary": "List the capabilities of the workspace's devices",
+        "summary": "List the capabilities of the team's devices",
         "description": "By `key`, then `id`, ascending.",
         "tags": [
           "Capabilities"
@@ -3687,7 +3687,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the capabilities of the workspace's devices",
+            "description": "List the capabilities of the team's devices",
             "content": {
               "application/json": {
                 "schema": {
@@ -3995,7 +3995,7 @@
       "get": {
         "operationId": "listDashboards",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's dashboards",
+        "summary": "List the team's dashboards",
         "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Dashboards"
@@ -4057,7 +4057,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's dashboards",
+            "description": "List the team's dashboards",
             "content": {
               "application/json": {
                 "schema": {
@@ -4976,7 +4976,7 @@
       "get": {
         "operationId": "listEnrollments",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's enrollments",
+        "summary": "List the team's claim codes",
         "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Enrollments"
@@ -5037,7 +5037,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's enrollments",
+            "description": "List the team's claim codes",
             "content": {
               "application/json": {
                 "schema": {
@@ -5092,7 +5092,7 @@
       "post": {
         "operationId": "createEnrollment",
         "x-qualithm-audience": "management",
-        "summary": "Create a claim code for a device to enroll into a scope",
+        "summary": "Create a claim code that lets a device add itself to a scope",
         "tags": [
           "Enrollments"
         ],
@@ -5142,7 +5142,7 @@
         },
         "responses": {
           "201": {
-            "description": "Create a claim code for a device to enroll into a scope",
+            "description": "Create a claim code that lets a device add itself to a scope",
             "content": {
               "application/json": {
                 "schema": {
@@ -5283,7 +5283,7 @@
         "operationId": "getHealthz",
         "x-qualithm-audience": "infra",
         "summary": "Check that the platform can serve",
-        "description": "Probes the datastore, the telemetry store and the event bus. Answers with a bare `HealthStatus`, not the envelope: 200 with `status: ok`, or 503 with `status: down` and the first failing `subsystem`.",
+        "description": "Probes the datastore, the readings store and the event bus. Answers with a bare `HealthStatus`, not the envelope: 200 with `status: ok`, or 503 with `status: down` and the first failing `subsystem`.",
         "tags": [
           "Health"
         ],
@@ -5343,7 +5343,7 @@
       "get": {
         "operationId": "listInvoices",
         "x-qualithm-audience": "management",
-        "summary": "List the workspace's invoices",
+        "summary": "List the team's invoices",
         "description": "Newest first, by `createdAt` then `id`.",
         "tags": [
           "Billing"
@@ -5403,7 +5403,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List the workspace's invoices",
+            "description": "List the team's invoices",
             "content": {
               "application/json": {
                 "schema": {
@@ -6931,7 +6931,7 @@
         "operationId": "createTeam",
         "x-qualithm-audience": "management",
         "summary": "Create a team with the caller as owner",
-        "description": "The platform names the team; rename it with `updateTeam`. The caller's workspace switches to the new team.",
+        "description": "The platform names the team; rename it with `updateTeam`. The caller switches to the new team.",
         "tags": [
           "Teams"
         ],
@@ -7194,7 +7194,7 @@
       "get": {
         "operationId": "getUsage",
         "x-qualithm-audience": "management",
-        "summary": "Get the workspace's device and space counts and its plan quota",
+        "summary": "Get the team's device and scope counts and its plan quota",
         "tags": [
           "Usage"
         ],
@@ -7224,7 +7224,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the workspace's device and space counts and its plan quota",
+            "description": "Get the team's device and scope counts and its plan quota",
             "content": {
               "application/json": {
                 "schema": {
@@ -9683,7 +9683,7 @@
           "id": {
             "type": "string",
             "pattern": "^(?:enr_(?:defraa|sgsina|usnyca)_|enr_)[0-9A-HJKMNP-TV-Z]{26}$",
-            "description": "An enrollment ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
+            "description": "A claim code ID: `enr_<zone>_…`; also accepts the legacy `enr_…`",
             "example": "enr_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "teamId": {
