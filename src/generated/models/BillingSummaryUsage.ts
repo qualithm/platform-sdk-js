@@ -30,14 +30,6 @@ export interface BillingSummaryUsage {
     /**
      * 
      */
-    devices: BillingUsageDimension;
-    /**
-     * 
-     */
-    registered: BillingUsageDimension;
-    /**
-     * 
-     */
     events: BillingUsageDimension;
     /**
      * 
@@ -49,8 +41,6 @@ export interface BillingSummaryUsage {
  * Check if a given object implements the BillingSummaryUsage interface.
  */
 export function instanceOfBillingSummaryUsage(value: object): value is BillingSummaryUsage {
-    if (!('devices' in value) || value['devices'] === undefined) return false;
-    if (!('registered' in value) || value['registered'] === undefined) return false;
     if (!('events' in value) || value['events'] === undefined) return false;
     if (!('automations' in value) || value['automations'] === undefined) return false;
     return true;
@@ -66,8 +56,6 @@ export function BillingSummaryUsageFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'devices': BillingUsageDimensionFromJSON(json['devices']),
-        'registered': BillingUsageDimensionFromJSON(json['registered']),
         'events': BillingUsageDimensionFromJSON(json['events']),
         'automations': BillingUsageDimensionFromJSON(json['automations']),
     };
@@ -84,8 +72,6 @@ export function BillingSummaryUsageToJSONTyped(value?: BillingSummaryUsage | nul
 
     return {
         
-        'devices': BillingUsageDimensionToJSON(value['devices']),
-        'registered': BillingUsageDimensionToJSON(value['registered']),
         'events': BillingUsageDimensionToJSON(value['events']),
         'automations': BillingUsageDimensionToJSON(value['automations']),
     };

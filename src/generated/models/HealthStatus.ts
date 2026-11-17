@@ -22,7 +22,7 @@ import {
 } from './HealthSubsystem.js';
 
 /**
- * 
+ * The composite health verdict. Sent with 200 when `ok` and 503 when `down`.
  * @export
  * @interface HealthStatus
  */

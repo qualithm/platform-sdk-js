@@ -20,19 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface BillingSummaryLimits {
     /**
-     * 
-     */
-    devices: number;
-    /**
-     * The ceiling on active plus parked devices
-     */
-    registeredDevices: number;
-    /**
-     * 
+     * Events a month before new events throttle
      */
     events: number;
     /**
-     * 
+     * Automation runs a month before runs are limited
      */
     automations: number;
 }
@@ -41,8 +33,6 @@ export interface BillingSummaryLimits {
  * Check if a given object implements the BillingSummaryLimits interface.
  */
 export function instanceOfBillingSummaryLimits(value: object): value is BillingSummaryLimits {
-    if (!('devices' in value) || value['devices'] === undefined) return false;
-    if (!('registeredDevices' in value) || value['registeredDevices'] === undefined) return false;
     if (!('events' in value) || value['events'] === undefined) return false;
     if (!('automations' in value) || value['automations'] === undefined) return false;
     return true;
@@ -58,8 +48,6 @@ export function BillingSummaryLimitsFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'devices': json['devices'],
-        'registeredDevices': json['registeredDevices'],
         'events': json['events'],
         'automations': json['automations'],
     };
@@ -76,8 +64,6 @@ export function BillingSummaryLimitsToJSONTyped(value?: BillingSummaryLimits | n
 
     return {
         
-        'devices': value['devices'],
-        'registeredDevices': value['registeredDevices'],
         'events': value['events'],
         'automations': value['automations'],
     };

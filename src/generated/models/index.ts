@@ -35,7 +35,6 @@ export * from './AutomationTestTriggerState.js';
 export * from './AutomationTrigger.js';
 export * from './AutomationTriggerSecret.js';
 export * from './BillingSummary.js';
-export * from './BillingSummaryAddons.js';
 export * from './BillingSummaryCancellation.js';
 export * from './BillingSummaryLimitGrace.js';
 export * from './BillingSummaryLimits.js';

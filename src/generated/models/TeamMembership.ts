@@ -22,7 +22,7 @@ import {
 } from './MemberRole.js';
 
 /**
- * 
+ * A membership row, without the account and team context
  * @export
  * @interface TeamMembership
  */

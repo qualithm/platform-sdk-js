@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * A chain step that does something.
  * @export
  * @interface AutomationActionStep
  */

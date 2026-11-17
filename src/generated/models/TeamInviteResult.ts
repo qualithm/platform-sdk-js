@@ -22,7 +22,7 @@ import {
 } from './TeamInvite.js';
 
 /**
- * 
+ * What inviting one address did
  * @export
  * @interface TeamInviteResult
  */

@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * Where a device connects: a zone's MQTT gateway.
  * @export
  * @interface GatewayEndpoint
  */

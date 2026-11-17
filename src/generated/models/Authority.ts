@@ -14,7 +14,7 @@
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
- * 
+ * A certificate authority device certificates chain to: platform-managed or brought by the team.
  * @export
  * @interface Authority
  */

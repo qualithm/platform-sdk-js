@@ -14,7 +14,7 @@
 
 
 /**
- * 
+ * A member's role in a team.
  * @export
  */
 export const MemberRole = {

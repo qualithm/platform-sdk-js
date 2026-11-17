@@ -22,7 +22,7 @@ import {
 } from './ZoneId.js';
 
 /**
- * 
+ * A group of devices in one zone. Scopes nest; each device belongs to exactly one.
  * @export
  * @interface Scope
  */

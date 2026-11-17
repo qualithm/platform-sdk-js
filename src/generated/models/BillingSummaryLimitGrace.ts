@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * Set while a post-downgrade over-limit grace period runs
+ * Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted
  * @export
  * @interface BillingSummaryLimitGrace
  */

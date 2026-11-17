@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * One comparison the test made against the reading.
  * @export
  * @interface AutomationTestComparison
  */

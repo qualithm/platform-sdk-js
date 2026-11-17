@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * The template and slot values a template-built automation was expanded from.
  * @export
  * @interface AutomationTemplateReference
  */

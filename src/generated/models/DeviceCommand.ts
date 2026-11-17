@@ -14,7 +14,7 @@
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
- * 
+ * One command delivery to a device.
  * @export
  * @interface DeviceCommand
  */
