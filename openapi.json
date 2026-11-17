@@ -12017,14 +12017,20 @@
             "format": "int64"
           },
           "buffer": {
-            "description": "Headroom past `limit` before events are refused. Events only.",
+            "deprecated": true,
+            "description": "Never set: usage past `limit` throttles with no buffer. Removed in the next major release",
             "type": "integer",
             "format": "int64"
+          },
+          "throttled": {
+            "type": "boolean",
+            "description": "True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`. Always false for devices"
           }
         },
         "required": [
           "used",
-          "limit"
+          "limit",
+          "throttled"
         ]
       },
       "Money": {
