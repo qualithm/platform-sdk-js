@@ -14,7 +14,7 @@
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
- * 
+ * One immutable audit-trail record.
  * @export
  * @interface AuditEvent
  */

@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * Which marketing emails the account receives. A preference never set reads as `true`.
  * @export
  * @interface CommunicationPreferences
  */

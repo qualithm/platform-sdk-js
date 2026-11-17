@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * What starts the automation's chain.
  * @export
  * @interface AutomationTrigger
  */

@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * Something a device declares it can do or report.
  * @export
  * @interface Capability
  */

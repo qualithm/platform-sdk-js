@@ -22,7 +22,7 @@ import {
 } from './Zone.js';
 
 /**
- * 
+ * The environment's public endpoints.
  * @export
  * @interface ZoneList
  */

@@ -22,7 +22,7 @@ import {
 } from './Money.js';
 
 /**
- * 
+ * What a tier change would cost, before it is confirmed.
  * @export
  * @interface TierChangePreview
  */
