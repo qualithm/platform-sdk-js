@@ -3435,7 +3435,7 @@
       "get": {
         "operationId": "getBillingSummary",
         "x-qualithm-audience": "management",
-        "summary": "Get the team's plan, usage, next bill and add-ons",
+        "summary": "Get the team's plan, usage and next bill",
         "tags": [
           "Billing"
         ],
@@ -3463,7 +3463,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the team's plan, usage, next bill and add-ons",
+            "description": "Get the team's plan, usage and next bill",
             "content": {
               "application/json": {
                 "schema": {
@@ -8587,7 +8587,8 @@
           "invite_email_mismatch",
           "email_disposable",
           "team_write_limited"
-        ]
+        ],
+        "description": "A stable machine code. Branch on it, never on `message`; decode an unknown value to a fallback."
       },
       "ApiError": {
         "type": "object",
@@ -8627,7 +8628,8 @@
           "message",
           "code",
           "requestId"
-        ]
+        ],
+        "description": "The body of every error response."
       },
       "MemberRole": {
         "type": "string",
@@ -8635,7 +8637,8 @@
           "owner",
           "manager",
           "viewer"
-        ]
+        ],
+        "description": "A member's role in a team."
       },
       "Team": {
         "type": "object",
@@ -8911,7 +8914,8 @@
           "status",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A membership row, without the account and team context"
       },
       "TeamInvite": {
         "type": "object",
@@ -8992,7 +8996,8 @@
           "expiresAt",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A pending invite to a team, addressed to an email"
       },
       "TeamInvitePage": {
         "type": "object",
@@ -9063,7 +9068,8 @@
           "email",
           "result",
           "invite"
-        ]
+        ],
+        "description": "What inviting one address did"
       },
       "TeamInviteResults": {
         "type": "object",
@@ -9077,7 +9083,8 @@
         },
         "required": [
           "items"
-        ]
+        ],
+        "description": "One result per address, in the order given"
       },
       "InviteLink": {
         "type": "object",
@@ -9093,7 +9100,8 @@
         "required": [
           "invite",
           "forCaller"
-        ]
+        ],
+        "description": "The invite a link names, and whether the caller may accept it"
       },
       "ApiToken": {
         "type": "object",
@@ -9229,7 +9237,8 @@
           "lastUsedAt",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "An API token's metadata. The secret is never listed."
       },
       "ApiTokenPage": {
         "type": "object",
@@ -9275,7 +9284,8 @@
           "de-fra-a",
           "sg-sin-a",
           "us-nyc-a"
-        ]
+        ],
+        "description": "A device zone: where a scope's devices connect and their data lives."
       },
       "GatewayEndpoint": {
         "type": "object",
@@ -9291,7 +9301,8 @@
         "required": [
           "host",
           "port"
-        ]
+        ],
+        "description": "Where a device connects: a zone's MQTT gateway."
       },
       "Zone": {
         "type": "object",
@@ -9340,7 +9351,8 @@
         "required": [
           "api",
           "zones"
-        ]
+        ],
+        "description": "The environment's public endpoints."
       },
       "Credential": {
         "type": "object",
@@ -9476,7 +9488,8 @@
           "rotatedFrom",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A device's credential. The secret or key material is never returned after it is issued."
       },
       "CredentialPage": {
         "type": "object",
@@ -9637,7 +9650,8 @@
           "status",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A certificate authority device certificates chain to: platform-managed or brought by the team."
       },
       "AuthorityPage": {
         "type": "object",
@@ -9822,7 +9836,8 @@
           "lastFailureAt",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A one-time claim code a device exchanges for its first credential."
       },
       "EnrollmentPage": {
         "type": "object",
@@ -9908,7 +9923,8 @@
           "value",
           "source",
           "docsUrl"
-        ]
+        ],
+        "description": "One choice Qualithm made on the builder's behalf."
       },
       "AutomationTrigger": {
         "type": "object",
@@ -9934,7 +9950,8 @@
         "required": [
           "type",
           "config"
-        ]
+        ],
+        "description": "What starts the automation's chain."
       },
       "AutomationConditionStep": {
         "type": "object",
@@ -9955,7 +9972,8 @@
         "required": [
           "kind",
           "config"
-        ]
+        ],
+        "description": "A chain step that halts the run when its condition does not hold."
       },
       "AutomationActionStep": {
         "type": "object",
@@ -9985,7 +10003,8 @@
           "kind",
           "type",
           "config"
-        ]
+        ],
+        "description": "A chain step that does something."
       },
       "AutomationTemplateReference": {
         "type": "object",
@@ -10009,7 +10028,8 @@
           "id",
           "version",
           "params"
-        ]
+        ],
+        "description": "The template and slot values a template-built automation was expanded from."
       },
       "AutomationPayload": {
         "type": "object",
@@ -10038,7 +10058,8 @@
         "required": [
           "trigger",
           "chain"
-        ]
+        ],
+        "description": "An automation's trigger and chain."
       },
       "Automation": {
         "type": "object",
@@ -10509,7 +10530,8 @@
               "offline"
             ]
           }
-        }
+        },
+        "description": "A reading to test against in place of the device's latest."
       },
       "AutomationTestComparison": {
         "type": "object",
@@ -10566,7 +10588,8 @@
           "expected",
           "actual",
           "passed"
-        ]
+        ],
+        "description": "One comparison the test made against the reading."
       },
       "AutomationTestAction": {
         "type": "object",
@@ -10599,7 +10622,8 @@
           "index",
           "type",
           "config"
-        ]
+        ],
+        "description": "An action the automation would take; the test takes none. A signing secret is never shown."
       },
       "AutomationTest": {
         "type": "object",
@@ -10825,7 +10849,8 @@
           "steps",
           "actions",
           "decisions"
-        ]
+        ],
+        "description": "What an automation would do with a reading. Nothing is run, recorded or counted."
       },
       "DashboardWidget": {
         "type": "object",
@@ -11331,7 +11356,8 @@
           "zone",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "A group of devices in one zone. Scopes nest; each device belongs to exactly one."
       },
       "ScopePage": {
         "type": "object",
@@ -11444,7 +11470,8 @@
           "lastError",
           "enqueuedAt",
           "settledAt"
-        ]
+        ],
+        "description": "One command delivery to a device."
       },
       "DeviceCommandPage": {
         "type": "object",
@@ -11563,7 +11590,8 @@
           "config",
           "name",
           "tags"
-        ]
+        ],
+        "description": "Something a device declares it can do or report."
       },
       "Account": {
         "type": "object",
@@ -11654,7 +11682,8 @@
           "educationResources",
           "events",
           "productNewsPromotions"
-        ]
+        ],
+        "description": "Which marketing emails the account receives. A preference never set reads as `true`."
       },
       "Session": {
         "type": "object",
@@ -11816,7 +11845,8 @@
           "role",
           "createdAt",
           "updatedAt"
-        ]
+        ],
+        "description": "One team the caller is an active member of, and their role in it."
       },
       "RoleAssignmentPage": {
         "type": "object",
@@ -11965,7 +11995,8 @@
           "targetId",
           "metadata",
           "occurredAt"
-        ]
+        ],
+        "description": "One immutable audit-trail record."
       },
       "AuditEventPage": {
         "type": "object",
@@ -12016,22 +12047,17 @@
             "type": "integer",
             "format": "int64"
           },
-          "buffer": {
-            "deprecated": true,
-            "description": "Never set: usage past `limit` throttles with no buffer. Removed in the next major release",
-            "type": "integer",
-            "format": "int64"
-          },
           "throttled": {
             "type": "boolean",
-            "description": "True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`. Always false for devices"
+            "description": "True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`"
           }
         },
         "required": [
           "used",
           "limit",
           "throttled"
-        ]
+        ],
+        "description": "One metered dimension's usage this month against its limit."
       },
       "Money": {
         "type": "object",
@@ -12051,7 +12077,8 @@
         "required": [
           "amount",
           "currency"
-        ]
+        ],
+        "description": "An amount of money in a currency's minor units."
       },
       "BillingSummary": {
         "type": "object",
@@ -12087,32 +12114,23 @@
                 "type": "null"
               }
             ],
-            "description": "Set while a post-downgrade over-limit grace period runs"
+            "description": "Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted"
           },
           "limits": {
             "type": "object",
             "properties": {
-              "devices": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "registeredDevices": {
-                "type": "integer",
-                "description": "The ceiling on active plus parked devices",
-                "format": "int64"
-              },
               "events": {
                 "type": "integer",
+                "description": "Events a month before new events throttle",
                 "format": "int64"
               },
               "automations": {
                 "type": "integer",
+                "description": "Automation runs a month before runs are limited",
                 "format": "int64"
               }
             },
             "required": [
-              "devices",
-              "registeredDevices",
               "events",
               "automations"
             ]
@@ -12120,12 +12138,6 @@
           "usage": {
             "type": "object",
             "properties": {
-              "devices": {
-                "$ref": "#/components/schemas/BillingUsageDimension"
-              },
-              "registered": {
-                "$ref": "#/components/schemas/BillingUsageDimension"
-              },
               "events": {
                 "$ref": "#/components/schemas/BillingUsageDimension"
               },
@@ -12134,14 +12146,12 @@
               }
             },
             "required": [
-              "devices",
-              "registered",
               "events",
               "automations"
             ]
           },
           "monthlyTotal": {
-            "description": "What the next renewal will charge before tax, after the discount that still applies; zero for a plan set to end. A plan change mid-period adds its proration to that bill, which this leaves out. The plan price with add-ons when `estimated` is true",
+            "description": "What the next renewal will charge before tax, after the discount that still applies; zero for a plan set to end. A plan change mid-period adds its proration to that bill, which this leaves out. The plan price when `estimated` is true",
             "$ref": "#/components/schemas/Money"
           },
           "upcomingInvoice": {
@@ -12203,7 +12213,7 @@
                 "type": "null"
               }
             ],
-            "description": "The next renewal from Polar, before tax and without add-ons, which Polar doesn't bill; null on the free plan, for a plan set to end, or when estimated"
+            "description": "The next renewal from Polar, before tax; null on the free plan, for a plan set to end, or when estimated"
           },
           "estimated": {
             "type": "boolean",
@@ -12269,28 +12279,6 @@
               }
             ],
             "description": "The team's latest SLA credit, from the last two closed months"
-          },
-          "addons": {
-            "type": "object",
-            "properties": {
-              "devices": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "events": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "automations": {
-                "type": "integer",
-                "format": "int64"
-              }
-            },
-            "required": [
-              "devices",
-              "events",
-              "automations"
-            ]
           }
         },
         "required": [
@@ -12303,9 +12291,9 @@
           "upcomingInvoice",
           "estimated",
           "cancellation",
-          "slaCredit",
-          "addons"
-        ]
+          "slaCredit"
+        ],
+        "description": "The team's plan, its usage this month and its price."
       },
       "Invoice": {
         "type": "object",
@@ -12336,42 +12324,6 @@
             ],
             "description": "The invoice total; null until the billing provider sets it"
           },
-          "stripeInvoiceId": {
-            "deprecated": true,
-            "description": "Always null; removed in the next major release",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "hostedUrl": {
-            "deprecated": true,
-            "description": "Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "pdfUrl": {
-            "deprecated": true,
-            "description": "Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -12390,9 +12342,6 @@
           "teamId",
           "status",
           "total",
-          "stripeInvoiceId",
-          "hostedUrl",
-          "pdfUrl",
           "createdAt",
           "updatedAt"
         ]
@@ -12423,7 +12372,8 @@
         "required": [
           "status",
           "url"
-        ]
+        ],
+        "description": "The link to an invoice's document."
       },
       "InvoicePage": {
         "type": "object",
@@ -12504,18 +12454,14 @@
           "to",
           "amountDue",
           "nextPaymentAttempt"
-        ]
+        ],
+        "description": "What a tier change would cost, before it is confirmed."
       },
       "Usage": {
         "type": "object",
         "properties": {
           "deviceTotal": {
             "type": "integer",
-            "format": "int64"
-          },
-          "deviceMax": {
-            "type": "integer",
-            "description": "The tier's device limit",
             "format": "int64"
           },
           "scopeTotal": {
@@ -12553,32 +12499,23 @@
                 "type": "null"
               }
             ],
-            "description": "Set while a post-downgrade over-limit grace period runs"
+            "description": "Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted"
           },
           "limits": {
             "type": "object",
             "properties": {
-              "devices": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "registeredDevices": {
-                "type": "integer",
-                "description": "The ceiling on active plus parked devices",
-                "format": "int64"
-              },
               "events": {
                 "type": "integer",
+                "description": "Events a month before new events throttle",
                 "format": "int64"
               },
               "automations": {
                 "type": "integer",
+                "description": "Automation runs a month before runs are limited",
                 "format": "int64"
               }
             },
             "required": [
-              "devices",
-              "registeredDevices",
               "events",
               "automations"
             ]
@@ -12586,12 +12523,6 @@
           "usage": {
             "type": "object",
             "properties": {
-              "devices": {
-                "$ref": "#/components/schemas/BillingUsageDimension"
-              },
-              "registered": {
-                "$ref": "#/components/schemas/BillingUsageDimension"
-              },
               "events": {
                 "$ref": "#/components/schemas/BillingUsageDimension"
               },
@@ -12600,8 +12531,6 @@
               }
             },
             "required": [
-              "devices",
-              "registered",
               "events",
               "automations"
             ]
@@ -12638,7 +12567,6 @@
         },
         "required": [
           "deviceTotal",
-          "deviceMax",
           "scopeTotal",
           "tier",
           "month",
@@ -12646,7 +12574,8 @@
           "limits",
           "usage",
           "paymentFailed"
-        ]
+        ],
+        "description": "The team's device and scope counts, and its plan limits and usage this month."
       },
       "HealthSubsystem": {
         "type": "string",
@@ -12654,7 +12583,8 @@
           "datastore",
           "telemetry-store",
           "event-bus"
-        ]
+        ],
+        "description": "A backend the platform needs to serve."
       },
       "HealthStatus": {
         "type": "object",
@@ -12673,7 +12603,8 @@
         },
         "required": [
           "status"
-        ]
+        ],
+        "description": "The composite health verdict. Sent with 200 when `ok` and 503 when `down`."
       },
       "TelemetryPoint": {
         "type": "object",
@@ -13338,7 +13269,7 @@
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parked": {
-            "description": "A parked device can't connect and doesn't count against the plan; its credentials and history stay",
+            "description": "A parked device can't connect or write; its credentials and history stay, so unparking it brings it back",
             "type": "boolean"
           },
           "tags": {

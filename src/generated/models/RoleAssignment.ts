@@ -22,7 +22,7 @@ import {
 } from './MemberRole.js';
 
 /**
- * 
+ * One team the caller is an active member of, and their role in it.
  * @export
  * @interface RoleAssignment
  */

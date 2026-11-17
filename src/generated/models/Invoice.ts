@@ -44,18 +44,6 @@ export interface Invoice {
      */
     total: Money | null;
     /**
-     * Always null; removed in the next major release
-     */
-    stripeInvoiceId: string | null;
-    /**
-     * Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`
-     */
-    hostedUrl: string | null;
-    /**
-     * Always null; removed in the next major release. Open an invoice with `createInvoiceDocument`
-     */
-    pdfUrl: string | null;
-    /**
      * UTC time, RFC 3339
      */
     createdAt: Date;
@@ -73,9 +61,6 @@ export function instanceOfInvoice(value: object): value is Invoice {
     if (!('teamId' in value) || value['teamId'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
-    if (!('stripeInvoiceId' in value) || value['stripeInvoiceId'] === undefined) return false;
-    if (!('hostedUrl' in value) || value['hostedUrl'] === undefined) return false;
-    if (!('pdfUrl' in value) || value['pdfUrl'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('updatedAt' in value) || value['updatedAt'] === undefined) return false;
     return true;
@@ -95,9 +80,6 @@ export function InvoiceFromJSONTyped(json: any, ignoreDiscriminator: boolean): I
         'teamId': json['teamId'],
         'status': json['status'],
         'total': MoneyFromJSON(json['total']),
-        'stripeInvoiceId': json['stripeInvoiceId'],
-        'hostedUrl': json['hostedUrl'],
-        'pdfUrl': json['pdfUrl'],
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
     };
@@ -118,9 +100,6 @@ export function InvoiceToJSONTyped(value?: Invoice | null, ignoreDiscriminator: 
         'teamId': value['teamId'],
         'status': value['status'],
         'total': MoneyToJSON(value['total']),
-        'stripeInvoiceId': value['stripeInvoiceId'],
-        'hostedUrl': value['hostedUrl'],
-        'pdfUrl': value['pdfUrl'],
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
     };

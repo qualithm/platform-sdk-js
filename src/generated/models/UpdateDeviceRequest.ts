@@ -28,7 +28,7 @@ export interface UpdateDeviceRequest {
      */
     scopeId?: string;
     /**
-     * A parked device can't connect and doesn't count against the plan; its credentials and history stay
+     * A parked device can't connect or write; its credentials and history stay, so unparking it brings it back
      */
     parked?: boolean;
     /**

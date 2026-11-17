@@ -22,7 +22,7 @@ import {
 } from './TeamInvite.js';
 
 /**
- * 
+ * The invite a link names, and whether the caller may accept it
  * @export
  * @interface InviteLink
  */

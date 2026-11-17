@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * One metered dimension's usage this month against its limit.
  * @export
  * @interface BillingUsageDimension
  */
@@ -28,12 +28,7 @@ export interface BillingUsageDimension {
      */
     limit: number;
     /**
-     * Never set: usage past `limit` throttles with no buffer. Removed in the next major release
-     * @deprecated
-     */
-    buffer?: number;
-    /**
-     * True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`. Always false for devices
+     * True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`
      */
     throttled: boolean;
 }
@@ -60,7 +55,6 @@ export function BillingUsageDimensionFromJSONTyped(json: any, ignoreDiscriminato
         
         'used': json['used'],
         'limit': json['limit'],
-        'buffer': json['buffer'] == null ? undefined : json['buffer'],
         'throttled': json['throttled'],
     };
 }
@@ -78,7 +72,6 @@ export function BillingUsageDimensionToJSONTyped(value?: BillingUsageDimension |
         
         'used': value['used'],
         'limit': value['limit'],
-        'buffer': value['buffer'],
         'throttled': value['throttled'],
     };
 }

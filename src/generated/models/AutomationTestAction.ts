@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * An action the automation would take; the test takes none. A signing secret is never shown.
  * @export
  * @interface AutomationTestAction
  */

@@ -22,7 +22,7 @@ import {
 } from './MemberRole.js';
 
 /**
- * 
+ * An API token's metadata. The secret is never listed.
  * @export
  * @interface ApiToken
  */

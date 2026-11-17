@@ -71,7 +71,7 @@ import {
 } from './AutomationTestReading.js';
 
 /**
- * 
+ * What an automation would do with a reading. Nothing is run, recorded or counted.
  * @export
  * @interface AutomationTest
  */

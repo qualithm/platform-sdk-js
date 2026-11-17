@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * The link to an invoice's document.
  * @export
  * @interface InvoiceDocument
  */

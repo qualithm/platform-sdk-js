@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * A reading to test against in place of the device's latest.
  * @export
  * @interface AutomationTestSample
  */
