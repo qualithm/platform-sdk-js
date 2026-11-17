@@ -22,7 +22,7 @@ import {
 } from './MemberRole.js';
 
 /**
- * 
+ * A pending invite to a team, addressed to an email
  * @export
  * @interface TeamInvite
  */

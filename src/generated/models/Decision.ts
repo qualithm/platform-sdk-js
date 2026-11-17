@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * One choice Qualithm made on the builder's behalf.
  * @export
  * @interface Decision
  */

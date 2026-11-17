@@ -36,7 +36,7 @@ import {
 } from './AutomationTemplateReference.js';
 
 /**
- * 
+ * An automation's trigger and chain.
  * @export
  * @interface AutomationPayload
  */

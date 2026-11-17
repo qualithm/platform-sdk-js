@@ -14,7 +14,7 @@
 
 
 /**
- * 
+ * A device zone: where a scope's devices connect and their data lives.
  * @export
  */
 export const ZoneId = {

@@ -22,7 +22,7 @@ import {
 } from './ApiErrorDetailsInner.js';
 
 /**
- * 
+ * The body of every error response.
  * @export
  * @interface ApiError
  */
@@ -32,7 +32,7 @@ export interface ApiError {
      */
     message: string;
     /**
-     * 
+     * A stable machine code. Branch on it, never on `message`; decode an unknown value to a fallback.
      */
     code: string;
     /**

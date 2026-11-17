@@ -14,7 +14,7 @@
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
 /**
- * 
+ * A device's credential. The secret or key material is never returned after it is issued.
  * @export
  * @interface Credential
  */

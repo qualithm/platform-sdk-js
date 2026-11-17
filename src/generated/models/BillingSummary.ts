@@ -34,13 +34,6 @@ import {
     MoneyToJSON,
     MoneyToJSONTyped,
 } from './Money.js';
-import type { BillingSummaryAddons } from './BillingSummaryAddons.js';
-import {
-    BillingSummaryAddonsFromJSON,
-    BillingSummaryAddonsFromJSONTyped,
-    BillingSummaryAddonsToJSON,
-    BillingSummaryAddonsToJSONTyped,
-} from './BillingSummaryAddons.js';
 import type { BillingSummaryCancellation } from './BillingSummaryCancellation.js';
 import {
     BillingSummaryCancellationFromJSON,
@@ -71,7 +64,7 @@ import {
 } from './BillingSummarySlaCredit.js';
 
 /**
- * 
+ * The team's plan, its usage this month and its price.
  * @export
  * @interface BillingSummary
  */
@@ -97,7 +90,7 @@ export interface BillingSummary {
      */
     usage: BillingSummaryUsage;
     /**
-     * What the next renewal will charge before tax, after the discount that still applies; zero for a plan set to end. A plan change mid-period adds its proration to that bill, which this leaves out. The plan price with add-ons when `estimated` is true
+     * What the next renewal will charge before tax, after the discount that still applies; zero for a plan set to end. A plan change mid-period adds its proration to that bill, which this leaves out. The plan price when `estimated` is true
      */
     monthlyTotal: Money;
     /**
@@ -116,10 +109,6 @@ export interface BillingSummary {
      * 
      */
     slaCredit: BillingSummarySlaCredit | null;
-    /**
-     * 
-     */
-    addons: BillingSummaryAddons;
 }
 
 
@@ -149,7 +138,6 @@ export function instanceOfBillingSummary(value: object): value is BillingSummary
     if (!('estimated' in value) || value['estimated'] === undefined) return false;
     if (!('cancellation' in value) || value['cancellation'] === undefined) return false;
     if (!('slaCredit' in value) || value['slaCredit'] === undefined) return false;
-    if (!('addons' in value) || value['addons'] === undefined) return false;
     return true;
 }
 
@@ -173,7 +161,6 @@ export function BillingSummaryFromJSONTyped(json: any, ignoreDiscriminator: bool
         'estimated': json['estimated'],
         'cancellation': BillingSummaryCancellationFromJSON(json['cancellation']),
         'slaCredit': BillingSummarySlaCreditFromJSON(json['slaCredit']),
-        'addons': BillingSummaryAddonsFromJSON(json['addons']),
     };
 }
 
@@ -198,7 +185,6 @@ export function BillingSummaryToJSONTyped(value?: BillingSummary | null, ignoreD
         'estimated': value['estimated'],
         'cancellation': BillingSummaryCancellationToJSON(value['cancellation']),
         'slaCredit': BillingSummarySlaCreditToJSON(value['slaCredit']),
-        'addons': BillingSummaryAddonsToJSON(value['addons']),
     };
 }
 

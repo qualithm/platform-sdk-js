@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * A chain step that halts the run when its condition does not hold.
  * @export
  * @interface AutomationConditionStep
  */

@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * An amount of money in a currency's minor units.
  * @export
  * @interface Money
  */

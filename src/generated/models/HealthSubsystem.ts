@@ -14,7 +14,7 @@
 
 
 /**
- * 
+ * A backend the platform needs to serve.
  * @export
  */
 export const HealthSubsystem = {

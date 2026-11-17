@@ -22,7 +22,7 @@ import {
 } from './EnrollmentLastFailureScope.js';
 
 /**
- * 
+ * A one-time claim code a device exchanges for its first credential.
  * @export
  * @interface Enrollment
  */

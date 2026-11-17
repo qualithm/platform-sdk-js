@@ -22,7 +22,7 @@ import {
 } from './TeamInviteResult.js';
 
 /**
- * 
+ * One result per address, in the order given
  * @export
  * @interface TeamInviteResults
  */
