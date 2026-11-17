@@ -71,7 +71,7 @@ export interface Device {
      */
     capabilitiesDeclared?: boolean | null;
     /**
-     * Whether the device declared itself virtual at claim: it runs on a host rather than a board, and counts as a device all the same
+     * Whether the device declared itself virtual at claim: it runs on a host rather than a board, and its readings count toward the team's monthly events like any device's
      */
     virtual?: boolean;
     /**
