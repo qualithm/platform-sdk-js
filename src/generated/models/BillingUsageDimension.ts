@@ -28,9 +28,14 @@ export interface BillingUsageDimension {
      */
     limit: number;
     /**
-     * Headroom past `limit` before events are refused. Events only.
+     * Never set: usage past `limit` throttles with no buffer. Removed in the next major release
+     * @deprecated
      */
     buffer?: number;
+    /**
+     * True while this dimension is throttled: devices' new events are refused, or automation runs are recorded as `limited`, until the month resets. Read from the live count the platform enforces, so it can turn true before the hourly `used` reaches `limit`. Always false for devices
+     */
+    throttled: boolean;
 }
 
 /**
@@ -39,6 +44,7 @@ export interface BillingUsageDimension {
 export function instanceOfBillingUsageDimension(value: object): value is BillingUsageDimension {
     if (!('used' in value) || value['used'] === undefined) return false;
     if (!('limit' in value) || value['limit'] === undefined) return false;
+    if (!('throttled' in value) || value['throttled'] === undefined) return false;
     return true;
 }
 
@@ -55,6 +61,7 @@ export function BillingUsageDimensionFromJSONTyped(json: any, ignoreDiscriminato
         'used': json['used'],
         'limit': json['limit'],
         'buffer': json['buffer'] == null ? undefined : json['buffer'],
+        'throttled': json['throttled'],
     };
 }
 
@@ -72,6 +79,7 @@ export function BillingUsageDimensionToJSONTyped(value?: BillingUsageDimension |
         'used': value['used'],
         'limit': value['limit'],
         'buffer': value['buffer'],
+        'throttled': value['throttled'],
     };
 }
 
