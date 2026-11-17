@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Qualithm Platform API
- * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | billing adjustment | `adj` | No |  | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | enrollment | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | SLA credit | `slc` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | workspace | `wks` | No |  |
+ * Every response is a JSON envelope: `data` on success, `message` and a stable `code` on error. List routes page with `page` and `limit`.  A request body with a field the endpoint doesn\'t define is refused with 400 `bad_request`, naming the field.  ## IDs  Every ID is `<kind>_[<zone>_]<ULID>`: a three-letter kind, then the zone code when the record belongs to one zone, then a ULID. A zone code is the zone\'s name without hyphens, so `de-fra-a` is `defraa`: `dvc_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W`. IDs issued before these kinds keep their old prefix and no zone, and stay valid.  | Kind | Code | Zoned | Old prefix | | ---- | ---- | ----- | ---------- | | account | `acc` | No |  | | API token | `tok` | No |  | | audit event | `aud` | No | `evt_` | | billing adjustment | `adj` | No |  | | device authority | `dca` | No | `auth_` | | automation | `aut` | Yes |  | | campaign | `cmp` | No | `cmpn_` | | capability | `cap` | Yes |  | | command | `cmd` | Yes |  | | credential | `crd` | Yes | `cred_` | | dashboard | `dsh` | Yes | `dash_` | | device | `dvc` | Yes | `dev_` | | email dispatch | `eml` | No |  | | claim code | `enr` | Yes |  | | invite | `ivt` | No |  | | invoice | `inv` | No |  | | legal document | `lgl` | No | `doc_` | | member | `mbr` | No | `mem_` | | OAuth authorization code | `oac` | No |  | | OAuth grant | `ogr` | No |  | | OAuth token | `oat` | No | `otk_` | | one-time code | `otc` | No | `otp_` | | team plan | `pln` | No | `plan_` | | push dispatch | `psh` | No |  | | push subscription | `psb` | No | `sub_` | | automation run | `run` | Yes |  | | scope | `scp` | Yes | `spc_` | | session | `ses` | No |  | | SLA credit | `slc` | No |  | | stats digest | `dig` | No | `dgst_` | | Polar event | `pev` | No |  | | team | `tem` | No | `tm_` | | team event | `tev` | No |  | | uptime record | `upt` | No |  | | usage rollup | `usg` | No | `use_` | | team preference | `wks` | No |  |
  *
  * The version of the OpenAPI document: 1
  * 
@@ -206,7 +206,7 @@ export class BillingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s plan, usage, next bill and add-ons
+     * Get the team\'s plan, usage, next bill and add-ons
      */
     async getBillingSummaryRaw(requestParameters: GetBillingSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetBillingSummaryResponse>> {
         const requestOptions = await this.getBillingSummaryRequestOpts(requestParameters);
@@ -216,7 +216,7 @@ export class BillingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the workspace\'s plan, usage, next bill and add-ons
+     * Get the team\'s plan, usage, next bill and add-ons
      */
     async getBillingSummary(requestParameters: GetBillingSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetBillingSummaryResponse> {
         const response = await this.getBillingSummaryRaw(requestParameters, initOverrides);
@@ -272,7 +272,7 @@ export class BillingApi extends runtime.BaseAPI {
 
     /**
      * Newest first, by `createdAt` then `id`.
-     * List the workspace\'s invoices
+     * List the team\'s invoices
      */
     async listInvoicesRaw(requestParameters: ListInvoicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListInvoicesResponse>> {
         const requestOptions = await this.listInvoicesRequestOpts(requestParameters);
@@ -283,7 +283,7 @@ export class BillingApi extends runtime.BaseAPI {
 
     /**
      * Newest first, by `createdAt` then `id`.
-     * List the workspace\'s invoices
+     * List the team\'s invoices
      */
     async listInvoices(requestParameters: ListInvoicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListInvoicesResponse> {
         const response = await this.listInvoicesRaw(requestParameters, initOverrides);
