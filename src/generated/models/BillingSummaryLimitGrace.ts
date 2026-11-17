@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted
+ * Set while a downgrade's grace period keeps more history than the current plan does. After `endsAt`, history the current plan doesn't keep is deleted
  * @export
  * @interface BillingSummaryLimitGrace
  */
@@ -23,6 +23,10 @@ export interface BillingSummaryLimitGrace {
      * ISO 8601 time
      */
     endsAt: string;
+    /**
+     * The days of history the grace keeps until `endsAt`
+     */
+    retentionDays: number;
 }
 
 /**
@@ -30,6 +34,7 @@ export interface BillingSummaryLimitGrace {
  */
 export function instanceOfBillingSummaryLimitGrace(value: object): value is BillingSummaryLimitGrace {
     if (!('endsAt' in value) || value['endsAt'] === undefined) return false;
+    if (!('retentionDays' in value) || value['retentionDays'] === undefined) return false;
     return true;
 }
 
@@ -44,6 +49,7 @@ export function BillingSummaryLimitGraceFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'endsAt': json['endsAt'],
+        'retentionDays': json['retentionDays'],
     };
 }
 
@@ -59,6 +65,7 @@ export function BillingSummaryLimitGraceToJSONTyped(value?: BillingSummaryLimitG
     return {
         
         'endsAt': value['endsAt'],
+        'retentionDays': value['retentionDays'],
     };
 }
 

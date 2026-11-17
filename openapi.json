@@ -11133,7 +11133,7 @@
             ]
           },
           "virtual": {
-            "description": "Whether the device declared itself virtual at claim: it runs on a host rather than a board, and counts as a device all the same",
+            "description": "Whether the device declared itself virtual at claim: it runs on a host rather than a board, and its readings count toward the team's monthly events like any device's",
             "type": "boolean"
           },
           "tags": {
@@ -12104,17 +12104,23 @@
                   "endsAt": {
                     "type": "string",
                     "description": "ISO 8601 time"
+                  },
+                  "retentionDays": {
+                    "type": "integer",
+                    "description": "The days of history the grace keeps until `endsAt`",
+                    "format": "int64"
                   }
                 },
                 "required": [
-                  "endsAt"
+                  "endsAt",
+                  "retentionDays"
                 ]
               },
               {
                 "type": "null"
               }
             ],
-            "description": "Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted"
+            "description": "Set while a downgrade's grace period keeps more history than the current plan does. After `endsAt`, history the current plan doesn't keep is deleted"
           },
           "limits": {
             "type": "object",
@@ -12489,17 +12495,23 @@
                   "endsAt": {
                     "type": "string",
                     "description": "ISO 8601 time"
+                  },
+                  "retentionDays": {
+                    "type": "integer",
+                    "description": "The days of history the grace keeps until `endsAt`",
+                    "format": "int64"
                   }
                 },
                 "required": [
-                  "endsAt"
+                  "endsAt",
+                  "retentionDays"
                 ]
               },
               {
                 "type": "null"
               }
             ],
-            "description": "Set while a downgrade's grace period keeps the previous plan's longer retention window. After `endsAt`, data older than the current plan's window is deleted"
+            "description": "Set while a downgrade's grace period keeps more history than the current plan does. After `endsAt`, history the current plan doesn't keep is deleted"
           },
           "limits": {
             "type": "object",
