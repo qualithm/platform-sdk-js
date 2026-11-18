@@ -27,6 +27,13 @@ import {
     BillingSummaryLimitGraceToJSON,
     BillingSummaryLimitGraceToJSONTyped,
 } from './BillingSummaryLimitGrace.js';
+import type { UsageConnectedDevices } from './UsageConnectedDevices.js';
+import {
+    UsageConnectedDevicesFromJSON,
+    UsageConnectedDevicesFromJSONTyped,
+    UsageConnectedDevicesToJSON,
+    UsageConnectedDevicesToJSONTyped,
+} from './UsageConnectedDevices.js';
 import type { UsagePaymentFailed } from './UsagePaymentFailed.js';
 import {
     UsagePaymentFailedFromJSON,
@@ -80,6 +87,10 @@ export interface Usage {
      * 
      */
     paymentFailed: UsagePaymentFailed | null;
+    /**
+     * 
+     */
+    connectedDevices: UsageConnectedDevices | null;
 }
 
 
@@ -107,6 +118,7 @@ export function instanceOfUsage(value: object): value is Usage {
     if (!('limits' in value) || value['limits'] === undefined) return false;
     if (!('usage' in value) || value['usage'] === undefined) return false;
     if (!('paymentFailed' in value) || value['paymentFailed'] === undefined) return false;
+    if (!('connectedDevices' in value) || value['connectedDevices'] === undefined) return false;
     return true;
 }
 
@@ -128,6 +140,7 @@ export function UsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Usa
         'limits': BillingSummaryLimitsFromJSON(json['limits']),
         'usage': BillingSummaryUsageFromJSON(json['usage']),
         'paymentFailed': UsagePaymentFailedFromJSON(json['paymentFailed']),
+        'connectedDevices': UsageConnectedDevicesFromJSON(json['connectedDevices']),
     };
 }
 
@@ -150,6 +163,7 @@ export function UsageToJSONTyped(value?: Usage | null, ignoreDiscriminator: bool
         'limits': BillingSummaryLimitsToJSON(value['limits']),
         'usage': BillingSummaryUsageToJSON(value['usage']),
         'paymentFailed': UsagePaymentFailedToJSON(value['paymentFailed']),
+        'connectedDevices': UsageConnectedDevicesToJSON(value['connectedDevices']),
     };
 }
 
