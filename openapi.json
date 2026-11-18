@@ -5283,7 +5283,7 @@
         "operationId": "getHealthz",
         "x-qualithm-audience": "infra",
         "summary": "Check that the platform can serve",
-        "description": "Probes the datastore, the readings store and the event bus. Answers with a bare `HealthStatus`, not the envelope: 200 with `status: ok`, or 503 with `status: down` and the first failing `subsystem`.",
+        "description": "Probes the datastore, the readings store and the event bus. Requests share one probe pass, and its verdict answers for 3 seconds, so a change can take that long to show. Answers with a bare `HealthStatus`, not the envelope: 200 with `status: ok`, or 503 with `status: down` and the first failing `subsystem`.",
         "tags": [
           "Health"
         ],
@@ -9542,6 +9542,10 @@
           "broker": {
             "description": "The gateway the device connects to now; returned when a device renews",
             "$ref": "#/components/schemas/GatewayEndpoint"
+          },
+          "apiUrl": {
+            "description": "The base URL of the device's zone API, where the device sends its renewals and certificate requests; returned when a device renews",
+            "type": "string"
           }
         },
         "required": [
@@ -9565,13 +9569,18 @@
           },
           "broker": {
             "$ref": "#/components/schemas/GatewayEndpoint"
+          },
+          "apiUrl": {
+            "type": "string",
+            "description": "The base URL of the device's zone API, where the device sends its renewals and certificate requests"
           }
         },
         "required": [
           "credential",
           "certificatePem",
           "caCertificatePem",
-          "broker"
+          "broker",
+          "apiUrl"
         ]
       },
       "Authority": {
@@ -11108,13 +11117,28 @@
             "example": "2026-10-26T09:30:00.000Z"
           },
           "parkedAt": {
-            "description": "Set while the device is parked: it cannot connect or write",
+            "description": "Set while the device is parked. A member's park keeps the device from connecting or writing until a member unparks it; an idle park lifts when the device next connects in its zone with a valid credential",
             "anyOf": [
               {
                 "type": "string",
                 "format": "date-time",
                 "description": "UTC time, RFC 3339",
                 "example": "2026-10-26T09:30:00.000Z"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parkedReason": {
+            "description": "Why the device is parked: `member` for a park that holds until a member unparks the device, `idle` when it had no activity for 30 days. A development credential lives at most 30 days, so an idle-parked device usually needs a new credential before it can connect. Null while the device isn't parked",
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "member",
+                  "idle"
+                ]
               },
               {
                 "type": "null"
@@ -12575,6 +12599,33 @@
               }
             ],
             "description": "Set while a payment has failed and the grace period runs; null otherwise"
+          },
+          "connectedDevices": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "connected": {
+                    "type": "integer",
+                    "description": "The team's devices connected now, on every gateway in every zone",
+                    "format": "int64"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "The most devices the plan lets connect at once",
+                    "format": "int64"
+                  }
+                },
+                "required": [
+                  "connected",
+                  "limit"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The team's devices connected at once against its plan's limit; null when the plan sets no limit. Once `connected` reaches `limit`, a new connection is refused. Devices already connected stay connected until they disconnect, and a device that reconnects counts as a new connection. `connected` can lag a connect or disconnect by up to 90 seconds"
           }
         },
         "required": [
@@ -12585,7 +12636,8 @@
           "limitGrace",
           "limits",
           "usage",
-          "paymentFailed"
+          "paymentFailed",
+          "connectedDevices"
         ],
         "description": "The team's device and scope counts, and its plan limits and usage this month."
       },
@@ -13281,7 +13333,7 @@
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parked": {
-            "description": "A parked device can't connect or write; its credentials and history stay, so unparking it brings it back",
+            "description": "Parking holds until a member unparks the device: it can't connect or write meanwhile, and its credentials and history stay. Parking an idle-parked device makes it a member's park. An idle park lifts when the device next connects in its zone with a valid credential",
             "type": "boolean"
           },
           "tags": {

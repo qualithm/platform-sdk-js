@@ -184,6 +184,7 @@ export * from './UpdateScopeRequest.js';
 export * from './UpdateTeamMemberRequest.js';
 export * from './UpdateTeamRequest.js';
 export * from './Usage.js';
+export * from './UsageConnectedDevices.js';
 export * from './UsagePaymentFailed.js';
 export * from './Zone.js';
 export * from './ZoneId.js';
