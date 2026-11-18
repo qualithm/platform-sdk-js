@@ -28,7 +28,7 @@ export interface UpdateDeviceRequest {
      */
     scopeId?: string;
     /**
-     * A parked device can't connect or write; its credentials and history stay, so unparking it brings it back
+     * Parking holds until a member unparks the device: it can't connect or write meanwhile, and its credentials and history stay. Parking an idle-parked device makes it a member's park. An idle park lifts when the device next connects in its zone with a valid credential
      */
     parked?: boolean;
     /**

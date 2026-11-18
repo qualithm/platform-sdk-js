@@ -67,6 +67,10 @@ export interface Device {
      */
     parkedAt?: Date | null;
     /**
+     * Why the device is parked: `member` for a park that holds until a member unparks the device, `idle` when it had no activity for 30 days. A development credential lives at most 30 days, so an idle-parked device usually needs a new credential before it can connect. Null while the device isn't parked
+     */
+    parkedReason?: DeviceParkedReasonEnum | null;
+    /**
      * Whether the device's latest session declared its capabilities before sending data; null until a session has done either
      */
     capabilitiesDeclared?: boolean | null;
@@ -92,6 +96,15 @@ export interface Device {
     decisions?: Array<Decision>;
 }
 
+
+/**
+ * @export
+ */
+export const DeviceParkedReasonEnum = {
+    member: 'member',
+    idle: 'idle',
+} as const;
+export type DeviceParkedReasonEnum = typeof DeviceParkedReasonEnum[keyof typeof DeviceParkedReasonEnum];
 
 /**
  * @export
@@ -135,6 +148,7 @@ export function DeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): De
         'createdAt': (json['createdAt'] == null ? json['createdAt'] : parseDateTime(json['createdAt'])),
         'updatedAt': (json['updatedAt'] == null ? json['updatedAt'] : parseDateTime(json['updatedAt'])),
         'parkedAt': json['parkedAt'] === undefined ? undefined : json['parkedAt'] === null ? null : (parseDateTime(json['parkedAt'])),
+        'parkedReason': json['parkedReason'] === undefined ? undefined : json['parkedReason'] === null ? null : json['parkedReason'],
         'capabilitiesDeclared': json['capabilitiesDeclared'] === undefined ? undefined : json['capabilitiesDeclared'] === null ? null : json['capabilitiesDeclared'],
         'virtual': json['virtual'] == null ? undefined : json['virtual'],
         'tags': json['tags'] == null ? undefined : json['tags'],
@@ -163,6 +177,7 @@ export function DeviceToJSONTyped(value?: Device | null, ignoreDiscriminator: bo
         'createdAt': value['createdAt'] == null ? value['createdAt'] : serializeDateTime(value['createdAt']),
         'updatedAt': value['updatedAt'] == null ? value['updatedAt'] : serializeDateTime(value['updatedAt']),
         'parkedAt': value['parkedAt'] == null ? value['parkedAt'] : serializeDateTime(value['parkedAt']),
+        'parkedReason': value['parkedReason'],
         'capabilitiesDeclared': value['capabilitiesDeclared'],
         'virtual': value['virtual'],
         'tags': value['tags'],
