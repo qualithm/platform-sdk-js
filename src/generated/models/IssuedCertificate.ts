@@ -50,6 +50,10 @@ export interface IssuedCertificate {
      * 
      */
     broker: GatewayEndpoint;
+    /**
+     * The base URL of the device's zone API, where the device sends its renewals and certificate requests
+     */
+    apiUrl: string;
 }
 
 /**
@@ -60,6 +64,7 @@ export function instanceOfIssuedCertificate(value: object): value is IssuedCerti
     if (!('certificatePem' in value) || value['certificatePem'] === undefined) return false;
     if (!('caCertificatePem' in value) || value['caCertificatePem'] === undefined) return false;
     if (!('broker' in value) || value['broker'] === undefined) return false;
+    if (!('apiUrl' in value) || value['apiUrl'] === undefined) return false;
     return true;
 }
 
@@ -77,6 +82,7 @@ export function IssuedCertificateFromJSONTyped(json: any, ignoreDiscriminator: b
         'certificatePem': json['certificatePem'],
         'caCertificatePem': json['caCertificatePem'],
         'broker': GatewayEndpointFromJSON(json['broker']),
+        'apiUrl': json['apiUrl'],
     };
 }
 
@@ -95,6 +101,7 @@ export function IssuedCertificateToJSONTyped(value?: IssuedCertificate | null, i
         'certificatePem': value['certificatePem'],
         'caCertificatePem': value['caCertificatePem'],
         'broker': GatewayEndpointToJSON(value['broker']),
+        'apiUrl': value['apiUrl'],
     };
 }
 
