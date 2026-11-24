@@ -66,7 +66,24 @@ on a team's resources take its `teamId`:
 ```ts
 import { AutomationsApi } from "@qualithm/platform"
 
-const { data } = await platform.api(AutomationsApi).listAutomations({ teamId, page: 1, limit: 50 })
+const { data } = await platform.api(AutomationsApi).listAutomations({ teamId, limit: 50 })
+```
+
+### Page through a list
+
+A list returns `items` and a `nextCursor`. Pass the cursor back to read the next page. A `null`
+cursor means you have every item:
+
+```ts
+import { AutomationsApi } from "@qualithm/platform"
+
+const automations = []
+let cursor: string | undefined
+do {
+  const { data } = await platform.api(AutomationsApi).listAutomations({ teamId, limit: 50, cursor })
+  automations.push(...data.items)
+  cursor = data.nextCursor ?? undefined
+} while (cursor !== undefined)
 ```
 
 ### Error Handling
