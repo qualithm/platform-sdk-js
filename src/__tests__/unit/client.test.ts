@@ -43,13 +43,13 @@ afterEach(() => {
 describe("PlatformClient", () => {
   it("sends the token as a bearer header to the production API by default", async () => {
     vi.stubEnv("QUALITHM_API_URL", "")
-    const { fetch, calls } = stubFetch(200, { data: { current: 1, items: [], last: 1 } })
+    const { fetch, calls } = stubFetch(200, { data: { items: [], nextCursor: null } })
     const platform = new PlatformClient({ token: "qmt_test", fetch })
 
-    const page = await platform.api(DevicesApi).listDevices({ teamId, page: 2, limit: 10 })
+    const page = await platform.api(DevicesApi).listDevices({ teamId, limit: 10, cursor: "c1" })
 
     expect(page.data.items).toEqual([])
-    expect(calls[0]?.url).toBe(`${DEFAULT_BASE_URL}/v1/teams/${teamId}/devices?page=2&limit=10`)
+    expect(calls[0]?.url).toBe(`${DEFAULT_BASE_URL}/v1/teams/${teamId}/devices?limit=10&cursor=c1`)
     expect(new Headers(calls[0]?.init.headers).get("Authorization")).toBe("Bearer qmt_test")
   })
 
