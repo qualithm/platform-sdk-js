@@ -1365,7 +1365,7 @@
             "apiToken": []
           }
         ],
-        "x-qualithm-permission": "space.read",
+        "x-qualithm-permission": "scope.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
@@ -1467,7 +1467,7 @@
             "apiToken": []
           }
         ],
-        "x-qualithm-permission": "space.write",
+        "x-qualithm-permission": "scope.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -1584,7 +1584,7 @@
             "apiToken": []
           }
         ],
-        "x-qualithm-permission": "space.write",
+        "x-qualithm-permission": "scope.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -5868,7 +5868,7 @@
             "apiToken": []
           }
         ],
-        "x-qualithm-permission": "space.read",
+        "x-qualithm-permission": "scope.read",
         "x-qualithm-roles": [
           "owner",
           "manager",
@@ -6009,7 +6009,7 @@
             "apiToken": []
           }
         ],
-        "x-qualithm-permission": "space.write",
+        "x-qualithm-permission": "scope.write",
         "x-qualithm-roles": [
           "owner",
           "manager"
@@ -8586,7 +8586,9 @@
           "invite_expired",
           "invite_email_mismatch",
           "email_disposable",
-          "team_write_limited"
+          "team_write_limited",
+          "invoice_billing_details_missing",
+          "invoice_unpaid"
         ],
         "description": "A stable machine code. Branch on it, never on `message`; decode an unknown value to a fallback."
       },
@@ -8692,8 +8694,8 @@
                 "token.create",
                 "token.revoke",
                 "token.revoke_any",
-                "space.read",
-                "space.write",
+                "scope.read",
+                "scope.write",
                 "device.read",
                 "device.write",
                 "device.command",
@@ -9165,8 +9167,8 @@
                 "token.create",
                 "token.revoke",
                 "token.revoke_any",
-                "space.read",
-                "space.write",
+                "scope.read",
+                "scope.write",
                 "device.read",
                 "device.write",
                 "device.command",
