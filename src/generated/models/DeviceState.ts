@@ -13,6 +13,14 @@
  */
 
 import { mapValues, parseDate, parseDateTime, serializeDate, serializeDateTime } from '../runtime.js';
+import type { DeviceStatePrimary } from './DeviceStatePrimary.js';
+import {
+    DeviceStatePrimaryFromJSON,
+    DeviceStatePrimaryFromJSONTyped,
+    DeviceStatePrimaryToJSON,
+    DeviceStatePrimaryToJSONTyped,
+} from './DeviceStatePrimary.js';
+
 /**
  * 
  * @export
@@ -39,6 +47,10 @@ export interface DeviceState {
      * The device's current metrics
      */
     metrics: { [key: string]: number; };
+    /**
+     * 
+     */
+    primary: DeviceStatePrimary | null;
 }
 
 /**
@@ -50,6 +62,7 @@ export function instanceOfDeviceState(value: object): value is DeviceState {
     if (!('online' in value) || value['online'] === undefined) return false;
     if (!('lastSeenAt' in value) || value['lastSeenAt'] === undefined) return false;
     if (!('metrics' in value) || value['metrics'] === undefined) return false;
+    if (!('primary' in value) || value['primary'] === undefined) return false;
     return true;
 }
 
@@ -68,6 +81,7 @@ export function DeviceStateFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'online': json['online'],
         'lastSeenAt': (json['lastSeenAt'] == null ? json['lastSeenAt'] : parseDateTime(json['lastSeenAt'])),
         'metrics': json['metrics'],
+        'primary': DeviceStatePrimaryFromJSON(json['primary']),
     };
 }
 
@@ -87,6 +101,7 @@ export function DeviceStateToJSONTyped(value?: DeviceState | null, ignoreDiscrim
         'online': value['online'],
         'lastSeenAt': value['lastSeenAt'] == null ? value['lastSeenAt'] : serializeDateTime(value['lastSeenAt']),
         'metrics': value['metrics'],
+        'primary': DeviceStatePrimaryToJSON(value['primary']),
     };
 }
 

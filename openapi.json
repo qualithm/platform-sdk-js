@@ -11182,6 +11182,53 @@
               "$ref": "#/components/schemas/DeviceCheck"
             }
           },
+          "attention": {
+            "description": "What about the device needs the builder, or null when nothing does: `failed` when it has had a credential but none is usable now, `warning` when its battery is below 20%",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "warning",
+                      "failed"
+                    ]
+                  },
+                  "problem": {
+                    "type": "string",
+                    "description": "One sentence: what is wrong and what it means"
+                  },
+                  "action": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string",
+                        "description": "The fix, as a control's label"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "description": "A stable code for the fix: `issue_credential` or `replace_battery`; more may be added"
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "kind"
+                    ],
+                    "description": "The one fix"
+                  }
+                },
+                "required": [
+                  "state",
+                  "problem",
+                  "action"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "decisions": {
             "description": "What Qualithm decided when the device was claimed: at most six, most consequential first. Returned by getDevice; empty for a device created without a claim.",
             "maxItems": 6,
@@ -11273,6 +11320,48 @@
               "type": "number"
             },
             "description": "The device's current metrics"
+          },
+          "primary": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "The sensor capability's key"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "The capability's name, or its key when it has none"
+                  },
+                  "value": {
+                    "type": "number",
+                    "description": "The sensor's latest value"
+                  },
+                  "unit": {
+                    "description": "The unit the sensor declared, or null when it declared none",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "key",
+                  "name",
+                  "value",
+                  "unit"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The first sensor the device declared (sensors declared together are taken by key), with its latest value; null when it declared none or hasn't reported it yet"
           }
         },
         "required": [
@@ -11280,7 +11369,8 @@
           "scopeId",
           "online",
           "lastSeenAt",
-          "metrics"
+          "metrics",
+          "primary"
         ]
       },
       "DeviceStatePage": {
