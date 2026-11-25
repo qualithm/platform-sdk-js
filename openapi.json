@@ -402,6 +402,9 @@
           "409": {
             "$ref": "#/components/responses/Conflict"
           },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -501,6 +504,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -830,6 +836,9 @@
           "409": {
             "$ref": "#/components/responses/Conflict"
           },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -929,6 +938,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -1150,6 +1162,9 @@
           "409": {
             "$ref": "#/components/responses/Conflict"
           },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -1249,6 +1264,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -1557,6 +1575,9 @@
           "404": {
             "$ref": "#/components/responses/NotFound"
           },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -1660,6 +1681,9 @@
           },
           "409": {
             "$ref": "#/components/responses/Conflict"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -2235,6 +2259,9 @@
           "404": {
             "$ref": "#/components/responses/NotFound"
           },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
+          },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
           },
@@ -2322,6 +2349,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "429": {
             "$ref": "#/components/responses/RateLimited"
@@ -7436,6 +7466,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "412": {
+            "$ref": "#/components/responses/PreconditionFailed"
           },
           "415": {
             "$ref": "#/components/responses/UnsupportedMediaType"
@@ -13425,7 +13458,7 @@
             "example": "scp_defraa_01JAYQ4T7Z9K3M5N8P2R6S0V1W"
           },
           "parked": {
-            "description": "Parking holds until a member unparks the device: it can't connect or write meanwhile, and its credentials and history stay. Parking an idle-parked device makes it a member's park. An idle park lifts when the device next connects in its zone with a valid credential",
+            "description": "Parking holds until a member unparks the device: it can't connect or write meanwhile, but it can renew its credentials, so they and its history stay. Parking an idle-parked device makes it a member's park. An idle park lifts when the device next connects in its zone with a valid credential",
             "type": "boolean"
           },
           "tags": {
@@ -14182,6 +14215,16 @@
       },
       "Conflict": {
         "description": "The request conflicts with the resource's state.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      },
+      "PreconditionFailed": {
+        "description": "The resource changed since the `If-Match` version was read.",
         "content": {
           "application/json": {
             "schema": {
